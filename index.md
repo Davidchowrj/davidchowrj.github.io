@@ -441,5 +441,76 @@ Set of **nodes(vertices)** connected by **edges(arcs)**
 ### Adjacency Matrix 
 
 e.g:
-
 ![](resources/adjacencymatrix.png)
+
+# Chapter 7 - Hashing
+
+## Hashing
+
+Hashing - process of mapping large amount of data to a smaller table **(with a hashing function)**
+
+
+Hash table - data structure allowing for very fast insertion and searching
+Hash function - any **algorithm/subroutine** that maps **data sets** of variable length to data sets of fixed length.
+
+## Advantages & Disadvantages
+
+Advantages: 
+* Significantly faster than trees (O(1))
+* Easy to program 
+
+Disadvantages: 
+* Based on arrays and arrays are difficult to expand once created
+* Performance may degrade once hash table gets too full 
+* Not efficient in operations that require sorting items in any order
+
+## Collision & How to solve 
+
+Collisions occur when 2 different item keys are hashed and the same address is obtained to store the item
+
+To solve this: 
+1) Open addressing
+    * Linear probing
+    * Quadratic probing 
+    * Double Hashing
+
+2) Separate chaining
+
+## Open addressing
+
+### Linear probing
+
+* Search sequentially for vacant cells 
+* Clusters can form from this method
+e.g: go to 5,422 then go to 5,423
+
+### Quadratic Probing
+
+Advantage
+
+* Elimiates clustering (primary clustering)
+
+Disadvantage
+
+* Suffers from another form of clustering (secondary clustering)
+    * Occurs when all keys that hash to one cell follows the same sequence in trying to find the next available space **Secondary clustering**
+* Searches using square as the step
+    * x+1^2, x+2^2, x+3^2, x+4^2....
+
+### Double Hashing (modulus % function)
+
+* Step size is calculated using the modulus function
+
+stepSize = PRIME - (key%PRIME)
+stepSize = 5 - (key%5)
+
+## Separate Chaining
+
+Different approach to resolve collisions:
+
+Separate chaining is defined as a method by which linked lists of values are built in association with each location within the hash table when a collision occurs.
+
+* Install a linked list at each index **in hash table**
+* Each data item is inserted into the linked list and
+
+The concept of separate chaining involves a technique in which each index key is built with a linked list. This means that the table's cells have linked lists governed by the same hash function. So, in place of the collision error which occurred in Figure 1,
