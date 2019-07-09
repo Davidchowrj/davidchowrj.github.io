@@ -348,9 +348,8 @@ Is needed to (for 1 CPU/Processing core):
 * To ensure CPU always has process to execute
 * **Main Idea**: Switch to another process(sitting in memory) when **current one** has entered waiting state <br>
 
+![](resources/multiprogramming.png)
 
-
-![](./resources/multiprogramming.png)
 
 * However, some running process might not enter the waiting state / not finish execution **USE TIME-SHARING**
 
@@ -363,9 +362,7 @@ Switch processes frequently(every 10ms), As switching is fast, users can interac
 * Both techniques are used to allow the CPU to handle multiple processes running at the same time
 * Multi-programming selects a processe and assigns CPU to it, then switches when current one is in the waiting state. Users are only allowed to interact with the current running process. <br>
 
-
-
-![](./resources/tsvsmp.png)
+![](resources/tsvsmp.png)
 
 Main difference between multiprogramming and time sharing is that multiprogramming is the effective utilization of CPU time, by allowing several programs to use the CPU at the same time but time sharing is the sharing of a computing facility by several users that want to use the same facility at the same time.
 
