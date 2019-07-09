@@ -80,7 +80,7 @@ Switch processes frequently(every 10ms), As switching is fast, users can interac
 
 Main difference between multiprogramming and time sharing is that multiprogramming is the effective utilization of CPU time, by allowing several programs to use the CPU at the same time but time sharing is the sharing of a computing facility by several users that want to use the same facility at the same time.
 
-##Context Switch (switching of one process to another)
+## Context Switch (switching of one process to another)
 
 Context Switching involves storing the context or state of a process so that it can be reloaded when required and execution can be resumed from the same point as earlier. This is a feature of a multitasking operating system and allows a single CPU to be shared by multiple processes.
 
@@ -136,7 +136,7 @@ A bootstrap program (small code) **locates** kernel and **loads** it into main m
 
 ### System structure (Monolithic & Microkernel)
 
-* Kernel has these components:
+* Kernel has these components: <br>
 
 | Components            |
 |-----------------------|
