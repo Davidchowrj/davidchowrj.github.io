@@ -1,516 +1,923 @@
 ---
 layout: default
+title: osf
 ---
+# Chapter 2 - Process Concept
 
+## Process
 
-# Data structures & Algorithms
+* Program in execution (Running state)
+* Program becomes process after:
+    1) Exe file is loaded into memory
+    2) Tasks to prep exe file to run is done
 
-## Lecture 1 - week 1
+### Process State 
 
-### Algorithms
+1) New: Process is being created
+2) Ready: Process waiting to be assigned to processor
+3) Running: Instructions (of process) are being executed
+4) Waiting: Process waiting for some events to occur
+5) Terminated: Process finished execution
 
-* Procedure/Formula for solving a problem
+**Only 1 process can be in running state for 1 processing core** <br>
+**If >1 cores, then >1 processes in running state for each core**
 
-#### Properties of Algorithims
+Process contains other info:
 
-1. Correctness
-2. Efficient
-3. Applicability
+* Text
+    - Program code
+    - Register's contents
+    - Current activity
+* Stack (LIFO)
+    - Temporary data
+* Data
+    - Global variables 
+* Heap
+    - Memory dynamically allocated during execution
 
-| Properties | Description |
-| ----------- | ----------- |
-| Correctness | Correctness can be shown formally/informally |
-| Efficient  | How much storage needed / how many steps are needed
-| Applicability| In what context it is used
+| Stack |
+|-------|
+|       |
+|       |
+| heap  |
+| data  |
+| text  |
 
-## Data Structures
+## Managing & Identifying large no. of processes 
 
-* Systematic way of organized collection of data
-* Represents abstract data type in an efficient manner
-       efficient access & minimum storage)
+Using the **Process Control Block (PCB)**
 
-### Types of Data Structures
+* Each process is **identified by a PCB** (PCB has a unique Process Identifier (PID))
+* PCB is created & managed by OS
 
-  > 1. Static data structure
 
-    Is used for recursion
-    Capacity is fixed (e.g array)
+## Process Management
 
-  > 2. Dynamic data structure
+Is needed to (for 1 CPU/Processing core):
+1) Improve cpu utilization (Keep CPU busy at all times)
+2) Ensure each process can be executed
 
-    Capacity is variable (e.g linked list,binary tree)
+### Process Management Techniques 
 
-  > 3. Linear data structure
+**Multi-Programming**
 
-    Array 
+* To ensure CPU always has process to execute
+* **Main Idea**: Switch to another process(sitting in memory) when **current one** has entered waiting state
 
-## Lecture 2 - week 1
 
-### Bubble Sort
 
-#### Steps
+* However, some running process might not enter the waiting state / not finish execution **USE TIME-SHARING**
 
-1. Go through the list
-2. Compare 2 elements at a time and swap them if one is larger than the other
-3. E.G :
+**Time-Sharing**
 
-![example](resources/bubble.png "example")
+Switch processes frequently(every 10ms), As switching is fast, users can interact with each process while it is running
 
-#### Properties
+### Multi-programming vs. Time-sharing
 
-* **Efficiency**
-  + n - 1 times through outer loop
-  + Algorithm is in Θ(n^2)
-* **Highly inefficient**
+* Both tehcniques are used to allow the CPU to handle multiple processes running at the same time
+* Multi-programming selects a processe and assigns CPU to it, then switches when current one is in the waiting state. Users are only allowed to interact with the current running process.
 
-### Selection Sort
 
-#### Steps
+Main difference between multiprogramming and time sharing is that multiprogramming is the effective utilization of CPU time, by allowing several programs to use the CPU at the same time but time sharing is the sharing of a computing facility by several users that want to use the same facility at the same time.
 
-1. Find min value in list 
-2. Swap with value in first position
-3. Repeat
-4. E.G : ![example](resources/selection.png)
+##Context Switch (switching of one process to another)
 
-### Properties
+Context Switching involves storing the context or state of a process so that it can be reloaded when required and execution can be resumed from the same point as earlier. This is a feature of a multitasking operating system and allows a single CPU to be shared by multiple processes.
 
-* **Efficiency**
-  + n- 1 times thorugh outer
-  + n- i times through each inner loop
-  + **n(n-1)/2 total inner loops**
+Switching from old process -> new 
+* OS saves the state (Context data )
+* OS then loads the saved state of new process 
 
-## Insertion sort
+Time taken to perform context switch = **overhead** (no other processes are done during context switch)
 
-### Steps (1 iteration)
+## Process Creation & Termination 
 
-1. Sort first element with the unsorted list and compare
+### Process Creation 
 
-2. E.G :
+1) Assign uniqiue PID to new process
 
-![example](resources/insertion.png)
-![example2](resources/insertion2.png)
 
-### Properties
 
-* **Efficiency**
-  + variable times through each inner loop
-  + **(n-i)(n-1)^2**
+## Chapter 3
 
-## Shell sort
+## Implementation of OS, Virtualization and System Generation
 
-* Improved version of **insertion sort**, where diminishing partitions are used to sort data
+### A) Implementation of OS
 
-* Uses a sequence n1, n2 , n3 ....... n(**increment sequence**)
+* Written in high level programming language
+    * Easier to debug,port,understand
+    * Code can be writen faster
 
-* **When n is odd, round down. EG: 5/2 = 2 (increment sequence)**
+### B) OS & Kernel
 
-### Steps
+### Kernel
 
-1. ![eg](resources/shell1.png)
-2. ![eg](resources/shell2.png)
-3. ![eg](resources/shell3.png)
+* Has to be **loaded first** into **main memory** when computer is started
+    * This is known as **booting**
 
-### Advantages
+A bootstrap program (small code) **locates** kernel and **loads** it into main memory then **starts execution**.
 
-* 5 times faster than bubble sort
-* Efficient for medium sized lists
+ Properties
 
-### Efficiency
+>  * Core of an OS
+> * **Does not** interact directly with users
+> * Focus on interacting with **hardware**
+> * Provides services to other parts of OS
 
-* Θ(n^3/^2)
+### C) System Structure
 
-## Divide and Conquer (Merge Sort)
+* Refers to kernel's structure
+    * How to structure components in a kernal 
+* System structure can affect aspects of an OS:
+    * Performance
+    * Stability
+    * Debugging & Maintenance
+    * Enhancements
 
-Structured recursively
-* Divide - Divide problem into sub-problems that are similar but smaller in size
+### System structure (Monolithic & Microkernel)
 
-* Conquer - Sub problems are solved **recursively,** Can be solved straightforwardly if small enough.
+* Kernel has these components:
 
-* Combine - Combine solutions to create solution for og problem.
+| Components            |
+|-----------------------|
+| Process Scheduling    |
+| Memory Management     |
+| Device Drivers        |
+| File System           |
+| Communication         |
+| Other system services |
+To structure these components:
 
-### Merge Sort method 
+* Monolithic and Microkernel
 
-*If list is length of 0/1, it is sorted already* Otherwise: 
+#### Monolithic
 
-* Divide unsorted list into two equal size sub-lists
+* Single large program
+* Each procedure free to call others
+* All procedures sit in **kernel** space
+    * Memory space occupied by kernel
+    * Protected area (not overwrittable)
+    * Kernel performs process execution in kernel space
 
-* Sort each sub-lists recursively using **merge sort**
 
-* Then, Merge sub lists back into 1 sorted list
 
-![](resources/merge1.1.png)
+#### Microkernel
 
-EG : 
+* Removes non-essential components form the kernel
+* Implements as **kernel & user programs**
 
-![eg](resources/merge2.png)
-![eg](resources/merge3.png)
+**Advantages** of Microkernel are:
 
-## Quick Sort
+* Reduces chances of kernel crash by **reducing components running in user space**
 
-_Method_
+* Crashing programs(user space) will not affect kernel
 
-* **Divide and conquer method**
-* Pick an element as a pivot (usually 1st number)
-* Divide list into 2 halves
-  + Elements in first half is smaller than pivot
-  + Elements in the 2nd half is greater than pivot
+Main Function of the kernel:
+* Manages **interprocess communications** between **programs and various services** that are running in **user space**
 
+This is done using 2 methods: **Shared Memory** and **Message Passing**
 
-### Example & Efficiency 
+### Modules / Modular kernel
 
-Example :
+Creates a modular kernel where each module is **seperated** and **dynamically loadable as needed**
 
-![eg](resources/quicksort.png)
+* Can communicate with each other via an interface
+* Dynamically loadable as needed
 
-Efficiency :
+### Hybrid Kernel
 
-* Each partition halves size of array to be sorted 
-* O(n^2)
+A Hybrid of **monolithic and microkernel**. Considered less bulky than monolithic
 
-# Lesson 3 (Trees)
+Removes certain components but not as much as microkernel. E.G: device drivers are still present in kernel
 
-Trees consist of **nodes** and are connected by  **edges** and can be appllied in **file systems, orgranizational charts and programming environments**.
+### C) Virtualization
 
-## Tree components
+### Hardware Virtualization
 
-Root node - A node without a parent (start node)
+Framework for **dividing resources** of a computer into **multiple execution environemnts**
 
-Leaf node - A node wihtout children (is on its own)
+* Allows for a separate execution environment ot run on own private hardware
 
-Internal node - A node with >=1 child
+* Virtualization can be used to create virtual machines that allows different OS on 1 PC to be ran concurrently.
 
-No. of nodes in a tree = No. of edges +1
+#### Benefits of Hardware Virtualization (each system is isolated)
 
-**Height** of a node in a tree = Length of longest path from that node to a leaf.
+* A system is **protected** from the other systems running on the same machine
 
-**Depth** of a node in a tree = Length of path from root to the node.
+* Rapid porting & testing in different environments
 
-## Binary tree
+* Server consolidation :
+    * Different services running on different machines can now **run on same machine**
 
-Binary trees are a tree in which no node has <=2 children
+* Good platform for OS research
 
-### Complete binary tree / Full binary
+#### Type 1 & 2 Hardware Virtualization
 
-Full
+Type 1: Hypervisor
 
-- Every node in tree **except leaves has exact 2 children**
+| Guest OS          | Guest OS |
+|-------------------|----------|
+| Type 1 Hypervisor |          |
+| Hardware          |          |
 
-Complete
+* More efficienct than type 2
+* Each guest OS is isolated
+* Have to deal with hardware (Update/support)
 
-- Binary tree where **every level (row) of tree  is complete except last level**
+Type 2: Hypervisor
 
-## Tree traversal
+| Guest OS          |
+|-------------------|
+| Type 2 Hypervisor |
+| Host OS           |
+| Hardware          |
 
-**3 types :**
+* **Depends** on host OS
+* Easier to install
+* Independent of hardware (Update/Support)
 
-1) preOrder (parent, left then right)
-2) inOrder (left,parent, then right)
-3) postOrder (left,right, then parent)
+* Host OS allows several guest OS to run concurrently
+* Host OS **needs to map services from guest OS to its own functionalities**
 
-## Binary tree appliccationm (expression tree)
 
-An expression tree = binary tree with these properties:
+### Type 1 vs Type 2 
 
-- Each leaf is an operand
-- Root & internal nodes are operators
-- Subtrees are subexpressions, root is an operator
+| Type 1                                | Typer 2                       |
+|---------------------------------------|-------------------------------|
+| More efficient than type 2            | Less efficient                |
+| Guest OS is **isolated** from another | Depends on the host OS        |
+| Have to deal with hardware (support)  | No need to deal with hardware |
+|                                       | easier to instal              |
 
-## Binary search tree (BST)
+### Software Virtualization : JVM
 
-### Properties of a BST
+* Compiler produces architecture neutral **bytecode** (.class). It can then be run on any JVM
+* Class loader then loads compiled files and Java Interpreter then executes bytecode
 
-For a parent node X, all children in **left subtree** is smaller than node X. Children in **right subtree** is more than node X.
 
-![](resources/bst.png)
+#### Benefits
 
-### Node deletion in
+* Able to isolate application from underlying architecutre
+* Create a portable application that is able to run on different architectures
 
-Deleted node is a child
--Then, remove from tree
+### System Generation(SYSGEN)
 
-Deleted node only has one child
+System generation is the act of
 
-- Copy child to node and then   delete child
+* Creating an **instance of an OS**     based on:
+    * CPU installed
+    * Amount of memory
+    * I/O devices connected to the computer
 
-Deleted node only has two child
+* To select options/features required by system
 
-- Replace key of node with minimum element in right subtree
-Then delete minimum element
+SYSGEN is the process of **configuring and generating** the system for a specific computer
 
-- E.g : ![](resources/bstdelete.png)
+**Step 1:** Determine Hardware Info
 
+* Reach from a given file/ try to probe from hardware
 
-## BST disadvantages
+**Step 2:** Produce an OS for system
+Options: 
 
-In terms of efficiency, height of BST can be n-1. Thus, insertion and deletion and other operations can be O(N) in worst case.
+1. Admin modify source code and re-compiling it
+2. Select modules to be included
+3. All the code is included as part of OS 
 
-Goal is to :
 
-- Keep height of BST to O(log2 N)
-- This is done by self balancing trees : AVL & red black tree
+# Chapter 4 - Process Concept
 
-# Chapter 4 (AVL, Red-Black & M-Way tree)
+## Process
 
-## AVL trees
+* Program in execution (Running state)
+* Program becomes process after:
+    1) Exe file is loaded into memory
+    2) Tasks to prep exe file to run is done
 
-* Self balancing BST tree where height of left & right subtree has a difference of at most 1 row (therefore is height balanced)
+### Process State 
 
-* tree balancing is performed using rotations : Single & double rotation
+1) New: Process is being created
+2) Ready: Process waiting to be assigned to processor
+3) Running: Instructions (of process) are being executed
+4) Waiting: Process waiting for some events to occur
+5) Terminated: Process finished execution
 
-* AVL has its advantages in **searching**
+**Only 1 process can be in running state for 1 processing core** <br>
+**If >1 cores, then >1 processes in running state for each core**
 
-Single rotation example:
-![](resources/singlerotate.png)
+Process contains other info:
 
-Double rotation example:
-![](resources/doublerotate.png)
+* Text
+    - Program code
+    - Register's contents
+    - Current activity
+* Stack (LIFO)
+    - Temporary data
+* Data
+    - Global variables 
+* Heap
+    - Memory dynamically allocated during execution
 
+| Stack |
+|-------|
+|       |
+|       |
+| heap  |
+| data  |
+| text  |
 
-## Red-Black tree
+## Managing & Identifying large no. of processes 
 
-### Remember these properties
-BST tree with these properties:
+Using the **Process Control Block (PCB)**
 
-* Every node is red/black
-* Root **must be black**
-* If a node is red, - children are black
-* Path from root to any leaf must have same number of black nodes
+* Each process is **identified by a PCB** (PCB has a unique Process Identifier (PID))
+* PCB is created & managed by OS
 
-Note: Empty(nil) nodes are **black** by default
 
-### Look at examples from slides on insertion & deletion
+## Process Management
 
-# Chapter 5 M-Way tree
+Is needed to (for 1 CPU/Processing core):
+1) Improve cpu utilization (Keep CPU busy at all times)
+2) Ensure each process can be executed
 
-## Multi-Way Trees
+### Process Management Techniques 
 
-An m-way tree is a **search tree** where each node can have 0 - m sub trees
+**Multi-Programming**
 
-### Properties
+* To ensure CPU always has process to execute
+* **Main Idea**: Switch to another process(sitting in memory) when **current one** has entered waiting state
 
-- Each node has m children 0 to m subtrees
-- keys in each node are in ascending order
-- Subtrees to left are less than the node (same as bst)
-- Subtrees to right are more than the node (same as bst)
+![](resources/multiprogramming.png)
 
-Amount of children node = m-1 <br>
-E.g:
+* However, some running process might not enter the waiting state / not finish execution **USE TIME-SHARING**
 
-![](resources/mway.png)
+**Time-Sharing**
 
-## Balanced Tree (Specialized M tree)
+Switch processes frequently(every 10ms), As switching is fast, users can interact with each process while it is running
 
-- M-way tree with two properties:
-    * Every node in a B-Tree contains at most m children.
-    * Every node in a B-Tree except the root  
-    * node and the leaf node contain at least m/2 children.
-    * The root nodes must have at least 2 nodes.
-    * All leaf nodes must be at the same level.
+### Multi-programming vs. Time-sharing
 
+* Both techniques are used to allow the CPU to handle multiple processes running at the same time
+* Multi-programming selects a processe and assigns CPU to it, then switches when current one is in the waiting state. Users are only allowed to interact with the current running process.
 
-Usage : Used when the data to be accessed/stored is located on secondary storage devices because they allow for large amounts of data to be stored in a node.
 
-Eg : ![](resources/btree.png)
+![](resources/tsvsmp.png)
 
-## 2-3-4 Tree
+Main difference between multiprogramming and time sharing is that multiprogramming is the effective utilization of CPU time, by allowing several programs to use the CPU at the same time but time sharing is the sharing of a computing facility by several users that want to use the same facility at the same time.
 
-Properties:
+## Context Switch (switching of one process to another)
 
-- Every child node has 2-4 items
-- All leaves of tree are same depth
-- Each node has a value for the largest key in its sub tree
+Context Switching involves storing the context or state of a process so that it can be reloaded when required and execution can be resumed from the same point as earlier. This is a feature of a multitasking operating system and allows a single CPU to be shared by multiple processes.
 
-### Insertion
+Switching from old process -> new 
+* OS saves the state (Context data )
+* OS then loads the saved state of new process 
 
-- Find location
-- Insert item
-- Update node:
-    * Inserting into 2-item node => 3-item node
-    * Insertion into 3-item node => 4-item node
-    * Insertion into 4-item node => **5-item node** (invalid, must be split and update parent) **Increases height of the tree**
+Time taken to perform context switch = **overhead** (no other processes are done during context switch)
 
-E.G: 
+## Process Creation & Termination
 
-![](resources/234tree.png)
+### Creation
 
-![](resources/234tree1.png)
+1) Assign PID (process identifier to new process)
+2) Allocate memory space to the process
+    * Store program code, PCB, stack, etc
+3) Initialize PCB
+4) Set appropriate linkage **(For process scheduling)**
+5) Create/expand data structures
 
-### Deletion
+### Termination
 
-- Find location
-- Delete the item
-- Update the node
-    * Deletion from a 4-item-node ⇒ 3-item-node
-    * Deletion from a 3-item-node ⇒ 2-item-node
-    * Deletion from a 2-item-node ⇒ 1-item-node
-      * If the 1-item-node has a sibling with more than two children redistribute the children
-      * If not, collapse the 1-item-node and one of its siblings into a 3-item-node and update the parent
-      * This may cause the parent to become a 1-item-node
-      * Fix this recursively
-      * If the root becomes a 1-item-node, remove it
+1) Process executes last statement and requests OS to delete 
+2) Resources de-allocated by the OS (to be allocated to other process in waiting)
 
-# Chapter 6- Stack, Queue, Linked lists , graphs and tress
 
-## Stack (LIFO) data structure
+## Process Scheduling
 
-Last in first out (LIFO) sequence of elements.
+Process to be scheduled depends on **scheduling algorithms**
+* Short-term-scheduler (CPU scheduler) selects process in **ready** state to execute 
 
-* elements are added / removed **only at the top of the stack**
-* depth = no. of elements a stack has
+Process:
 
-Applcations for stack:
-    * Word processing (undo function)
-    * Interpreter
-    * Parser
+* Processes in the waiting state are placed in a queue. (Scheduler will then select processes from the queue)
 
-### Stack Requirements
+3 available queues:
 
-* Must allow stack to be empty
-* Must allow for push(add), peep(access topmost element) & pop(pop) functions
+| Type         | Description                                 |
+|--------------|---------------------------------------------|
+| Job Queue    | Consists of all processes in the system     |
+| Ready Queue  | Processes ready to be executed              |
+| Device Queue | List of processes waiting for an I/O device |
 
+### Types of process schedulers
 
-#### Infix & Postfix for stack
+Long-Term scheduler - Which one to enter **ready queue?** <br>
+Short-Term scheduler (CPU scheduler) - Which one to be **executed by CPU?**
 
-![](resources/infixpostfix.png)
+| Scheduler   | Description                                               |
+|-------------|-----------------------------------------------------------|
+| Short-Term  | Select process from ready queue and assign CPU to process |
+| Long-Term   | Select process to be brought into ready queue             |
+| Medium-Term | Determine whether to temporary suspend/resume process     |
 
-## Queues (FIFO) data structure
+### Short-Term(CPU) vs Long-Term Scheduler
 
-Data can be added on one end and retrieved from the other
+|           | Short-Term                                 | Long-Term                                                                |
+|-----------|--------------------------------------------|--------------------------------------------------------------------------|
+| Frequency | Must select new process for CPU frequently | Executes less freqeuently & Takes more time to select process to execute |
 
-Queue Operations:
+#### Short-Term Scheduler (CPU scheduler)
 
-* Enqueue - add element at the rear
-* Dequeue - add element at the front
+* Select process to be executed that is in ready state, in the ready queue)
 
-An Empty queue has variables (rear & front) set to 0
+#### Long-Term Scheduler
 
-![](resources/queue.png)
+* Must maintain balance of **I/O-bound & CPU-bound processes**
+    * I/O = more I/O operations
+    * CPU = more calculations
+* If all I/O bound = **short term scheduler** has little processes to select from (in ready queue) 
+* If all CPU bound = **device queue empty** and no devices to work with
 
-### Addition and deletion
+#### Medium-Term Scheduler
 
-Items are added at the rear of queue & deleted from front
+* Determines which processs to suspend /resumed
+* Swap out inactive processes to free memory space
+* Content of susspended processes stored on hard disk
+* Suspended processes can then be reintroduced into memory and continue execution.
 
-> Addition:
+# Chapter 5- CPU Process Scheduling
 
-    Empty queue: 
+A **Scheduling Algorithm** is used to determine which process should be selected to be executed
+
+The CPU Scheduler needs to select a process for execution when the CPU has nothing to execute
+
+### Dispatcher 
+
+Dispatcher - **gives control** of the CPU to the process selected by **CPU scheduler**
+
+*  Needs to be as fast as possible, as it is run on every context switch. The time consumed by the dispatcher is known as **dispatch latency.** 
+
+Dispatcher tasks: 
+
+* Perform context switch
+* Switch back to user mode (as CPU is already in kernel mode after execution)
+* Jump to the location in user program to start/restart program.
+
+## Scheduling Criteria 
+Things to consider when selecting which scheduling algo to use:
+
+| Criteria        |                                                                                     |
+|-----------------|-------------------------------------------------------------------------------------|
+| CPU Utilization | Keep CPU busy as busy as possible                                                   |
+| Throughput      | No.of processes that have completed execution                                       |
+| Turnaround Time | Time required for a process to complete from **submissiont ime to completion time** |
+| Waiting Time    | Total time a process has been waiting in ready queue                                |
+| Response Time   | Amount of time taken for a response to a submitted request                          |
+
+Goal is to
+**Optimize** CPU Utilization & Throughput 
+**Minimize** Turnaround, Waiting & Response Time.
+
+
+# Chapter 7 - Threads
+
+Threads - Path of execution withing a process
+
+Traditionally, 1 process has 1 single thread of control. = 1 process can perform only 1 task at a time
+* If multiple threads are present, then the process can perform >1 task at a time.
+    * Depending on number of CPUS
+
+## Thread Summary
+
+* Threads share common data(resources)
+    * Sharing of resources is possible among theads but not for process.
+* With lessert context switch ,faster to switch between threads compared to processes
+* Biggest **drawback**: There is no protection between threads.
+    * Threads can overwrite/ damage data from one another
+
+## Process & Thread
+
+Process - **used to group resources together** to occupy memory space
+Threads - **Path of execution / stuff scheduled for execution for the CPU**
+
+### Multithreading
+
+* To achieve parallellism
+    * Dividing a process into multiple threads (browser with multiple tabs can be different threads )
+
+Process has Process Control Block (PCB)
+    * Contains unique PID
+Threads have - Thread Control Block (TCB)
+    * Contains thread ID, program counter , registers, stack & small control block.
+    * Each thread has its **own stack** as different threads can call different **functions/procedures**.
+    * Shares code, data and resources with other threads **In a same process**.
+
+## Thread Resources
+
+* When creating a thread, only **existing resources** are used to hold registers, stacks and small control blocks (priority).
+* If the O.S wants to use processes instead, all the resources shared by threads are **needed explicitly** for each process.
+* Two processes do not share the same resources
+    * Creation of a new process is costlier compared to creating a new thread
+
+## Process vs Threads
+
+### Similarities
+
+* Threads & Processes can be in one of five states (new,ready,running,waiting & terminated)
+* OS can switch between threads for CPU to execute
+
+### Differences
+
+* Threads are designed to **assist** & **cooperate** with each other
+    * Processes **might not** assist each other
+* All threads have access to every single address space in the process
+    * Processes only have access to their own address space (can't access other processes's without permission)
+
+## Thread Execution 
+* Same scheduling and execution process as a process.
+
+The system maintains a **queue of threads in the ready state**
+    * Thread scheduluer (short-term scheduluer) selects a thread to begin execution
+    * Threads can be executed concurrently
+
+## Thread Benefits
+
+|                  | Thread Benefits                                                                                            |
+|------------------|------------------------------------------------------------------------------------------------------------|
+| Resource Sharing | Threads share resources of the process which they belong to                                                |
+| Convenience      | Communication between threads is carried out without involving kernel (eliminates context switch overhead) |
+| Scalability      | No. of threads running can be adjusted in a multiprocesseor architecture                                   |
+| Responsiveness   | A program can continue running during length operations (e.g multithreaded web browser)                    |
+
+
+## Thread Applications
+
+1) Interactive GUI programs
+    * Multithreading architecturer allows user to **interact with the program** while program is **processing in the background**
+2) Word Processor Program
+    * Multithreading allows for:
+        * Thread 1: Display graphics
+        * Thread 2: read input from user
+        * Thread 3: Perform spell checks
+
+## Thread Support in OS
+
+Can be supported at the user-level (thread library) / kernel lever (kernel)
+
+![](resources/thread.png)
+
+
+# Chapter 9- Deadlock
+
+## Introduction 
+
+The O.S also serves as a resource allocator:
+* Ensures resources needed by processes are allocatted
+* **Semaphore** is used to control resource allocation
+
+Resources in a computer system:
+* CPU Cycles
+* Memory
+* Files
+* I/O Devices
+
+#### System table is used: 
+ * To record free resources / resources that have been allocated
+
+
+## Resource request
+
+Processors must reqeuest for and then release resources after execution. 
+A process can request as many resources as it needs.
+
+* If resources are unavailable, process enters **waiting state** and is added to waiting queue
+* Sometimes, processes are stuck in waiting state because the processes it requested **are held by another waiting process**
+
+Request -> Use -> Release
+
+## Managing use of resources (mutual exclusion)
+
+* If >2 resources wants access to non-sharable resources(printer), must ensure only 1 process can have access to it at one time.
+    * This creates control issues the O.S has to solve **(deadlock)**
+    * If no restriction of access is present, there will be no deadlock.
+
+Deadlock eg:
+![](resources/deadlock.png)
+
+**Deadlock state** = when processes are kept in a waiting state and never finish executing (can't release resources) 
+
+* This prevents the system from executin other processs and it can **reduce system performance** as resources are held up by **processes that are not running** 
+* System will then stop functioning and needs to be restarted manually
+
+## Deadlock
+
+Only occurs if these four conditions occur simultaenously: 
+
+* Mutual Exclusion
+* Hold & Wait
+* No Preemption
+* Circular Wait
+
+| Conditions       | Explanation                                                                                                   |
+|------------------|---------------------------------------------------------------------------------------------------------------|
+| Mutual Exclusion | * Only one process can have acess to resource at a time                                                       |
+|                  | * If another process requests for the resources, has to **wait** for current process to release resources     |
+| Hold & Wait      | * Process is holding **>=1 resource** and is waiting for additonal resources being **held by other processs** |
+| No Preemption    | * Resources can only be released by the processes currently holding it                                        |
+| Circular Wait    | A set of waiting processess (P₀, P₁, P₂ .... ) form a circular chain                                          |
+
+
+Resource Allocation graph 
+![](resources/circularwait.png)
+
+
+
+## Deadlock Handling 
+
+1) Use different prototocols to prevent/avoid deadlocks
+    * Deadlock Prevention
+    * Deadlock Avoidance 
+2) Allow system to enter a deadlock state, then detect it and recover
+3) Ignore the problem 
+
+## Deadlock Prevention & Avoidance
+
+### Deadlock Prevention 
+Main idea : **To violate any of the 4 conditions** to prevent deadlock from occuring
+
+### Condition 1: Mutual Exclusion
+
+Allow acess to resources thar are sharable (Read-only files)
+
+### Condition 2: Hold & Wait 
+
+ Ensures that whenever a process reqeuest for a **new resource** it does not hold any other resources 
+
+ * Protocol 1: Allocate all requested resources to a process before execution 
+    * To optimize CPU utilization 
+    * Processes might not start if >=1 of the resources needed is allocated to other processes 
+
+* Protocol 2: Allow a process to reqeuest for resources only when it has none
+    * Only allow a process to ask for additonal resources when it has released all previous / currently holding resources
+
+### Condition 3: No Preemption
+* If possible, interrupt access to a particular resource and then take the resource away from the process owning it and **allocate to other process**
+
+Protocol 1:
+
+* If a process that already **holds some resources** requests for more resources that cannot be immediately allocated, the resourcs being held are peempted **(prevent hold and wait)**
+* Process is only restarted when it can regain its old and the new **requested** resources too.
+
+Protocol 2: 
+
+* If process requests for additional resources, check if they are already allocated
+* If allocated to a waiting process, force the waiting process to release resource. If not then wait.
+
+### Circular Wait
+
+* Put all resources in an order and require processess to request for resources based on an order. (increased order of enumeration)
+
+* Each resource type is assigned a rank
+* ranges from 1,2 ..... N
+* Resources of same type have same rank
+* Different resource type get distinct ranks 
+
+* **Why**: to ensure processess request resources in a strict increasing order **(to avoid forming  a loop)** 
+* E.g: Rank(DVD drive ) = 2, & Rank(Printer) = 10
+    * DVD drive (rank 2) can request for resources from Printer (rank 10) but Printer can not request from DVD drive.
+
+## Deadlock Avoidance
+
+* Avoid **unsafe allocation of resources** to a process that may lead to deadlock
+* Unsafe allocation example:
+
+![](resources/unsafeallocation.png)
+
+Initially P2 -> R1 and P2 and P1 both want R2.<br>
+A deadlock will then occur as R2 -> P2 as a cycle is present*
+To resolve this issue, allocate R2 -> P1.
+
+
+## Deadlock Detection
+
+When a deadlock occurs, system may provide:
+* An algo to examie state of system to determine if deadlock has occured
+* An algo to recover from deadlock
+
+## Deadlock Recovery
+
+To recover from a deadlock after running the deadlock detection algo: 
+
+There are 2 ways:
+1) Process Termination 
+2) Resource Preemption 
+
+### Process Termination 
+
+2 Ways: 
+
+1) Abort all deadlock processes
+    - Breaks deadlock cycle 
+    - Costly as it discards all computed deadlock processes 
+
+2) Abort 1 process at a time until deadlock cycle is eliminated 
+    - Results in considerable overhead 
+    - Deadlock detection algo must be run after each abort to 
+
+### Resource Preemption
+
+1) Preempt some resources from a process and give to other processses until deadlock cycle is broken
+2) Must select resources from process that does not reduce execution time by much
+
+# Chapter 10 - File System 
+
+File system (Consists of 2 parts)
+
+* Collection of **files** each storing data
+* Directory structure - organises & provides information about all the files in the system. **(file name & unique identifier)**
+    * unique identifier is used to located the other attributes of a file
+ 
+**Collection of files (containing data) organized in a way for the O.S to manage**
+
+
+## File 
+
+**Collection of related info (Data)**
+
+ * Recorded and mapped by O.S on the secondary storage (hard disk)
+
+* Data can only be written into secondary storage if it is in a file
+
+Files have a defined **structure** depending on its type:
+
+* Text - sequence of characters organized into lines
+* Source - sequence of functions
+* Executable - series of instructions to be brought into memory and executed
+
+## Directory ( Is a file)
+
+Directiory - table that **translates** files into their directory entries
+
+Directory operations:
+* Search for file
+* Create file 
+* Delete file 
+* List a directory
+* Rename a file
+
+### Tree-Structured Directories
+
+* Subdirectories are created in a directory 
+* Tree has a root directory 
+
+## File Operations
+
+Basic
+* Creating a file
+    1) Allocate free space then
+    2) Add new entry into directory
+* Read/ Write file
+    1) System call
+    2) Search directory for file location
+    3) Keep pointer at read/write location
+* Deleting a file
+* Truncating a file
+
+## Hard Disk
+
+Smallest physical storage unit of a hard disk == **Sector**
+
+512Bytes / 4KB
+
+## Logical Block Addressing (LBA)
+
+Disk drive is divided into **logical blocks** (allocation units/clusters)
+
+* Can set allocation unit (cluster) size
+
+1) Clusters - **group of sectors**
+    * 1 Sector = 512 Bytes
+    * 1 Cluster = 2 Sectors 
+    * 1 Cluster = 1024 Bytes (512*2)
+    * 1 Block = 1 Cluster (Allocation unit)
+
+2) E.G : File needing 1500 bytes
+    * 2 blocks (clusters) need to be assigned 
+    * Internal fragmentation occurs (1500-1024 = 476 bytes)
+
+![](resources/lba.png)
+
+Sample Question: 
+
+Hard disk has 64KB of space, size of each block is 4KB 
+
+Ans = 64/4 
+    = 16 blocks
+
+## Access Methods
+
+1) Sequential Access 
+    * Most common method 
+    * Information is processed in order (read next, write next)
+    * Ex: Editors & Compilers
+2) Direct Access
+    * Allow programs to read,write records ***(rapidly)** in no particular order
+    * Ex: Read block 14 -> read block 53 -> write block 7
+
+    Contains **Index** 
+    * Contains pointers to other blocks 
+
+## Implementing File System (Managing files in the OS)
+
+1) Directory Implementation - Methods to implement a directory
+    * **Linked list** of file names with pointers to next data block
+        * CONS: Time consuming, slow to search for file
+    * Adding a file: 
+        * Search entire directory if it exists (same name)
+        * Then, add new entry at **end** of directory
+    * Deleting a file:
+        * Search for named file and release the space
+
+   * **3 Linked List with hash table**
+        * Needs a hash function to map keys to the values
+        * Like hashing table in DSA
+        * Benefits of using Hash table: 
+            * Greatly **reduces search time**
+        * Cons:
+            * Not easy to add/extend table
+            * Collisions may occur (can be solved by creating a list for each element (separate addressing))
+            
+            
+2) Allocation Methods - Allocating space in the disk
     
-    Set both "Front" & "Rear" to 1 and place first item at array index 
+* How to allocate space to files so that:
+    1) Disk is utilized efficiently
+    2) Files can be accessed quickly
+* **3 methods**
+    * **Contiguous** - continous set of blocks on disk
+    * Must know amount of space needed (pre-allocation)
+        * If too little < no space for expansion
+        * If too much == wasted space
+        * Leading to external fragmentation
+    * E.g:
 
-    Not empty queue: 
+![aa](resources/b.png)
+
+* **Linked** (Direct access)
+    * Each file = **linked list of disk blocks** containing pointer to next block
+    * Disk blocks can be placed anywhere on disk
+    * Issues
+        * Only effective for **sequential** 
+        * Needs space for pointers 
+        * Pointer = 4kb
+        * 1 block is now 512-4 = 508kb
+    * E.g 
+
+![linked](resources/linked.png)
+
+* **Indexed**
+    * Stores all pointers into 1 block **(index block)**
+        * Can't be too big = overhead (context switch)
+        * Can't be too small = can't hold enough pointers (for large file)
+
+3) Free-Space Management - Tracking free disk space
+
+    What for? 
+    * Reuse space from deleted files
+    * Use free space to store files
+
+* How? (Creating a new file)
+    * Using a **free-space list** (records all free disk blocks) - search through list for requirent amount of space
+    * Then space is allocated to the new file and removed from **free-space list**
+* Deletion 
+    * Add space to **free-space-list**
+
+### Methods 
+
+* Bit Vector
+    * Using 1 to represent a free block
+    * Using 0 to represent an allocated block
+    * E.g: 
+
+   Disk block 0 1 3 4 5 6 7 8  
+
+              0 0 1 1 0 1 1 1
+
+    So only disk block 3,4,6,7,8 are free
+
+* Linked List
+    * Same as linked allocation **(Link all the free blocks together)**
+    * Inefficient
+* Grouping
+    * Linked List but with grouping
+    * Group addresses of n free blocks into the **first free block**
+    * The first n - 1 blocks are free
+    * Last block points to another n free block
+    * E.g: 1 2 3 4 n = 4
+
+        * first 3 (1,2,3) are free and  4 points to the 4th data block with next set of free blocks
     
-    Increment "Rear" and put item at array index "Rear"
 
-> Deletion:
-
-    Increment "Front" 
-    If "Front" > index of last item
-
-
-## Linked Lists
-
-Lists are a basic data stucture without constraints allowing for items to be deleted / inserted at any point of time
-
-Linkes lists stores data into **nodes** and each node has **pointer** referencing to the **next node** 
-
-* Additional pointer to point to **first node** & pointer points to **NULL**
-
-![](resources/linkedlist.png)
-
-### Advantages 
-
-1) Can be dynamic in size
-2) Easier to insert/delete compared to arrays
-
-### Disadvantages
-
-1) Random access is not allowed. We have to access elements sequentially starting from the first node. So we cannot do binary search with linked lists efficiently with its default implementation.
-
-2) Extra memory space for a pointer is required with each element of the list.
-
-3) Not cache friendly. Since array elements are contiguous locations, there is locality of reference which is not there in case of linked lists.
-
-
-
-
-## Graphs
-
-Set of **nodes(vertices)** connected by **edges(arcs)**
-
-* Can be directed/undirected (arrows or no)
-
-### Adjacency Matrix 
-
-e.g:
-![](resources/adjacencymatrix.png)
-
-# Chapter 7 - Hashing
-
-## Hashing
-
-Hashing - process of mapping large amount of data to a smaller table **(with a hashing function)**
-
-
-Hash table - data structure allowing for very fast insertion and searching
-Hash function - any **algorithm/subroutine** that maps **data sets** of variable length to data sets of fixed length.
-
-## Advantages & Disadvantages
-
-Advantages: 
-* Significantly faster than trees (O(1))
-* Easy to program 
-
-Disadvantages: 
-* Based on arrays and arrays are difficult to expand once created
-* Performance may degrade once hash table gets too full 
-* Not efficient in operations that require sorting items in any order
-
-## Collision & How to solve 
-
-Collisions occur when 2 different item keys are hashed and the same address is obtained to store the item
-
-To solve this: 
-1) Open addressing
-    * Linear probing
-    * Quadratic probing 
-    * Double Hashing
-
-2) Separate chaining
-
-## Open addressing
-
-### Linear probing
-
-* Search sequentially for vacant cells 
-* Clusters can form from this method
-e.g: go to 5,422 then go to 5,423
-
-### Quadratic Probing
-
-Advantage
-
-* Elimiates clustering (primary clustering)
-
-Disadvantage
-
-* Suffers from another form of clustering (secondary clustering)
-    * Occurs when all keys that hash to one cell follows the same sequence in trying to find the next available space **Secondary clustering**
-* Searches using square as the step
-    * x+1^2, x+2^2, x+3^2, x+4^2....
-
-### Double Hashing (modulus % function)
-
-* Step size is calculated using the modulus function
-
-stepSize = PRIME - (key%PRIME)
-stepSize = 5 - (key%5)
-
-## Separate Chaining
-
-Different approach to resolve collisions:
-
-Separate chaining is defined as a method by which linked lists of values are built in association with each location within the hash table when a collision occurs.
-
-* Install a linked list at each index **in hash table**
-* Each data item is inserted into the linked list and
-
-The concept of separate chaining involves a technique in which each index key is built with a linked list. This means that the table's cells have linked lists governed by the same hash function. So, in place of the collision error which occurred in Figure 1,
+* Counting  
+    * Contigous
+    * Keep starting block of first free block then keep track of no. (n) free contiguous blocks
