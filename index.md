@@ -146,6 +146,7 @@ A bootstrap program (small code) **locates** kernel and **loads** it into main m
 | File System           |
 | Communication         |
 | Other system services |
+
 To structure these components:
 
 * Monolithic and Microkernel
