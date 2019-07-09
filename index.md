@@ -350,8 +350,7 @@ Is needed to (for 1 CPU/Processing core):
 
 
 
-
-![](resources/multiprogramming.png)
+![](./resources/multiprogramming.png)
 
 * However, some running process might not enter the waiting state / not finish execution **USE TIME-SHARING**
 
@@ -366,7 +365,7 @@ Switch processes frequently(every 10ms), As switching is fast, users can interac
 
 
 
-![](resources/tsvsmp.png)
+![](./resources/tsvsmp.png)
 
 Main difference between multiprogramming and time sharing is that multiprogramming is the effective utilization of CPU time, by allowing several programs to use the CPU at the same time but time sharing is the sharing of a computing facility by several users that want to use the same facility at the same time.
 
