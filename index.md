@@ -716,8 +716,10 @@ Only occurs if these four conditions occur simultaenously:
 | Circular Wait    | A set of waiting processess (P₀, P₁, P₂ .... ) form a circular chain                                          |
 
 
-Resource Allocation graph 
+Resource Allocation graph
+
 ![](resources/circularwait.png)
+
 
 
 
@@ -1011,7 +1013,7 @@ Ans = 64/4
     * Contigous
     * Keep starting block of first free block then keep track of no. (n) free contiguous blocks
 
-    # Chapter 11 - Modern File Systems 
+# Chapter 11 - Modern File Systems 
 
 Controls how information is stored & received 
 
