@@ -627,6 +627,17 @@ The system maintains a **queue of threads in the ready state**
 | Scalability      | No. of threads running can be adjusted in a multiprocesseor architecture                                   |
 | Responsiveness   | A program can continue running during length operations (e.g multithreaded web browser)                    |
 
+## Thread Challenges 
+
+|                     | Thread Challenges                                                         |
+|---------------------|---------------------------------------------------------------------------|
+| Dividing Activities | To identify the tasks that can be divided into separate, concurrent tasks |
+| Balance             | Ensure divided tasks perform equal work                                   |
+| Data Splitting      | Dividing the tasks                                                        |
+| Data dependency     | Data must be examined for dependencies                                    |
+| Testing & Debugging | Hard to test and debug for concurrent programs                            |
+
+
 
 ## Thread Applications
 
