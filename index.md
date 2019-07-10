@@ -198,6 +198,8 @@ Main Function of the kernel:
 
 This is done using 2 methods: **Shared Memory** and **Message Passing**
 
+
+
 ### Modules / Modular kernel
 
 Creates a modular kernel where each module is **seperated** and **dynamically loadable as needed**
@@ -499,6 +501,61 @@ Goal is to
 **Optimize** CPU Utilization & Throughput 
 **Minimize** Turnaround, Waiting & Response Time.
 
+# Chapter 6 - Process Communication 
+
+Why the need for IPC?
+
+* Information Sharing
+* Computation Speedup
+* Modularity 
+* Convenience
+
+Interprocess Communicaiton (IPC)
+* 2 Models:
+    * Shared Memory
+    * Memory Passing
+
+## Shared Memory 
+
+A region of memory is shared among several processes and is done via **system calls** 
+
+* This region resides in address space of the process that create it
+* The cooperating processes must be synchronised when communicating among each other
+
+### Race Condition 
+
+* When 2 procceses attempt to perform certain operation at the same time
+    * To solve this:
+        * Lock the variable for 1 process and then allow the other to finish performing the operation
+
+## Message Passing
+
+Process communication model 
+
+1) Processes have to establish a link 
+2) Then exchange messages via send/receive operation
+
+* **Easier to implement** ( No synchronisation issues)
+* 2 system calls: 
+    * send (receiver, message)
+    * receive (source,message)
+* Message can be fixed/ variable in size
+
+**Synchronous vs Asynchronous** 
+
+| Synchronous                                                         | Asynchronous                                                                |
+|---------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| Sender can't send another message until initial message is received | |Sender can send message without waiting for initial message to be received |
+
+
+### Shared-Memory vs Message Passing
+
+| Shared-Memory                                         | Message Passing                                                            |
+|-------------------------------------------------------|----------------------------------------------------------------------------|
+| Faster in exchanging data                             | Slower in exchanging data (small data)                                     |
+| Only uses system calls to create shared address space | Slowers cause it is implemented using system calls                         |
+| Convenient for communcation in the same system        | Easier to implement for inter-computer communication (Distributed systems) |
+
 
 # Chapter 7 - Threads
 
@@ -518,7 +575,7 @@ Traditionally, 1 process has 1 single thread of control. = 1 process can perform
 
 ## Process & Thread
 
-Process - **used to group resources together** to occupy memory space
+Process - **used to group resources together** to occupy memory space <br>
 Threads - **Path of execution / stuff scheduled for execution for the CPU**
 
 ### Multithreading
