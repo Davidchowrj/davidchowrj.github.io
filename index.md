@@ -922,3 +922,108 @@ Ans = 64/4
 * Counting  
     * Contigous
     * Keep starting block of first free block then keep track of no. (n) free contiguous blocks
+
+    # Chapter 11 - Modern File Systems 
+
+Controls how information is stored & received 
+
+* E.g file systems:
+    * FAT 
+    * NTFS 
+    * HFS+
+    * Ext3 
+
+## FAT (File Access Table)
+
+Modification of linked system
+* Pointers are stored in a FAT instead of in each data block
+* FAT is stored in separate area of disk after boot sector (contains boot program to start loading OS into main memory)
+
+### Boot Sector (Without Partitioning)
+
+1) Find boot device
+2) Find and load boot program (bootstrap program) into main memory
+    * Bootstrap program = first code executed when a system is started
+3) Boot program then starts and loads kernel into main memory 
+
+### Boot Sector (With Partitioning) 
+
+Partitioning allows for installation of multiple OS 
+
+1) Find boot device 
+2) Load **master boot record (MBR)** to memory.
+
+**MBR**  
+* Identifies available partitions
+* Finds starting sector of active partition 
+* Load boot program in the starting sector to memory
+* Boot program then loads the kernel
+
+Consists of 
+* Primary partition (limited to 4)
+    * Can be set to active (so system can boot from this partition)
+* Logical Partition 
+    * Created inside one of the **4 primary partitions**
+
+![](resources/mbr.png)
+
+## File Allocation Table (FAT)
+
+* Maximum partition size (partition/volume) supported by FAT is limited by **size of pointer**
+* FAT12 -> 12 bits
+* FAT16 -> 16 bits 
+* FAT 32 -> 28 bits
+
+### Sample Calculations (FAT16)
+
+FAT16 is used & cluster size = 8kb. Determine maximum partition size
+
+16 bits pointer  = 2^16 
+                 = 65,536
+* Max No. of Clusters = 65,536
+* 1 Cluster = 8 Kb 
+
+Max Partition Size
+
+= 65,536 * 8 KB <br>
+= 524,288 KB <br>
+= 524 MB 
+
+### Sample Calculation NO.2 
+
+FAT16 is used,  determine the **minimum** cluster size that should be chosen to support partition size of 4 GB 
+
+2^16 = 65,536 bits 
+
+Max No. of Clusters = 65,536 
+
+Parition Size = 4GB
+
+Min Cluster size = 
+
+4 GB / 65536 
+
+=64 KB
+
+## New Technology File System (NTFS)
+
+Core component is the **master file table(MFT)**
+
+* Used to store metadata about files & directories
+* If data is small to fit, data is stored entirely within record
+    * If not, allocate additional blocks and an indexed block witll be added to MFT r
+* Use bitmap to keep track of free space
+
+## Hierarchical File System Plus (HFS+)
+* For applOS
+* Use bitmap to keep track of allocation of files & free space
+
+## Third Extended FIle system (EXt3)
+* For Linux
+* Superblock
+    * Stored in block after boot program
+    * Consists of **system metadata** (free blocks, location of inode tables)
+* **Inode(Index Node)**
+    * **Represents metadata of a file** 
+    * 1 inode per file 
+    * Lists the data block address (LBA)
