@@ -1,7 +1,27 @@
 ---
 layout: default
-title: osf
+title: OSF notes
 ---
+# Chapter 1b  
+
+Operating system
+
+* System software that deals with managing computer programs and resources
+    * 2 Functions 
+        1) Hardware Abstraction
+        2) Resource Manager 
+    * 3 Components
+        1) Process Scheduling (Determines process execeution sequence)
+        2) Memory Management (Determines what is in memory)
+        3) Storage Management (Deals with ffree space and storage of files)
+
+System calls
+
+* When a user program requests for a service from the kernel. This causes the CPU to change from user mode to kernel mode
+* System calls are expensive because it leads to context switching 
+
+
+
 # Chapter 2 - Process Concept
 
 ## Process
@@ -233,7 +253,7 @@ Type 2: Hypervisor
 | Host OS           |
 | Hardware          |
 
-* **Depends** on host OS
+* **Depends** on host OS (can be installed onto a host OS )
 * Easier to install
 * Independent of hardware (Update/Support)
 
