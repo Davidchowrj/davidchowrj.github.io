@@ -210,16 +210,20 @@ POST
 ### Usage
 
 1) Store information when user visits a page
-    * What pages the user has visited
-    * Store basic information (first visit etc)
-    * Store number of visits
+
+* What pages the user has visited
+* Store basic information (first visit etc)
+* Store number of visits
 
 ### 2 Types of Cokies
 
 1) Session Cookie
-    * Cookies are temporary and expire when session/browser ends
+
+* Cookies are temporary and expire when session/browser ends
+
 2) Persistent Cookie
-    * Only expires after given time
+
+* Only expires after given time
 
 Example
 
