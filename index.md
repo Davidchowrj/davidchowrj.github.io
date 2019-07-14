@@ -209,7 +209,7 @@ POST
 
 ### Usage
 
-1) Store information when user visits a page
+Store information when user visits a page
 
 * What pages the user has visited
 * Store basic information (first visit etc)
@@ -219,15 +219,15 @@ POST
 
 1) Session Cookie
 
-* Cookies are temporary and expire when session/browser ends
+    * Cookies are temporary and expire when session/browser ends
 
 2) Persistent Cookie
 
-* Only expires after given time
+    * Only expires after given time
 
 Example
 
-```php 
+```php
 <?php
 
 setcookie("username", "dc", time() + 3600); 
