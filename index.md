@@ -1,3 +1,8 @@
+---
+layout: default
+title: Web Notes
+---
+
 # Web Programming Finals Revision
 
 ## Static vs Dynamic Content 
