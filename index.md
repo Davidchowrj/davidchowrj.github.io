@@ -199,7 +199,7 @@ POST
 * Information sent is invisible ot others
 
 
-#Chapter 7 -Cookies & Session
+# Chapter 7 -Cookies & Session
 
 ## Cookies
 
@@ -208,18 +208,21 @@ POST
 * Limited in size (1kb)
 
 ### Usage
+
 1) Store information when user visits a page
     * What pages the user has visited
     * Store basic information (first visit etc)
     * Store number of visits
 
 ### 2 Types of Cokies
+
 1) Session Cookie
     * Cookies are temporary and expire when session/browser ends
-2) Persisten Cookie
+2) Persistent Cookie
     * Only expires after given time
 
 Example
+
 ```php 
 <?php
 
