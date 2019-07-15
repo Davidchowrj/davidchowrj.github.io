@@ -1,13 +1,4 @@
----
-layout: default
-title: Web Notes
----
-
 # Web Programming Finals Revision
-
-## prag_match cheatsheet 
-
-![](resources/cheatsheet.png)
 
 ## Static vs Dynamic Content 
 
@@ -208,26 +199,21 @@ POST
 * Limited in size (1kb)
 
 ### Usage
-
-Store information when user visits a page
-
-* What pages the user has visited
-* Store basic information (first visit etc)
-* Store number of visits
+1) Store information when user visits a page
+    * What pages the user has visited
+    * Store basic information (first visit etc)
+    * Store number of visits
 
 ### 2 Types of Cokies
 
 1) Session Cookie
-
     * Cookies are temporary and expire when session/browser ends
-
-2) Persistent Cookie
-
+2) Persisten Cookie
     * Only expires after given time
 
 Example
 
-```php
+```php 
 <?php
 
 setcookie("username", "dc", time() + 3600); 
@@ -265,7 +251,38 @@ Sessions are started using session_start();
 | Set Cookie time to destroy cookies               | Use session_destroy() to destroy sessions                 |
 | setcookie()                                      | session_start()                                           |
 
-# Chapter 9- AJAX
+
+# Chapter  9 - Localization
+
+## Internationalisaiton
+
+Ensuring that an application can adapt to local requirements (language & cultural barriers)
+
+* Translation of content
+
+## Localisation
+
+* Adaption of language, content & design to reflect a culture
+    * 1 application for multiple regions
+    * Support correct formats for date,time & currency
+    * Weights & measurements
+    * Telephone no. & addresses
+
+### Components
+
+* Language
+    * Avoid images to display text
+* Pictures
+    * Avoid infringing copyrights & offending culture & religion
+* Symbols
+    * Use apropriate symbols (flags,currency,language)
+* Colors
+* Navigation
+    * Some cultures read from right to left and vice versa
+* Content
+
+
+# Chapter 10 - AJAX
 
 AJAX = Asynchronous Javascript & XML 
 
@@ -278,3 +295,49 @@ Ajax uses  **XMLHttpRequest** **(AKA JAVASCRIPT)** to
 | XMLHttpRequest (JavaScript)          | XMl                                   |
 |--------------------------------------|---------------------------------------|
 | Send and exchange data witha  server | Used as format to receive server data |
+
+Ajax applications are **browser & platform independent**
+
+## How it works
+
+1) User sends a request from the UI and a javascript call goes to XMLHttpRequest object.
+
+2) HTTP Request is sent to the server by XMLHttpRequest object.
+
+3) Server interacts with the database using JSP, PHP, Servlet, ASP.net etc.
+
+4) Data is retrieved
+
+5) Server sends XML data to XMLHttpRequest (JavaScript) callback funciton
+
+6) HTML & CSS is then displayed on browser
+
+
+## Advantages
+
+* Interactivity
+    * Asynchrnous trasmission (back & forth)
+* Bandwidth usage
+    * Small payload
+* Encourages modularization 
+    * Function ,data sources, structure & style
+* Allows non-related technologies to work together (server-side languages , databases, client-side languages)
+    
+
+## Disadvantages
+
+* Difficult to debug as it is **asynchronous**
+* Search engines can't index/optimize
+* Back Button / bookmarks may not work as expected
+* May experience response time /latency problems if too many frequent updates
+
+## Ajax Application
+
+* Real time form validation 
+    * When server side info is needed
+* Autocompletion
+* Sophiticated U.I controls & effects
+    *E.g: Progress bars
+* **Getting data without reloading**
+
+
