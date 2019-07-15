@@ -5,11 +5,6 @@ title: Web Notes
 
 # Web Programming Finals Revision
 
-## prag_match cheatsheet 
-
-![](resources/cheatsheet.png)
-
-
 ## Static vs Dynamic Content 
 
 | Static                            | Dynamic                                                            |
@@ -260,7 +255,32 @@ Sessions are started using session_start();
 | Cookies can be accessed easily (**Less secure**) | Session values can't be accessed easily **(More Secure)** |
 | Set Cookie time to destroy cookies               | Use session_destroy() to destroy sessions                 |
 | setcookie()                                      | session_start()                                           |
+# Chapter 8 - Error Handling
 
+In PHP , there are 3 types of errors:
+
+1) Syntatical Errors
+2) Runtime Errors
+    * Will stop script from doing what it was supposed to do 
+3) Logical Errors
+
+
+## Other Errors
+
+SQL Errors - Usually due to syntax
+
+## Debugging Process
+1) Start Apache services
+2) Run right page
+3) Save latest changes
+4) Run a phpinfo() script
+
+## Displaying errors
+
+
+
+Include *display_errors* in a script to dsiplay errors
+* ini_set('display_errrors', 1)
 
 # Chapter  9 - Localization
 
