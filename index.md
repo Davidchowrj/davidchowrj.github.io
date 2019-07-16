@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Web Notes
+title: SM Notes
 ---
 # Software Management
 
