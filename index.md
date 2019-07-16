@@ -234,7 +234,7 @@ setcookie("username", "dc", time() + 3600);
 
 ## Sessions
 
-Sessions are started using session_start();
+Sessions are started using **session_start();**
 
 * Stored on **web server** (more secure)
 * To store information accessible across web pages
@@ -249,17 +249,21 @@ Sessions are started using session_start();
 * **ideal for storing more complex data** of a user session
 
 
-## Cookies VS Session 
+## Cookies VS Session
 
-| Cookies                                          | Session                                                   |
-|--------------------------------------------------|-----------------------------------------------------------|
-| Stored in **browser** as text file format        | Stored in **web server**                                  |
-| Limited in size                                  | Unlimited in size                                         |
-| Only allows for 4kb of data                      | Allows for multiple variables in a session                |
-| Holds variables in **cookies**                   | Holds variables in **sessions**                           |
-| Cookies can be accessed easily (**Less secure**) | Session values can't be accessed easily **(More Secure)** |
-| Set Cookie time to destroy cookies               | Use session_destroy() to destroy sessions                 |
-| setcookie()                                      | session_start()                                           |
+| Cookies | Session|
+|---------|--------|
+| Stored **borwser** as text file format| Stored in **web server**|
+| Limited in size | Unlimited in size|
+| Only allows for 4kb of data | Allows for multiple variables in a session|
+| Holds variables in **cookies** | Holds variables in **sessions** |
+| Cookies can be accessed easily (**Less secure**) | Session Values can't be accessed easily (**More secure**) |
+| Set Cookie time to destroy cookies | Use **session_destroy()** to destroy session | 
+|**setcookie()** | **session_start()**
+
+
+
+
 # Chapter 8 - Error Handling
 
 In PHP , there are 3 types of errors:
