@@ -135,7 +135,7 @@ Why understand organizations?
 
 Project managers must **identify,understand & manage relationships** with all project stakeholders
 
-*Senior executives and top management are very important stakeholders
+* Senior executives and top management are very important stakeholders
 
 This can be done by: 
 * Using 4 frames of organizations  to meet their needs & expectations
@@ -247,31 +247,33 @@ Factors affecting IT project management include:
 
 Project Management knowledge areas
 
-1) Integration
-2) Scope
-3) Cost
-4) Quality
-5) Resource
-6) Communications
-7) Risk
-8) Procurement
-9) Stakeholder Management
+1. Integration
+1. Scope
+1. Cost
+1. Quality
+1. Resource
+1. Communications
+1. Risk
+1. Procurement
+1. Stakeholder Management
 
 Projects involve **5 project management process groups** 
 
-1) Iniatiting processes
-    *   Defining and authorizing a project 
-2) Planning processes
-    * Planning what work must be done to ensure a project fulfills an organization's needs
-3) Executing processes
-    * Coordinating resources and people to create a product/services
-4) Monitoring & Controlling processes
-    * Measure progress of project against its objectives
-5) Closing processes
-    * Finalizing acceptance of a project and concluding it
+1. Iniatiting processes
+    - Defining and authorizing a project 
+1. Planning processes
+    - Planning what work must be done to ensure a project fulfills an organization's needs
+1. Executing processes
+    - Coordinating resources and people to create a product/services
+1. Monitoring & Controlling processes
+    - Measure progress of project against its objectives
+1. Closing processes
+    - Finalizing acceptance of a project and concluding it
 
 ## I.T Project Management Methodology 
-Methodology 
+
+Methodology: 
+
 * Describes **how things should be done**
 Standard
 * Describes **what should be done to manage a project**
