@@ -253,15 +253,45 @@ Sessions are started using **session_start();**
 
 | Cookies | Session|
 |---------|--------|
-| Stored **borwser** as text file format| Stored in **web server**|
+| Stored  in **browser** as text file format| Stored in **web server**|
 | Limited in size | Unlimited in size|
 | Only allows for 4kb of data | Allows for multiple variables in a session|
 | Holds variables in **cookies** | Holds variables in **sessions** |
-| Cookies can be accessed easily (**Less secure**) | Session Values can't be accessed easily (**More secure**) |
+| Cookies can be accessed easily (**Less secure**) | Session Values can't be accessed easily (**More secure**) |g
 | Set Cookie time to destroy cookies | Use **session_destroy()** to destroy session | 
 |**setcookie()** | **session_start()**
 
+### Set Cookie
 
+```php
+
+<?php
+setcookie ("variable", "value", time() + 3600) //Time is always in seconds 
+
+
+//Destroy cookies
+
+setcookie ("variable","value", time() - 3600);
+?> 
+
+```
+### Set Session 
+
+```php
+
+<?php 
+
+session_start()
+
+$_SESSION["variable"] = "value";
+
+//Destroy Session
+
+session_unset();
+session_destroy();
+
+?>
+```
 
 
 # Chapter 8 - Error Handling
