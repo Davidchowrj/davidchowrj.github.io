@@ -119,17 +119,17 @@ Why understand organizations?
 
 3 Structures
 1) Functional (hierarchical)
-    * Specialised functional managers  & vice presidents in their own fields report to a higher up (CEO)
-    * Their own staff are specialized in their various discipline
+    - Specialised functional managers  & vice presidents in their own fields report to a higher up (CEO)
+    - Their own staff are specialized in their various discipline
 
-2) Project
-    * Project managers report to the CEO instead 
-    * Their staff have a variety of skills to complete a project
-    * Revenue is gained by performing projects for other groups under a contract
+1) Project
+    - Project managers report to the CEO instead 
+    - Their staff have a variety of skills to complete a project
+    - Revenue is gained by performing projects for other groups under a contract
 
-3) Matrix 
-    * Middle ground between Functional and project 
-    * Staff report to both functional managers & project managers
+1) Matrix 
+    - Middle ground between Functional and project 
+    - Staff report to both functional managers & project managers
 
 ### Focusing on Stakeholder's needs
 
