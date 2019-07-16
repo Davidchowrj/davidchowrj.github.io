@@ -5,6 +5,11 @@ title: Web Notes
 
 # Web Programming Finals Revision
 
+## prag_match cheatsheet 
+
+![](resources/cheatsheet.png)
+
+
 ## Static vs Dynamic Content 
 
 | Static                            | Dynamic                                                            |
