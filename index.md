@@ -24,9 +24,9 @@ title: SM Notes
 
 - Managers try to meet **3 constraints** (project scope, time and cost)
 
-1) Project scope
-2) Time
-3) Cost
+1. Project scope
+1. Time
+1. Cost
 
 **10 key knowledge areas:**
 
@@ -84,12 +84,12 @@ Describes a **holistical and analytical** approach to management and problem sol
     * Addresses **business,technological,organization issues** that arise from creating,maintaining,modifying a system.
 
 ### 3 Spheres Model for systems management
-1) Organization 
+1. Organization 
     * How will the particular project affect students / Who will develop it etc etc 
-2) Business
+1. Business
     * What will the costs of the project be 
     * What will it cost the users?
-3) Technology
+1. Technology
     * What hardware is required for the project
     * Will additional technlogy be required for this?
 
@@ -118,16 +118,20 @@ Why understand organizations?
 ![](resources/structure.png)
 
 3 Structures
-1) Functional (hierarchical)
+
+1. Functional (hierarchical)
+
     - Specialised functional managers  & vice presidents in their own fields report to a higher up (CEO)
     - Their own staff are specialized in their various discipline
 
-1) Project
+1. Project
+
     - Project managers report to the CEO instead 
     - Their staff have a variety of skills to complete a project
     - Revenue is gained by performing projects for other groups under a contract
 
-1) Matrix 
+1. Matrix
+
     - Middle ground between Functional and project 
     - Staff report to both functional managers & project managers
 
@@ -202,14 +206,14 @@ These models are examples of a **predictive life cycle**
 * **Scope of project can be described clearly and schedule & cost can be predicted accurately.** 
 
 Examples of predictive life cycle models
-1) Waterfall model 
+1. Waterfall model 
     * Well defined, linear stages of system development & support
-2) Spiral model (improvement on waterfall)
+1. Spiral model (improvement on waterfall)
     * Software is developed using **iterative/spiral approach** instead of a linear approach
     * Suitable to incorporate changes
-3) Prototyping model
+1. Prototyping model
     * Used for developing prototypes to clarify user requirements
-4) Rapid Application Development (RAD) model:
+1. Rapid Application Development (RAD) model:
     * To produce systems quickly without sacrificing quality
 
 ## I.T project context
@@ -230,11 +234,11 @@ I.T projects can be very diverse in:
 
 Factors affecting IT project management include:
 
-1) Globalization 
+1. Globalization 
     * Integration between people/companies internationally
-2) Outsourcing
-3) Virtual teams
-4) Agile project management
+1. Outsourcing
+1. Virtual teams
+1. Agile project management
     * Iterative development method where the requirements and solutions are constantly evolvling through collaboration with stalkholeders and project members
     * Process:
         * Individuals and interactions over processes & tools
