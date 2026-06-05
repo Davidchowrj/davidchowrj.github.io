@@ -1579,7 +1579,7 @@ function SearchResults() {
     <div>
       <h1>Results for: {query}</h1> {/* Safe in React */}
       {/* DANGER: If using vanilla JS or innerHTML */}
-      <div dangerouslySetInnerHTML={{ __html: `Results for: ` + query }} />
+      <div dangerouslySetInnerHTML={{ __html: "Results for: " + query }} />
     </div>
   );
 }
