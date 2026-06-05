@@ -1,4 +1,4 @@
-﻿# AEON360 Web Engineer â€” Interview Prep Guide
+﻿# AEON360 Web Engineer Interview Prep Guide
 
 **Role:** Web Engineer (Manager Grade) Â· AEON360 Sdn. Bhd.  
 **Assessment platform:** Coderbyte  
@@ -27,7 +27,7 @@ Work through the phases in order. Each phase is self-contained but builds on the
 
 ---
 
-## Phase 1 â€” JavaScript & TypeScript Core
+## Phase 1 JavaScript & TypeScript Core
 
 **Why it's first:** Coderbyte algorithmic challenges run in vanilla JS/TS. Every other phase depends on solid JS fundamentals.
 
@@ -36,7 +36,7 @@ Work through the phases in order. Each phase is self-contained but builds on the
 #### Array methods
 
 ```js
-// Know these cold â€” they appear in almost every challenge
+// Know these cold they appear in almost every challenge
 const nums = [1, 2, 3, 4, 5];
 
 nums.filter((n) => n % 2 === 0); // [2, 4]
@@ -51,7 +51,7 @@ nums.flatMap((n) => [n, n * 2]); // map + flatten in one pass
 
 ##### Deep dive: How `reduce` works internally
 
-`reduce` is the most powerful array method â€” every other array method can be implemented with it.
+`reduce` is the most powerful array method every other array method can be implemented with it.
 
 ```js
 // Signature: arr.reduce(callback, initialValue)
@@ -133,15 +133,15 @@ str.padStart(5, "0"); // '00042'
 **Definition:** A closure is a function that remembers variables from its outer scope, even after that outer function has returned.
 
 ```js
-// Classic closure trap â€” what does this log?
+// Classic closure trap  what does this log?
 for (var i = 0; i < 3; i++) {
-  setTimeout(() => console.log(i), 0); // logs 3, 3, 3 â€” var is function-scoped
+  setTimeout(() => console.log(i), 0); // logs 3, 3, 3  var is function-scoped
 }
 
 // Why? Because by the time the timeouts execute, the loop has finished and i = 3.
 // All three callbacks reference the SAME variable i.
 
-// Fix 1: Use let (block-scoped â€” creates a new binding each iteration)
+// Fix 1: Use let (block-scoped  creates a new binding each iteration)
 for (let i = 0; i < 3; i++) {
   setTimeout(() => console.log(i), 0); // logs 0, 1, 2
 }
@@ -159,7 +159,7 @@ for (var i = 0; i < 3; i++) {
 ```js
 // Use case 1: Private variables (data encapsulation)
 function createCounter() {
-  let count = 0; // private â€” inaccessible from outside
+  let count = 0; // private  inaccessible from outside
 
   return {
     increment: () => ++count,
@@ -172,7 +172,7 @@ const counter = createCounter();
 counter.increment(); // 1
 counter.increment(); // 2
 counter.getCount(); // 2
-// counter.count is undefined â€” no direct access
+// counter.count is undefined  no direct access
 
 // Use case 2: Function factories
 function multiplyBy(factor) {
@@ -228,18 +228,18 @@ async function getUsers() {
   }
 }
 
-// Parallel fetches â€” don't await sequentially when independent
+// Parallel fetches  don't await sequentially when independent
 const [users, products] = await Promise.all([
   fetch("/api/users").then((r) => r.json()),
   fetch("/api/products").then((r) => r.json()),
 ]);
 ```
 
-#### Event loop â€” conceptual understanding
+#### Event loop conceptual understanding
 
 **The JavaScript runtime model:**
 
-- **Call stack** executes synchronous code (LIFO â€” last in, first out).
+- **Call stack** executes synchronous code (LIFO last in, first out).
 - **Microtask queue** (Promises, `queueMicrotask`) drains _completely_ before the next task.
 - **Macrotask queue** (`setTimeout`, `setInterval`, I/O) runs _one task at a time_.
 - **Key rule:** All microtasks run before the next macrotask.
@@ -270,11 +270,11 @@ console.log("E"); // 5
 // 4. Promise.then(...) â†’ schedules 'D' in microtask queue
 // 5. console.log('E')  â†’ logs 'E'
 //
-// [Call stack now empty â€” check microtask queue]
+// [Call stack now empty  check microtask queue]
 // 6. console.log('C')  â†’ logs 'C'
 // 7. console.log('D')  â†’ logs 'D'
 //
-// [Microtask queue empty â€” check macrotask queue]
+// [Microtask queue empty  check macrotask queue]
 // 8. console.log('B')  â†’ logs 'B'
 //
 // Final output: A, E, C, D, B
@@ -311,7 +311,7 @@ console.log("End");
 - Use `Promise.resolve().then(...)` to defer work but run before timers.
 - Use `setTimeout(..., 0)` to defer work until after the current task + all microtasks.
 
-### 1.3 Algorithmic patterns â€” with named problems
+### 1.3 Algorithmic patterns with named problems
 
 These patterns appear repeatedly in coding interviews. Master these and you can solve 80% of algorithm challenges.
 
@@ -320,7 +320,7 @@ These patterns appear repeatedly in coding interviews. Master these and you can 
 **When to use:** Sorted arrays, finding pairs/triplets, in-place modifications.
 
 ```js
-// Problem: Two Sum II (LeetCode #167) â€” array is sorted
+// Problem: Two Sum II (LeetCode #167)  array is sorted
 // Find two numbers that add up to target
 function twoSum(nums, target) {
   let left = 0,
@@ -404,7 +404,7 @@ function firstUniqChar(s) {
   }
   return -1;
 }
-// Time: O(n), Space: O(1) â€” charset is constant (26 letters)
+// Time: O(n), Space: O(1)  charset is constant (26 letters)
 
 // Problem: Group Anagrams (LeetCode #49)
 function groupAnagrams(strs) {
@@ -471,7 +471,7 @@ function hasCycle(head) {
   while (fast && fast.next) {
     slow = slow.next; // moves 1 step
     fast = fast.next.next; // moves 2 steps
-    if (slow === fast) return true; // they met â€” cycle exists
+    if (slow === fast) return true; // they met  cycle exists
   }
   return false;
 }
@@ -545,7 +545,7 @@ function generateParenthesis(n) {
   backtrack("", 0, 0);
   return result;
 }
-// Time: O(4^n / âˆšn) â€” Catalan number, Space: O(n) for recursion stack
+// Time: O(4^n / âˆšn)  Catalan number, Space: O(n) for recursion stack
 
 // Problem: Subsets (LeetCode #78)
 function subsets(nums) {
@@ -583,7 +583,7 @@ function climbStairs(n) {
   }
   return prev1;
 }
-// Time: O(n), Space: O(1) â€” optimized from O(n) DP array
+// Time: O(n), Space: O(1)  optimized from O(n) DP array
 
 // Problem: House Robber (LeetCode #198)
 // Can't rob adjacent houses. Maximize amount stolen.
@@ -615,24 +615,24 @@ function rob(nums) {
 
 ### 1.4 References
 
-- [javascript.info](https://javascript.info) â€” read: Data types, Functions, Promises, Async/await, Classes
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html) â€” read: Everyday Types, Generics, Utility Types
+- [javascript.info](https://javascript.info) read: Data types, Functions, Promises, Async/await, Classes
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html) read: Everyday Types, Generics, Utility Types
 
 ### 1.5 Practice platforms
 
-| Platform                     | Best for                                  | Difficulty          | Free tier               |
-| ---------------------------- | ----------------------------------------- | ------------------- | ----------------------- |
-| **LeetCode**                 | Algorithmic problems, patterns            | Easy â†’ Hard       | Yes (most problems)     |
-| **HackerRank**               | Interview prep tracks, certificates       | Easy â†’ Medium     | Yes                     |
-| **Coderbyte**                | AEON360 uses this â€” practice here first | Easy â†’ Hard       | Limited free challenges |
-| **Frontend Mentor**          | Real UI challenges (HTML/CSS/JS/React)    | Junior â†’ Advanced | Yes                     |
-| **StackBlitz / CodeSandbox** | Quick React/TS prototyping                | N/A                 | Yes                     |
+| Platform                     | Best for                               | Difficulty          | Free tier               |
+| ---------------------------- | -------------------------------------- | ------------------- | ----------------------- |
+| **LeetCode**                 | Algorithmic problems, patterns         | Easy â†’ Hard       | Yes (most problems)     |
+| **HackerRank**               | Interview prep tracks, certificates    | Easy â†’ Medium     | Yes                     |
+| **Coderbyte**                | AEON360 uses this practice here first  | Easy â†’ Hard       | Limited free challenges |
+| **Frontend Mentor**          | Real UI challenges (HTML/CSS/JS/React) | Junior â†’ Advanced | Yes                     |
+| **StackBlitz / CodeSandbox** | Quick React/TS prototyping             | N/A                 | Yes                     |
 
 **Recommendation:** Start with 10â€“15 LeetCode Easy problems covering the 8 patterns above, then move to Medium problems. If the interview platform is confirmed as Coderbyte, spend your last 3 days there to get familiar with the editor and submission flow.
 
 ---
 
-## Phase 2 â€” React & Component Patterns
+## Phase 2 React & Component Patterns
 
 **Why it matters:** The JD explicitly names React. Coderbyte frontend challenges frequently ask you to build or fix a React component.
 
@@ -643,10 +643,10 @@ function rob(nums) {
 ```jsx
 const [count, setCount] = useState(0);
 
-// Functional update â€” use when new state depends on old state
+// Functional update  use when new state depends on old state
 setCount((prev) => prev + 1);
 
-// Lazy initial state â€” runs once, not on every render
+// Lazy initial state  runs once, not on every render
 const [data, setData] = useState(() =>
   JSON.parse(localStorage.getItem("data") ?? "[]"),
 );
@@ -655,7 +655,7 @@ const [data, setData] = useState(() =>
 #### useEffect
 
 ```jsx
-// Runs after every render â€” rarely what you want
+// Runs after every render  rarely what you want
 useEffect(() => { ... });
 
 // Runs once on mount (empty dependency array)
@@ -672,7 +672,7 @@ useEffect(() => {
       if (err.name !== 'AbortError') setError(err.message);
     });
 
-  // Cleanup â€” cancels the request if component unmounts or id changes
+  // Cleanup  cancels the request if component unmounts or id changes
   return () => controller.abort();
 }, [id]);
 ```
@@ -694,13 +694,13 @@ intervalId.current = setInterval(() => ..., 1000);
 #### useCallback and useMemo
 
 ```jsx
-// useCallback â€” memoize a function reference (use when passing to child components or deps arrays)
+// useCallback  memoize a function reference (use when passing to child components or deps arrays)
 const handleSubmit = useCallback((e: React.FormEvent) => {
   e.preventDefault();
   // ...
 }, [dependency]);
 
-// useMemo â€” memoize an expensive computation
+// useMemo  memoize an expensive computation
 const sortedUsers = useMemo(
   () => [...users].sort((a, b) => a.name.localeCompare(b.name)),
   [users]
@@ -765,7 +765,7 @@ function useTheme() {
 ### 2.2 Custom hooks pattern
 
 ```tsx
-// Reusable fetch hook â€” extracting async logic out of components
+// Reusable fetch hook  extracting async logic out of components
 function useFetch<T>(url: string) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
@@ -901,7 +901,7 @@ function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([]);
 
   async function toggleTodo(id: number) {
-    // 1. Optimistic update â€” instant feedback
+    // 1. Optimistic update  instant feedback
     setTodos((prev) =>
       prev.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo,
@@ -939,7 +939,7 @@ function TodoList() {
 }
 ```
 
-**Real-world use:** Chat apps, e-commerce carts, social media likes â€” anywhere instant feedback is critical.
+**Real-world use:** Chat apps, e-commerce carts, social media likes anywhere instant feedback is critical.
 
 #### Compound components pattern
 
@@ -992,7 +992,7 @@ function Option({
 
 Select.Option = Option;
 
-// Usage â€” clean API, no prop drilling
+// Usage  clean API, no prop drilling
 function App() {
   const [color, setColor] = useState("red");
   return (
@@ -1005,7 +1005,7 @@ function App() {
 }
 ```
 
-**Real-world use:** Tabs, Accordions, Dropdown menus â€” anywhere child components need shared state.
+**Real-world use:** Tabs, Accordions, Dropdown menus anywhere child components need shared state.
 
 #### Render props pattern
 
@@ -1030,7 +1030,7 @@ function MouseTracker({
   return <>{render(pos)}</>;
 }
 
-// Usage â€” parent controls what to render
+// Usage  parent controls what to render
 function App() {
   return (
     <MouseTracker
@@ -1086,7 +1086,7 @@ function Dashboard() {
   return <div>{/* render data */}</div>;
 }
 
-// Strategy 3: Sequential with dependency (waterfall â€” avoid if possible)
+// Strategy 3: Sequential with dependency (waterfall  avoid if possible)
 function PostWithComments({ postId }: { postId: number }) {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
@@ -1149,12 +1149,12 @@ function SearchUsers() {
 
 ### 2.5 References
 
-- [react.dev](https://react.dev) â€” "Describing the UI" and "Managing State" sections
-- [ui.dev React hooks](https://ui.dev/react-hooks) â€” visual hook lifecycle explanations
+- [react.dev](https://react.dev) "Describing the UI" and "Managing State" sections
+- [ui.dev React hooks](https://ui.dev/react-hooks) visual hook lifecycle explanations
 
 ---
 
-## Phase 3 â€” Responsive CSS & Layout
+## Phase 3 Responsive CSS & Layout
 
 ### 3.1 Flexbox cheat sheet
 
@@ -1261,7 +1261,7 @@ padding: clamp(1rem, 5vw, 3rem);
 
 ---
 
-## Phase 4 â€” REST APIs, Auth & Security
+## Phase 4 REST APIs, Auth & Security
 
 ### 4.1 REST API consumption patterns
 
@@ -1291,22 +1291,22 @@ await apiFetch<User>("/api/users", {
 });
 ```
 
-### 4.2 JWT â€” structure and storage
+### 4.2 JWT structure and storage
 
 **Structure:** `header.payload.signature`
 
 - **Header:** algorithm + token type (`{"alg":"HS256","typ":"JWT"}`)
-- **Payload:** claims â€” `sub` (user id), `exp` (expiry), `iat` (issued at), custom fields
+- **Payload:** claims `sub` (user id), `exp` (expiry), `iat` (issued at), custom fields
 - **Signature:** HMAC of header + payload using a secret key
 
 #### Storage tradeoffs
 
-| Location                              | XSS Risk | CSRF Risk | Notes                                         |
-| ------------------------------------- | -------- | --------- | --------------------------------------------- |
-| `localStorage`                        | High     | None      | JS can read it â€” avoid for sensitive tokens |
-| `sessionStorage`                      | High     | None      | Cleared on tab close, still readable by JS    |
-| `httpOnly` cookie                     | None     | Moderate  | Cannot be read by JS â€” safest option        |
-| `httpOnly` cookie + `SameSite=Strict` | None     | None      | Best practice                                 |
+| Location                              | XSS Risk | CSRF Risk | Notes                                      |
+| ------------------------------------- | -------- | --------- | ------------------------------------------ |
+| `localStorage`                        | High     | None      | JS can read it avoid for sensitive tokens  |
+| `sessionStorage`                      | High     | None      | Cleared on tab close, still readable by JS |
+| `httpOnly` cookie                     | None     | Moderate  | Cannot be read by JS safest option         |
+| `httpOnly` cookie + `SameSite=Strict` | None     | None      | Best practice                              |
 
 ```ts
 // Reading a JWT payload (client-side, no library needed)
@@ -1316,7 +1316,7 @@ function parseJwt(token: string) {
 }
 ```
 
-### 4.3 OAuth2 â€” Authorization Code Flow
+### 4.3 OAuth2 Authorization Code Flow
 
 **Overview:** OAuth2 lets users grant your app access to their data on another service (Google, GitHub, etc.) without sharing their password.
 
@@ -1333,7 +1333,7 @@ function parseJwt(token: string) {
 3. User authenticates and consents
 4. Google redirects back to: https://yourapp.com/callback?code=AUTH_CODE&state=RANDOM_STRING
 5. App server exchanges code for tokens (POST to token endpoint)
-   â€” This happens server-side to keep client_secret private
+    This happens server-side to keep client_secret private
 6. Server stores access_token and refresh_token securely
 7. App receives a session cookie (not the raw token)
 ```
@@ -1451,7 +1451,7 @@ async function refreshAccessToken(refreshToken: string) {
 | Not handling token expiry            | API calls fail after ~1 hour    | Refresh tokens before they expire           |
 | Using Implicit Flow for SPAs         | Deprecated, less secure         | Use Authorization Code + PKCE instead       |
 
-#### PKCE (Proof Key for Code Exchange) â€” for SPAs
+#### PKCE (Proof Key for Code Exchange) for SPAs
 
 **Problem:** Single-page apps can't securely store a `client_secret`.  
 **Solution:** PKCE uses a dynamically generated code verifier instead.
@@ -1496,12 +1496,12 @@ const tokenResponse = await fetch("https://provider.com/oauth/token", {
 
 **Key interview points:**
 
-- The `code` exchange happens **server-side** (or with PKCE for SPAs) â€” never expose `client_secret` to the browser.
+- The `code` exchange happens **server-side** (or with PKCE for SPAs) never expose `client_secret` to the browser.
 - Access tokens are short-lived (minutes to hours); refresh tokens are long-lived.
 - PKCE is now required for single-page apps per OAuth 2.1 spec.
 - Always validate `state` parameter to prevent CSRF attacks.
 
-### 4.4 Front-end security â€” OWASP
+### 4.4 Front-end security OWASP
 
 #### XSS (Cross-Site Scripting)
 
@@ -1593,7 +1593,7 @@ function SearchResults() {
 **FIXED:**
 
 ```tsx
-// React's JSX escapes by default â€” this is already safe:
+// React's JSX escapes by default  this is already safe:
 <h1>Results for: {query}</h1>;
 
 // For vanilla JS, manually escape:
@@ -1606,20 +1606,20 @@ function escapeHTML(str: string) {
 
 ##### XSS Mitigations (Defense in depth)
 
-1. **Never use `dangerouslySetInnerHTML` with user input** â€” always sanitize with DOMPurify if needed
-2. **Content-Security-Policy header** â€” blocks inline scripts, restricts script sources
+1. **Never use `dangerouslySetInnerHTML` with user input** always sanitize with DOMPurify if needed
+2. **Content-Security-Policy header** blocks inline scripts, restricts script sources
 
 ```http
 Content-Security-Policy: default-src 'self'; script-src 'self' https://trusted-cdn.com; object-src 'none'
 ```
 
-3. **HttpOnly cookies** â€” prevents JS from reading session tokens
+3. **HttpOnly cookies** prevents JS from reading session tokens
 
 ```http
 Set-Cookie: session=abc; HttpOnly; Secure; SameSite=Strict
 ```
 
-4. **Escape user input** â€” React does this by default; vanilla JS requires manual escaping
+4. **Escape user input** React does this by default; vanilla JS requires manual escaping
 
 #### CSRF (Cross-Site Request Forgery)
 
@@ -1661,8 +1661,8 @@ Set-Cookie: session=abc; HttpOnly; Secure; SameSite=Strict
 Set-Cookie: session=abc; HttpOnly; Secure; SameSite=Strict
 ```
 
-- `SameSite=Strict` â€” cookie never sent on cross-origin requests (safest)
-- `SameSite=Lax` â€” cookie sent on top-level navigations (GET only), not on POST/PUT/DELETE
+- `SameSite=Strict` cookie never sent on cross-origin requests (safest)
+- `SameSite=Lax` cookie sent on top-level navigations (GET only), not on POST/PUT/DELETE
 
 **2. CSRF tokens (required for older browser support)**
 
@@ -1728,19 +1728,19 @@ Content-Security-Policy: frame-ancestors 'none'
 Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict; Path=/
 ```
 
-- `HttpOnly` â€” JS cannot read the cookie
-- `Secure` â€” only sent over HTTPS
-- `SameSite=Strict` â€” not sent on cross-origin requests at all
+- `HttpOnly` JS cannot read the cookie
+- `Secure` only sent over HTTPS
+- `SameSite=Strict` not sent on cross-origin requests at all
 
 ### 4.5 References
 
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - [jwt.io Introduction](https://jwt.io/introduction)
-- [OAuth 2.0 Simplified](https://www.oauth.com) â€” Authorization Code chapter
+- [OAuth 2.0 Simplified](https://www.oauth.com) Authorization Code chapter
 
 ---
 
-## Phase 5 â€” Web Performance & Core Web Vitals
+## Phase 5 Web Performance & Core Web Vitals
 
 ### 5.1 Core Web Vitals
 
@@ -1873,7 +1873,7 @@ body {
 ### 5.2 Code splitting
 
 ```tsx
-// React.lazy + Suspense â€” only loads Dashboard when route is accessed
+// React.lazy + Suspense  only loads Dashboard when route is accessed
 const Dashboard = React.lazy(() => import("./Dashboard"));
 
 function App() {
@@ -1891,12 +1891,12 @@ function App() {
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-// Route-level splitting â€” each route is a separate bundle
+// Route-level splitting  each route is a separate bundle
 const Home = lazy(() => import("./pages/Home"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Profile = lazy(() => import("./pages/Profile"));
 
-// Component-level splitting â€” heavy components load on demand
+// Component-level splitting  heavy components load on demand
 const HeavyChart = lazy(() => import("./components/HeavyChart"));
 
 function App() {
@@ -1936,23 +1936,23 @@ function Dashboard() {
 ### 5.3 Caching headers
 
 ```http
-# Static assets â€” cache aggressively, filename includes content hash
+# Static assets  cache aggressively, filename includes content hash
 Cache-Control: public, max-age=31536000, immutable
 
-# HTML â€” always revalidate
+# HTML  always revalidate
 Cache-Control: no-cache
 ETag: "abc123"
 ```
 
 #### Caching strategy comparison
 
-| Resource type                       | Cache-Control                              | Why                                                         |
-| ----------------------------------- | ------------------------------------------ | ----------------------------------------------------------- |
-| JS/CSS with hash (`main.a1b2c3.js`) | `public, max-age=31536000, immutable`      | Hash changes when content changes â€” safe to cache forever |
-| Images, fonts                       | `public, max-age=2592000` (30 days)        | Rarely change, but no hash in filename                      |
-| HTML                                | `no-cache` or `max-age=0, must-revalidate` | Always check server for updates                             |
-| API responses (user data)           | `no-store`                                 | Never cache sensitive data                                  |
-| API responses (public data)         | `public, max-age=300` (5 min)              | Cache briefly to reduce server load                         |
+| Resource type                       | Cache-Control                              | Why                                                     |
+| ----------------------------------- | ------------------------------------------ | ------------------------------------------------------- |
+| JS/CSS with hash (`main.a1b2c3.js`) | `public, max-age=31536000, immutable`      | Hash changes when content changes safe to cache forever |
+| Images, fonts                       | `public, max-age=2592000` (30 days)        | Rarely change, but no hash in filename                  |
+| HTML                                | `no-cache` or `max-age=0, must-revalidate` | Always check server for updates                         |
+| API responses (user data)           | `no-store`                                 | Never cache sensitive data                              |
+| API responses (public data)         | `public, max-age=300` (5 min)              | Cache briefly to reduce server load                     |
 
 ```ts
 // Backend: Set cache headers (Express example)
@@ -1984,7 +1984,7 @@ Memory leaks cause increasing memory usage over time, leading to slow performanc
 #### Leak 1: Uncleared intervals/timeouts
 
 ```tsx
-// LEAK â€” setInterval keeps running after component unmounts
+// LEAK  setInterval keeps running after component unmounts
 function BadTimer() {
   useEffect(() => {
     const id = setInterval(() => console.log("tick"), 1000);
@@ -2034,7 +2034,7 @@ function GoodResizeHandler() {
 #### Leak 3: Stale closures in event handlers
 
 ```tsx
-// LEAK â€” closure captures old state value
+// LEAK  closure captures old state value
 function BadCounter() {
   const [count, setCount] = useState(0);
 
@@ -2043,12 +2043,12 @@ function BadCounter() {
       setCount(count + 1); // Always adds to the initial count (0)
     }, 1000);
     return () => clearInterval(id);
-  }, []); // Empty deps â€” count is stale
+  }, []); // Empty deps  count is stale
 
   return <div>{count}</div>; // Stuck at 1
 }
 
-// FIXED â€” use functional update
+// FIXED  use functional update
 function GoodCounter() {
   const [count, setCount] = useState(0);
 
@@ -2066,7 +2066,7 @@ function GoodCounter() {
 #### Leak 4: Fetch requests not cancelled
 
 ```tsx
-// LEAK â€” fetch completes after unmount, tries to update state
+// LEAK  fetch completes after unmount, tries to update state
 function BadUserProfile({ userId }: { userId: number }) {
   const [user, setUser] = useState(null);
 
@@ -2079,7 +2079,7 @@ function BadUserProfile({ userId }: { userId: number }) {
   return <div>{user?.name}</div>;
 }
 
-// FIXED â€” abort controller
+// FIXED  abort controller
 function GoodUserProfile({ userId }: { userId: number }) {
   const [user, setUser] = useState(null);
 
@@ -2122,9 +2122,9 @@ function GoodUserProfile({ userId }: { userId: number }) {
 
 ---
 
-## Phase 6 â€” Testing
+## Phase 6 Testing
 
-### 6.1 Jest â€” unit testing
+### 6.1 Jest unit testing
 
 ```ts
 // sum.ts
@@ -2161,7 +2161,7 @@ expect(mockFn).toHaveBeenCalledWith("arg");
 expect(mockFn).toHaveBeenCalledTimes(1);
 ```
 
-### 6.2 React Testing Library â€” component testing
+### 6.2 React Testing Library component testing
 
 ```tsx
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
@@ -2208,7 +2208,7 @@ describe("LoginForm", () => {
 
 ---
 
-## Phase 7 â€” CI/CD & Git (Conceptual)
+## Phase 7 CI/CD & Git (Conceptual)
 
 ### 7.1 Git workflows
 
@@ -2227,8 +2227,8 @@ git rebase origin/main
 
 #### Merge vs rebase
 
-- **Merge** â€” preserves full history, adds a merge commit. Easier to understand for teams.
-- **Rebase** â€” rewrites history to be linear. Cleaner log but rewrites commits (never rebase shared branches).
+- **Merge** preserves full history, adds a merge commit. Easier to understand for teams.
+- **Rebase** rewrites history to be linear. Cleaner log but rewrites commits (never rebase shared branches).
 
 ### 7.2 CI/CD pipeline stages
 
@@ -2245,7 +2245,7 @@ stages:
 
 **Key points:**
 
-- `npm ci` (not `npm install`) in CI â€” uses exact lockfile versions, fails if lock is out of sync
+- `npm ci` (not `npm install`) in CI uses exact lockfile versions, fails if lock is out of sync
 - Environment variables injected by the CI system, never committed to repo
 - `.env.local` for local dev, `.env.production` for build-time values
 
@@ -2260,9 +2260,9 @@ stages:
 
 ---
 
-## Phase 8 â€” Frontend System Design for IC Interviews
+## Phase 8 Frontend System Design for IC Interviews
 
-**Why this matters:** Physical interviews for senior IC roles test your ability to architect solutions, make trade-offs, and communicate technical decisions â€” not just write algorithms.
+**Why this matters:** Physical interviews for senior IC roles test your ability to architect solutions, make trade-offs, and communicate technical decisions not just write algorithms.
 
 ---
 
@@ -2272,35 +2272,35 @@ stages:
 
 #### Before you write a single line
 
-1. **Restate the problem** in your own words â€” "So you want me to build a search autocomplete that fetches from an API and handles keyboard navigation, correct?"
-2. **Clarify scope** â€” "Should I handle edge cases like network failures and empty results?" (Always ask, don't assume)
-3. **Discuss approach first** â€” "I'm thinking of using a debounced effect to avoid spamming the API. Does that sound reasonable?"
-4. **Ask about constraints** â€” "Can I use any library, or vanilla JS only?" "What level of TypeScript strictness?"
+1. **Restate the problem** in your own words "So you want me to build a search autocomplete that fetches from an API and handles keyboard navigation, correct?"
+2. **Clarify scope** "Should I handle edge cases like network failures and empty results?" (Always ask, don't assume)
+3. **Discuss approach first** "I'm thinking of using a debounced effect to avoid spamming the API. Does that sound reasonable?"
+4. **Ask about constraints** "Can I use any library, or vanilla JS only?" "What level of TypeScript strictness?"
 
 #### While coding on the whiteboard
 
-- **Narrate constantly** â€” "I'm creating a ref here to track the abort controller so we can cancel in-flight requests..."
-- **Write function signatures first** â€” types, parameters, return value. Fill in the body after.
-- **Use comments as scaffolding** â€” write `// fetch results`, `// handle keyboard`, then implement each
+- **Narrate constantly** "I'm creating a ref here to track the abort controller so we can cancel in-flight requests..."
+- **Write function signatures first** types, parameters, return value. Fill in the body after.
+- **Use comments as scaffolding** write `// fetch results`, `// handle keyboard`, then implement each
 - **Syntax shortcuts interviewers accept:**
   - Arrow functions without explicit `return` for one-liners: `const double = x => x * 2`
   - Omitting semicolons (pick one style and be consistent)
   - Pseudo-imports: "assume I've imported `debounce` from lodash"
   - Inline types: `data: Array<SearchResult>` instead of defining a separate interface if it's obvious
-- **Leave space** â€” write on every other line so you can insert missed logic without squeezing
+- **Leave space** write on every other line so you can insert missed logic without squeezing
 
 #### If you get stuck
 
-- **Talk through it** â€” "I know I need to prevent race conditions here... I think I can use an abort controller, let me sketch that out"
-- **Ask for hints** â€” "I'm blanking on the exact API for Intersection Observer â€” can I assume it exists and move on?"
-- **Simplify first, optimize later** â€” "Let me get the basic version working, then we can discuss caching"
+- **Talk through it** "I know I need to prevent race conditions here... I think I can use an abort controller, let me sketch that out"
+- **Ask for hints** "I'm blanking on the exact API for Intersection Observer can I assume it exists and move on?"
+- **Simplify first, optimize later** "Let me get the basic version working, then we can discuss caching"
 
 #### What NOT to do
 
 - âŒ Go silent for 2+ minutes while writing
 - âŒ Erase and restart from scratch (iterative refinement is fine, total rewrites signal poor planning)
-- âŒ Say "I don't know" and stop â€” say "I don't know X, but here's how I'd approach it..."
-- âŒ Ignore edge cases completely â€” at least acknowledge them ("I should validate input here but skipping for brevity")
+- âŒ Say "I don't know" and stop say "I don't know X, but here's how I'd approach it..."
+- âŒ Ignore edge cases completely at least acknowledge them ("I should validate input here but skipping for brevity")
 
 ---
 
@@ -2355,10 +2355,10 @@ App
 
 List out:
 
-- **UI state** â€” loading, error, empty, success
-- **Domain data** â€” the actual content (posts, users, products)
-- **Form state** (if applicable) â€” input values, validation errors, touched fields
-- **Derived state** â€” anything computed from other state (don't store in state if you can compute it)
+- **UI state** loading, error, empty, success
+- **Domain data** the actual content (posts, users, products)
+- **Form state** (if applicable) input values, validation errors, touched fields
+- **Derived state** anything computed from other state (don't store in state if you can compute it)
 
 **Example for autocomplete:**
 
@@ -2603,8 +2603,8 @@ function AutocompleteSearch() {
 
 **Performance Considerations:**
 
-- âœ… Debounced at 300ms â€” avoids spamming API on every keystroke
-- âœ… `AbortController` cancels in-flight requests â€” prevents race conditions
+- âœ… Debounced at 300ms avoids spamming API on every keystroke
+- âœ… `AbortController` cancels in-flight requests prevents race conditions
 - âœ… Memoization not needed here (no expensive computations)
 - âš ï¸ Could add caching with a `Map<query, results>` if users frequently backspace
 
@@ -2618,13 +2618,13 @@ function AutocompleteSearch() {
 **Common Interview Questions:**
 
 > Q: "What if the user types very fast and the API is slow? Could they see results for 'a' after they've typed 'abc'?"  
-> A: "Yes, that's a race condition. I handle it with `AbortController` â€” when a new request starts, I cancel the previous one. The `signal` in `fetch()` ensures stale responses are ignored."
+> A: "Yes, that's a race condition. I handle it with `AbortController` when a new request starts, I cancel the previous one. The `signal` in `fetch()` ensures stale responses are ignored."
 
 > Q: "How would you add caching?"  
 > A: "I'd use a `useRef` to store a `Map<string, Suggestion[]>`. Before fetching, check if `query` is in the cache. If yes, return cached results immediately. If no, fetch and store in cache. Add a TTL or max size to avoid memory bloat."
 
 > Q: "Why `setTimeout` in the effect instead of a debounce utility?"  
-> A: "Good question â€” I could use lodash's `debounce`, but implementing it inline shows I understand the mechanism. In production, I'd use a proven library to avoid edge-case bugs."
+> A: "Good question I could use lodash's `debounce`, but implementing it inline shows I understand the mechanism. In production, I'd use a proven library to avoid edge-case bugs."
 
 ---
 
@@ -2639,7 +2639,7 @@ Design a social media feed with infinite scroll. When the user reaches the botto
 > Interviewer: "20 posts per page."
 >
 > You: "Should I use offset-based or cursor-based pagination?"  
-> Interviewer: "Cursor-based â€” the API returns a `nextCursor` token."
+> Interviewer: "Cursor-based the API returns a `nextCursor` token."
 >
 > You: "Do I need virtualization for performance?"  
 > Interviewer: "Not required, but mention when you'd add it."
@@ -2786,7 +2786,7 @@ function InfiniteFeed() {
 **Performance Considerations:**
 
 - âœ… Intersection Observer triggers fetch when sentinel is visible (native, efficient)
-- âš ï¸ No virtualization â€” fine for <500 posts, but at 1000+ posts, consider `react-window`
+- âš ï¸ No virtualization fine for <500 posts, but at 1000+ posts, consider `react-window`
 - âœ… Cursor-based pagination avoids "page drift" (new posts shifting offset indices)
 
 **Optimistic Update Pattern:**
@@ -2804,7 +2804,7 @@ function InfiniteFeed() {
 > A: "When the DOM has >100 items rendered. Each DOM node has memory cost. Virtualization renders only visible items + a buffer. I'd use `react-window` or `react-virtualized`."
 
 > Q: "What's the downside of cursor-based pagination?"  
-> A: "You can't jump to page 5 directly â€” you have to load pages 1â€“4 first. For 'load more' UX that's fine, but for traditional page numbers, offset-based is better."
+> A: "You can't jump to page 5 directly you have to load pages 1â€“4 first. For 'load more' UX that's fine, but for traditional page numbers, offset-based is better."
 
 ---
 
@@ -3195,10 +3195,10 @@ function FormWizard() {
 
 **State Management Trade-offs:**
 
-- **Local state (useState)** â€” simple, no boilerplate. Good for this case.
-- **URL params** â€” shareable links, but leaks sensitive data (credit card) in URL. Not suitable here.
-- **Context** â€” useful if wizard is deeply nested; overkill for flat structure.
-- **Redux/Zustand** â€” only if form state needs to be shared across many routes.
+- **Local state (useState)** simple, no boilerplate. Good for this case.
+- **URL params** shareable links, but leaks sensitive data (credit card) in URL. Not suitable here.
+- **Context** useful if wizard is deeply nested; overkill for flat structure.
+- **Redux/Zustand** only if form state needs to be shared across many routes.
 
 **Common Interview Questions:**
 
@@ -3209,7 +3209,7 @@ function FormWizard() {
 > A: "localStorage is shared across tabs, so changes in one tab overwrite the other. To sync, listen to the `storage` event and reload form data when another tab updates it. Or use a tab-specific key like `${STORAGE_KEY}-${tabId}`."
 
 > Q: "How do you handle async validation (e.g., check if email exists in DB)?"  
-> A: "Trigger async validation on-blur. Show a loading spinner while checking. If it fails (email taken), set error state. Don't block Next button â€” just show the error and let user fix it."
+> A: "Trigger async validation on-blur. Show a loading spinner while checking. If it fails (email taken), set error state. Don't block Next button just show the error and let user fix it."
 
 ---
 
@@ -3221,10 +3221,10 @@ Design an image gallery that displays 100+ images. Lazy-load images as they scro
 **Requirements Clarification:**
 
 > You: "Should I use native lazy loading or Intersection Observer?"  
-> Interviewer: "Intersection Observer â€” assume some users are on older browsers without native support."
+> Interviewer: "Intersection Observer assume some users are on older browsers without native support."
 >
 > You: "How should filters work? Client-side or fetch from API?"  
-> Interviewer: "Client-side filtering â€” all images are fetched once on mount."
+> Interviewer: "Client-side filtering all images are fetched once on mount."
 
 **Component Tree:**
 
@@ -3385,8 +3385,8 @@ function Skeleton() {
 
 **Skeleton Screen vs Spinner:**
 
-- **Skeleton** â€” better UX for known layout (image cards)
-- **Spinner** â€” better for unknown content size (modal loading)
+- **Skeleton** better UX for known layout (image cards)
+- **Spinner** better for unknown content size (modal loading)
 
 **Common Interview Questions:**
 
@@ -3419,17 +3419,17 @@ For **each** of the 5 examples above, be ready to discuss these trade-offs:
 
 #### What breaks at scale?
 
-- **Autocomplete** â€” If API is slow (>500ms), debounce isn't enough. Add caching or switch to a client-side search index (Fuse.js).
-- **Infinite scroll** â€” At 10,000+ items in DOM, scroll becomes janky. Add virtualization.
-- **WebSocket** â€” If server sends 100 messages/sec, React re-renders too often. Throttle state updates or batch them.
-- **Form wizard** â€” If form has 50 fields, validation on every keystroke is slow. Validate on-blur only.
-- **Image gallery** â€” If images are huge (5MB each), lazy loading delays are long. Use responsive images (`srcset`) and WebP format.
+- **Autocomplete** If API is slow (>500ms), debounce isn't enough. Add caching or switch to a client-side search index (Fuse.js).
+- **Infinite scroll** At 10,000+ items in DOM, scroll becomes janky. Add virtualization.
+- **WebSocket** If server sends 100 messages/sec, React re-renders too often. Throttle state updates or batch them.
+- **Form wizard** If form has 50 fields, validation on every keystroke is slow. Validate on-blur only.
+- **Image gallery** If images are huge (5MB each), lazy loading delays are long. Use responsive images (`srcset`) and WebP format.
 
 #### How to test this?
 
-- **Unit tests** â€” Test pure functions: validation, formatting, data transformations
-- **Integration tests** â€” Test component with mocked API (React Testing Library + MSW)
-- **E2E tests** â€” Test full user flow (Cypress, Playwright)
+- **Unit tests** Test pure functions: validation, formatting, data transformations
+- **Integration tests** Test component with mocked API (React Testing Library + MSW)
+- **E2E tests** Test full user flow (Cypress, Playwright)
 
 Example for autocomplete:
 
@@ -3489,7 +3489,7 @@ const expensiveResult = useMemo(() => {
 }, [hugeArray]);
 ```
 
-**Rule:** Profile first, optimize second. `useMemo`/`useCallback` add overhead â€” only use when re-renders are measurably slow.
+**Rule:** Profile first, optimize second. `useMemo`/`useCallback` add overhead only use when re-renders are measurably slow.
 
 ---
 
@@ -3583,22 +3583,22 @@ return <div>{data.map(...)}</div>;
 
 Common edge cases to always check:
 
-- **Empty arrays** â€” `data.length === 0` â†’ show empty state
-- **Null/undefined** â€” `user?.name` or `user ? user.name : 'Guest'`
-- **Network failures** â€” always wrap `fetch` in try/catch
-- **Race conditions** â€” use `AbortController` or ignore stale responses
-- **Extremely long strings** â€” truncate or use `text-overflow: ellipsis`
-- **Zero values** â€” `0` is falsy in JS, check explicitly: `value !== undefined`
+- **Empty arrays** `data.length === 0` â†’ show empty state
+- **Null/undefined** `user?.name` or `user ? user.name : 'Guest'`
+- **Network failures** always wrap `fetch` in try/catch
+- **Race conditions** use `AbortController` or ignore stale responses
+- **Extremely long strings** truncate or use `text-overflow: ellipsis`
+- **Zero values** `0` is falsy in JS, check explicitly: `value !== undefined`
 
 ---
 
 ### Summary: How to Approach Any System Design Question
 
-1. **Clarify requirements** (functional + non-functional) â€” 2 min
-2. **Sketch component tree** â€” 3 min
-3. **Define state & data flow** â€” 5 min
-4. **Discuss performance & a11y** â€” 3 min
-5. **Mention testing strategy** â€” 2 min
+1. **Clarify requirements** (functional + non-functional) 2 min
+2. **Sketch component tree** 3 min
+3. **Define state & data flow** 5 min
+4. **Discuss performance & a11y** 3 min
+5. **Mention testing strategy** 2 min
 
 **Total: 15 minutes of structured discussion before writing a single line of code.**
 
@@ -3611,11 +3611,11 @@ Then code the critical pieces (state management, API call, main component) on th
 - Communicate clearly under pressure
 - Anticipate edge cases and scale issues
 
-Syntax perfection doesn't matter â€” clear thinking does.
+Syntax perfection doesn't matter clear thinking does.
 
 ---
 
-## Phase 9 â€” Behavioral Interview (STAR Method)
+## Phase 9 Behavioral Interview (STAR Method)
 
 **Why this matters:** Technical skills get you to the interview. Behavioral answers determine if they want to work with you. For IC roles, interviewers assess: ownership, collaboration, handling failure, and adaptability.
 
@@ -3629,25 +3629,25 @@ This structure keeps answers concise, focused, and measurable.
 
 #### What Each Letter Means
 
-**S â€” Situation (15 seconds)**  
+**S Situation (15 seconds)**  
 Set the context. Where were you? What was the challenge?
 
 - âœ… Good: "I was working on an e-commerce checkout flow at Company X. The API was taking 3â€“5 seconds to respond, causing 15% cart abandonment."
 - âŒ Bad: "We had a slow API."
 
-**T â€” Task (15 seconds)**  
+**T Task (15 seconds)**  
 What was your specific responsibility? What goal were you trying to achieve?
 
 - âœ… Good: "My task was to reduce checkout latency below 1 second while maintaining data accuracy."
 - âŒ Bad: "We needed to make it faster." (Too vague, no ownership)
 
-**A â€” Action (60 seconds)**  
-What did **you** do? (Not "we" â€” use "I") Be specific about your contributions.
+**A Action (60 seconds)**  
+What did **you** do? (Not "we" use "I") Be specific about your contributions.
 
-- âœ… Good: "I profiled the API with Chrome DevTools and found the bottleneck was a database query with no index. I worked with the backend engineer to add an index on `user_id`. On the frontend, I implemented optimistic UI updates â€” showing a spinner but immediately moving to the confirmation screen. I also added request caching with React Query so repeat checkouts didn't re-fetch."
+- âœ… Good: "I profiled the API with Chrome DevTools and found the bottleneck was a database query with no index. I worked with the backend engineer to add an index on `user_id`. On the frontend, I implemented optimistic UI updates showing a spinner but immediately moving to the confirmation screen. I also added request caching with React Query so repeat checkouts didn't re-fetch."
 - âŒ Bad: "We optimized the database and frontend." (No specifics, unclear who did what)
 
-**R â€” Result (30 seconds)**  
+**R Result (30 seconds)**  
 What was the measurable outcome? Use numbers.
 
 - âœ… Good: "Checkout latency dropped from 4s to 800ms. Cart abandonment decreased from 15% to 8%. The CEO mentioned it in the next all-hands as a major UX win."
@@ -3667,7 +3667,7 @@ What was the measurable outcome? Use numbers.
 
 **Why bad:**
 
-- "We" not "I" â€” unclear what you did
+- "We" not "I" unclear what you did
 - No context (what page? how slow?)
 - No specific actions (what refactoring?)
 - No measurable result (how much faster?)
@@ -3931,13 +3931,13 @@ Example: "A banking client wanted real-time transaction updates, but their legac
 
 You can reuse the same story for multiple questions if you frame it differently.
 
-| Category                    | Project Name         | S (Situation - 15s)                   | T (Task - 15s)             | A (Action - 60s)        | R (Result - 30s)      |
-| --------------------------- | -------------------- | ------------------------------------- | -------------------------- | ----------------------- | --------------------- |
-| **Technical Conflict**      | ******\_\_\_\_****** | Brief context of disagreement         | Your goal                  | What you did to resolve | Measurable outcome    |
-| **Ownership & Initiative**  | ******\_\_\_\_****** | Problem you identified                | What you decided to do     | How you drove it        | Impact (metrics)      |
-| **Handling Failure**        | ******\_\_\_\_****** | What went wrong                       | Your responsibility        | How you fixed + learned | Recovery + prevention |
-| **Cross-Functional Collab** | ******\_\_\_\_****** | Who you worked with, what was unclear | What you needed to achieve | How you collaborated    | Outcome for project   |
-| **Adapting to Change**      | ******\_\_\_\_****** | What changed mid-project              | Challenge this created     | How you adapted         | Final result          |
+| Category                    | Project Name             | S (Situation - 15s)                   | T (Task - 15s)             | A (Action - 60s)        | R (Result - 30s)      |
+| --------------------------- | ------------------------ | ------------------------------------- | -------------------------- | ----------------------- | --------------------- |
+| **Technical Conflict**      | **\*\***\_\_\_\_**\*\*** | Brief context of disagreement         | Your goal                  | What you did to resolve | Measurable outcome    |
+| **Ownership & Initiative**  | **\*\***\_\_\_\_**\*\*** | Problem you identified                | What you decided to do     | How you drove it        | Impact (metrics)      |
+| **Handling Failure**        | **\*\***\_\_\_\_**\*\*** | What went wrong                       | Your responsibility        | How you fixed + learned | Recovery + prevention |
+| **Cross-Functional Collab** | **\*\***\_\_\_\_**\*\*** | Who you worked with, what was unclear | What you needed to achieve | How you collaborated    | Outcome for project   |
+| **Adapting to Change**      | **\*\***\_\_\_\_**\*\*** | What changed mid-project              | Challenge this created     | How you adapted         | Final result          |
 
 **Example filled row (Technical Conflict):**
 
@@ -3948,9 +3948,9 @@ You can reuse the same story for multiple questions if you frame it differently.
 **Tips:**
 
 - âœ… Use bullet points when filling this out (you'll expand to full sentences during the interview)
-- âœ… Rehearse each story out loud â€” aim for 2 minutes max
-- âœ… Have backup stories â€” if one doesn't fit the question, pivot to another
-- âŒ Don't memorize word-for-word (sounds robotic) â€” remember structure and key points
+- âœ… Rehearse each story out loud aim for 2 minutes max
+- âœ… Have backup stories if one doesn't fit the question, pivot to another
+- âŒ Don't memorize word-for-word (sounds robotic) remember structure and key points
 
 ---
 
@@ -4083,7 +4083,7 @@ Prepare 5â€“7 questions. Pick 2â€“3 based on how the interview went.
 7. **"How do you handle production incidents? Is there an on-call rotation, or does the person who wrote the code fix it?"**  
    _Why ask:_ Reveals work-life balance and ownership culture.
 
-8. **"What tools do you use for project management? I saw you use Jira â€” how structured are your sprints?"**  
+8. **"What tools do you use for project management? I saw you use Jira how structured are your sprints?"**  
    _Why ask:_ AEON mentions Jira and Scrum; this tests how rigidly they follow Agile.
 
 ---
@@ -4119,10 +4119,10 @@ Prepare 5â€“7 questions. Pick 2â€“3 based on how the interview went.
 Before June 9th:
 
 - [ ] Fill out the Story Bank Worksheet (9.3) with 5 real stories
-- [ ] Rehearse each story out loud â€” aim for 2 minutes max
+- [ ] Rehearse each story out loud aim for 2 minutes max
 - [ ] Identify 1 backup story per category (in case they ask multiple questions in one area)
 - [ ] Print or memorize 5â€“7 questions to ask the interviewer (9.5)
-- [ ] Practice the "reframing blame" skill â€” take a past frustration and rephrase it neutrally
+- [ ] Practice the "reframing blame" skill take a past frustration and rephrase it neutrally
 - [ ] Review AEON360's methodology (Cadrage â†’ Conception â†’ DÃ©veloppement â†’ Livraison) so you can reference it naturally
 
 **Day before interview:**
@@ -4133,7 +4133,7 @@ Before June 9th:
 
 **During interview:**
 
-- Listen carefully to the question â€” answer what they asked, not what you prepared
+- Listen carefully to the question answer what they asked, not what you prepared
 - If a question doesn't fit your prepared stories, say: "Let me think of a good example..." (10 seconds of silence is okay)
 - If you blank on a story, pivot: "I don't have a perfect example for that, but here's a related situation where [close enough]"
 
@@ -4141,15 +4141,15 @@ You're ready. Trust your prep.
 
 ---
 
-## Phase 10 â€” 5-Day Study Plan (June 4â€“9, 2026)
+## Phase 10 5-Day Study Plan (June 9, 2026)
 
-**Your goal:** Be interview-ready by Monday, June 9th. This plan balances system design, behavioral prep, and reinforcing your technical foundation â€” without burning out.
+**Your goal:** Be interview-ready by Monday, June 9th. This plan balances system design, behavioral prep, and reinforcing your technical foundation without burning out.
 
 **Daily time budget:** 2â€“3 hours (adjust if you have more/less availability)
 
 ---
 
-### June 4 (Wednesday) â€” System Design Foundations
+### June 4 (Wednesday) System Design Foundations
 
 **Morning (60 min)**
 
@@ -4160,7 +4160,7 @@ You're ready. Trust your prep.
   3. Define state & data flow
   4. Performance & accessibility
   5. Testing & edge cases
-- [ ] Keep this paper with you â€” use it as a reference for the next 5 days
+- [ ] Keep this paper with you use it as a reference for the next 5 days
 
 **Afternoon (75 min)**
 
@@ -4188,7 +4188,7 @@ You're ready. Trust your prep.
 
 ---
 
-### June 5 (Thursday) â€” Advanced System Design + Security/Performance Refresh
+### June 5 (Thursday) Advanced System Design + Security/Performance Refresh
 
 **Morning (90 min)**
 
@@ -4212,7 +4212,7 @@ You're ready. Trust your prep.
   - Refresh OAuth2 + PKCE flow (can you draw it in 2 minutes?)
   - Refresh XSS vs CSRF (one-sentence definition + mitigation for each)
 - [ ] Review **Phase 5: Performance** (existing content)
-  - Refresh Core Web Vitals (LCP, FID, CLS â€” what does each measure?)
+  - Refresh Core Web Vitals (LCP, FID, CLS what does each measure?)
   - Refresh code splitting, lazy loading, caching strategies
 
 **Evening (30 min)**
@@ -4221,7 +4221,7 @@ You're ready. Trust your prep.
   - Pick 3 trade-offs and practice answering out loud:
     - "When would you use useState vs Context?"
     - "When does infinite scroll need virtualization?"
-    - "Debounce vs throttle â€” when to use each?"
+    - "Debounce vs throttle when to use each?"
 
 **Checkpoint:**  
 âœ… Can you explain the WebSocket reconnection strategy (exponential backoff, fallback to polling)?  
@@ -4230,7 +4230,7 @@ You're ready. Trust your prep.
 
 ---
 
-### June 6 (Friday) â€” System Design Wrap-Up + Behavioral Prep Kickoff
+### June 6 (Friday) System Design Wrap-Up + Behavioral Prep Kickoff
 
 **Morning (60 min)**
 
@@ -4270,7 +4270,7 @@ You're ready. Trust your prep.
 
 ---
 
-### June 7 (Saturday) â€” Behavioral Rehearsal + Whiteboard Drills
+### June 7 (Saturday) Behavioral Rehearsal + Whiteboard Drills
 
 **Morning (90 min)**
 
@@ -4280,13 +4280,13 @@ You're ready. Trust your prep.
   - Speak clearly, don't rush
   - If you go over 2 minutes, note where you rambled and trim it
 - [ ] Record yourself (phone voice memo) for 2 stories (30 min)
-  - Listen back â€” do you sound confident?
+  - Listen back do you sound confident?
   - Check for filler words ("um," "like," "you know")
-  - Check for "we" vs "I" â€” rephrase to emphasize your ownership
+  - Check for "we" vs "I" rephrase to emphasize your ownership
 
 **Afternoon (75 min)**
 
-- [ ] Whiteboard practice â€” **2 random system design examples** (60 min)
+- [ ] Whiteboard practice **2 random system design examples** (60 min)
   - Close the guide
   - Pick 2 examples at random (use a dice roll or random.org):
     1. Autocomplete
@@ -4306,14 +4306,14 @@ You're ready. Trust your prep.
 **Evening (45 min)**
 
 - [ ] Review **Non-Negotiables Checklist** (existing section in guide)
-  - Go through each item â€” can you answer/code all of them?
+  - Go through each item can you answer/code all of them?
   - Drill any you're shaky on:
     - Event delegation
     - `useEffect` cleanup
     - `useCallback` vs unnecessary overhead
     - JWT storage tradeoffs
     - XSS vs CSRF
-- [ ] Read **Quick Reference â€” Trick Questions** table (existing section)
+- [ ] Read **Quick Reference Trick Questions** table (existing section)
   - Memorize the tricky ones (`typeof null`, `0.1 + 0.2 === 0.3`, etc.)
 
 **Checkpoint:**  
@@ -4323,9 +4323,9 @@ You're ready. Trust your prep.
 
 ---
 
-### June 8 (Sunday) â€” Final Review + Rest
+### June 8 (Sunday) Final Review + Rest
 
-**Morning (90 min max â€” then STOP studying)**
+**Morning (90 min max then STOP studying)**
 
 - [ ] **Skim all 5 system design examples** (30 min)
   - Don't re-read in full
@@ -4337,7 +4337,7 @@ You're ready. Trust your prep.
 - [ ] **Skim Section 8.1 (Whiteboard Coding Tips)** again (10 min)
   - Refresh: narrate constantly, write function signatures first, leave space for edits
 - [ ] **Glance at your Story Bank Worksheet bullet points** (10 min)
-  - Don't rehearse full stories â€” just refresh the key points (S, T, A, R)
+  - Don't rehearse full stories just refresh the key points (S, T, A, R)
 - [ ] **Review Phase 2 (React)** if you have time (25 min)
   - Refresh: compound components, render props, `useCallback`/`useMemo` tradeoffs
   - These often come up in technical discussions during behavioral rounds
@@ -4348,7 +4348,7 @@ You're ready. Trust your prep.
   - Walk, exercise, watch a movie, cook, hang out with friends/family
   - Your brain needs rest to consolidate what you've learned
 - [ ] Prepare logistics:
-  - Lay out clothes for tomorrow (dress one level above casual â€” business casual is safe)
+  - Lay out clothes for tomorrow (dress one level above casual business casual is safe)
   - Check interview location/time (set 2 alarms)
   - Print a copy of the guide if you want it for last-minute review tomorrow morning (optional)
   - Charge your phone/laptop if it's a virtual interview
@@ -4364,7 +4364,7 @@ You're ready. Trust your prep.
 
 ---
 
-### June 9 (Monday) â€” Interview Day
+### June 9 (Monday) Interview Day
 
 **Morning (before interview)**
 
@@ -4405,7 +4405,7 @@ You're ready. Trust your prep.
 - [ ] **If you get stuck:**
   - Say: "Let me think out loud for a moment..."
   - Walk through the problem step by step
-  - Ask for a hint if needed ("I'm blanking on the Intersection Observer API â€” can I assume it exists and move on?")
+  - Ask for a hint if needed ("I'm blanking on the Intersection Observer API can I assume it exists and move on?")
 
 **Behavioral Round:**
 
@@ -4420,14 +4420,14 @@ You're ready. Trust your prep.
 - [ ] **Include measurable results**
   - "Load time dropped from 4s to 1.2s" (not "it got faster")
 - [ ] **If they interrupt or ask follow-up:**
-  - That's a good sign â€” they're engaged
+  - That's a good sign they're engaged
   - Answer briefly and ask if they want more detail
 
 **At the end:**
 
 - [ ] **Ask 2â€“3 of your prepared questions** (from Section 9.5)
   - Pick based on what wasn't already answered during the interview
-  - Avoid yes/no questions â€” ask open-ended ones
+  - Avoid yes/no questions ask open-ended ones
 - [ ] **Thank them for their time**
   - "I really enjoyed learning about [specific project they mentioned]. Thanks for the thoughtful questions."
 
@@ -4477,13 +4477,13 @@ If your interview was moved up or you're starting late:
 - Read Section 8.1 (Whiteboard Tips) + 8.2 (Framework)
 - Read Section 9.1 (STAR Format) + skim one example per category (9.2)
 - Review Non-Negotiables Checklist
-- Accept that you won't be 100% prepared â€” but showing clear thinking and communication will carry you far
+- Accept that you won't be 100% prepared but showing clear thinking and communication will carry you far
 
 ---
 
 ### Final Encouragement
 
-You've already passed the **hardest filter** â€” the Coderbyte assessment. That proves you can code under pressure.
+You've already passed the **hardest filter** the Coderbyte assessment. That proves you can code under pressure.
 
 The physical interview tests **different skills:**
 
@@ -4507,7 +4507,7 @@ Trust your prep. Stay calm. Communicate clearly. You've got this.
 ### Before you start any challenge
 
 1. Read the problem statement fully before touching the editor.
-2. Note the **exact expected output format** â€” auto-grading is strict.
+2. Note the **exact expected output format** auto-grading is strict.
 3. Identify the input/output types (string? array? object?).
 4. Write 2 example cases mentally or on paper.
 
@@ -4524,10 +4524,10 @@ A working but incomplete solution beats a perfect unfinished one. Always submit 
 
 ### Frontend challenge approach
 
-1. **Structure first** â€” write the JSX/HTML skeleton
-2. **State second** â€” identify what state is needed, wire it up
-3. **Logic third** â€” add event handlers and business logic
-4. **Style last** â€” basic Flexbox/Grid to match the spec
+1. **Structure first** write the JSX/HTML skeleton
+2. **State second** identify what state is needed, wire it up
+3. **Logic third** add event handlers and business logic
+4. **Style last** basic Flexbox/Grid to match the spec
 
 ### Algorithmic problem patterns
 
@@ -4540,7 +4540,7 @@ A working but incomplete solution beats a perfect unfinished one. Always submit 
 | Recursion      | Tree traversal, divide and conquer |
 
 ```js
-// HashMap frequency count â€” appears constantly
+// HashMap frequency count appears constantly
 function firstNonRepeating(str) {
   const freq = {};
   for (const ch of str) freq[ch] = (freq[ch] ?? 0) + 1;
@@ -4559,7 +4559,7 @@ Before your interview, you must be able to answer or code these without hesitati
 - [ ] Write a `useEffect` that fetches data and cleans up the request on unmount
 - [ ] Explain when to use `useCallback` vs when it's unnecessary overhead
 - [ ] Describe the JWT storage options and their security tradeoffs
-- [ ] Explain XSS vs CSRF â€” one sentence each, plus the primary mitigation
+- [ ] Explain XSS vs CSRF one sentence each, plus the primary mitigation
 - [ ] Name all 3 Core Web Vitals and what each measures
 - [ ] Write a React controlled form with validation from scratch
 - [ ] Explain what `Promise.all` does and when to use it vs sequential awaits
@@ -4567,15 +4567,15 @@ Before your interview, you must be able to answer or code these without hesitati
 
 ---
 
-## Quick reference â€” things interviewers often trick you on
+## Quick reference things interviewers often trick you on
 
-| Trap                                | Correct answer                                                   |
-| ----------------------------------- | ---------------------------------------------------------------- |
-| `typeof null`                       | `"object"` (historical bug in JS)                                |
-| `0.1 + 0.2 === 0.3`                 | `false` (floating point precision)                               |
-| `[] == false`                       | `true` (type coercion â€” reason to always use `===`)            |
-| `var` in a loop with setTimeout     | Captures the final value, use `let` instead                      |
-| Mutating state directly in React    | Never â€” always return a new reference                          |
-| `useEffect` with missing dependency | Stale closure â€” always add all referenced values to deps array |
-| Storing JWT in localStorage         | Security risk â€” prefer httpOnly cookie                         |
-| `async/await` without try/catch     | Unhandled rejection â€” always wrap in try/catch                 |
+| Trap                                | Correct answer                                               |
+| ----------------------------------- | ------------------------------------------------------------ |
+| `typeof null`                       | `"object"` (historical bug in JS)                            |
+| `0.1 + 0.2 === 0.3`                 | `false` (floating point precision)                           |
+| `[] == false`                       | `true` (type coercion reason to always use `===`)            |
+| `var` in a loop with setTimeout     | Captures the final value, use `let` instead                  |
+| Mutating state directly in React    | Never always return a new reference                          |
+| `useEffect` with missing dependency | Stale closure always add all referenced values to deps array |
+| Storing JWT in localStorage         | Security risk prefer httpOnly cookie                         |
+| `async/await` without try/catch     | Unhandled rejection always wrap in try/catch                 |
